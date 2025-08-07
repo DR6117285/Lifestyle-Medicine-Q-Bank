@@ -161,6 +161,55 @@ export type Database = {
           score?: number | null;
         };
       };
+      quiz_attempts: {
+        Row: {
+          id: string;
+          session_id: string;
+          question_id: number;
+          selected_answer: string | null;
+          is_correct: boolean | null;
+          time_taken: number;
+          attempted_at: string;
+        };
+        Insert: {
+          id?: string;
+          session_id: string;
+          question_id: number;
+          selected_answer?: string | null;
+          is_correct?: boolean | null;
+          time_taken?: number;
+          attempted_at?: string;
+        };
+        Update: {
+          id?: string;
+          session_id?: string;
+          question_id?: number;
+          selected_answer?: string | null;
+          is_correct?: boolean | null;
+          time_taken?: number;
+          attempted_at?: string;
+        };
+      };
+      question_options: {
+        Row: {
+          id: number;
+          question_id: number;
+          option_key: string;
+          option_text: string;
+        };
+        Insert: {
+          id?: number;
+          question_id: number;
+          option_key: string;
+          option_text: string;
+        };
+        Update: {
+          id?: number;
+          question_id?: number;
+          option_key?: string;
+          option_text?: string;
+        };
+      };
     };
   };
 };

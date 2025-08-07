@@ -1,18 +1,35 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Play, Clock, BookOpen, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { QuizInterface } from '@/components/quiz/QuizInterface';
+import { QuizResults } from '@/components/quiz/QuizResults';
+import { useQuizStore } from '@/stores/quizStore';
+import { useAuthStore } from '@/stores/authStore';
+import { QuizService } from '@/services/quizService';
+import type { QuizMode, Section, QuizSettings } from '@/types/quiz';
 
-type QuizMode = 'random' | 'section' | 'timed';
+type QuizStep = 'setup' | 'quiz' | 'results';
 
 export const QuizPage = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { user } = useAuthStore();
+  
+  // Quiz setup state
+  const [currentStep, setCurrentStep] = useState<QuizStep>('setup');
   const [selectedMode, setSelectedMode] = useState<QuizMode>('random');
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
   const [timeLimit, setTimeLimit] = useState(30);
   const [questionCount, setQuestionCount] = useState(20);
+  const [sections, setSections] = useState<Section[]>([]);
+  const [isLoadingSections, setIsLoadingSections] = useState(false);
 
+  // Quiz store
+  const { initializeQuiz, resetQuiz, result, isLoading, error } = useQuizStore();
+
+  // Load URL parameters
   useEffect(() => {
     const mode = searchParams.get('mode') as QuizMode;
     if (mode && ['random', 'section', 'timed'].includes(mode)) {
@@ -20,29 +37,99 @@ export const QuizPage = () => {
     }
   }, [searchParams]);
 
-  // Mock sections - will be replaced with real data
-  const sections = [
-    { id: 1, name: 'Introduction to Lifestyle Medicine', questionCount: 45 },
-    { id: 2, name: 'Fundamentals of Health Behavior Change', questionCount: 52 },
-    { id: 3, name: 'Key Clinical Processes in Lifestyle Medicine', questionCount: 38 },
-    { id: 4, name: 'Nutrition Science Assessment and Prescription Guidelines', questionCount: 67 },
-    { id: 5, name: 'Physical Activity Science and Prescription', questionCount: 43 },
-    { id: 6, name: 'Emotional and Mental Health Assessment', questionCount: 39 },
-    { id: 7, name: 'Sleep Health Science and Interventions', questionCount: 28 },
-    { id: 8, name: 'Managing Tobacco Cessation and Toxic Exposures', questionCount: 34 },
-    { id: 9, name: 'The Role of Connectedness and Positive Psychology', questionCount: 29 }
-  ];
+  // Load sections for section mode
+  useEffect(() => {
+    const loadSections = async () => {
+      if (selectedMode === 'section') {
+        try {
+          setIsLoadingSections(true);
+          const sectionsData = await QuizService.getSections();
+          setSections(sectionsData);
+        } catch (error) {
+          console.error('Failed to load sections:', error);
+        } finally {
+          setIsLoadingSections(false);
+        }
+      }
+    };
 
-  const handleStartQuiz = () => {
-    // This will be implemented when quiz functionality is built
-    console.log('Starting quiz with:', {
+    loadSections();
+  }, [selectedMode]);
+
+  // Start quiz
+  const handleStartQuiz = async () => {
+    if (!user) {
+      alert('Please log in to start a quiz.');
+      return;
+    }
+
+    if (selectedMode === 'section' && !selectedSection) {
+      alert('Please select a section to continue.');
+      return;
+    }
+
+    const settings: QuizSettings = {
       mode: selectedMode,
-      sectionId: selectedSection,
-      timeLimit,
-      questionCount
-    });
+      sectionId: selectedSection || undefined,
+      questionCount,
+      timeLimit: selectedMode === 'timed' ? timeLimit : undefined
+    };
+
+    try {
+      await initializeQuiz(user.id, settings);
+      setCurrentStep('quiz');
+    } catch (error) {
+      console.error('Failed to start quiz:', error);
+      alert('Failed to start quiz. Please try again.');
+    }
   };
 
+  // Handle quiz completion
+  const handleQuizComplete = () => {
+    setCurrentStep('results');
+  };
+
+  // Handle starting new quiz
+  const handleStartNewQuiz = () => {
+    resetQuiz();
+    setCurrentStep('setup');
+  };
+
+  // Handle return to dashboard
+  const handleReturnHome = () => {
+    resetQuiz();
+    navigate('/dashboard');
+  };
+
+  // Handle exit quiz
+  const handleExitQuiz = () => {
+    if (confirm('Are you sure you want to exit this quiz? Your progress will be lost.')) {
+      resetQuiz();
+      setCurrentStep('setup');
+    }
+  };
+
+  // Render current step
+  if (currentStep === 'quiz') {
+    return (
+      <QuizInterface 
+        onComplete={handleQuizComplete} 
+        onExit={handleExitQuiz}
+      />
+    );
+  }
+
+  if (currentStep === 'results' && result) {
+    return (
+      <QuizResults 
+        result={result}
+        onStartNew={handleStartNewQuiz}
+        onReturnHome={handleReturnHome}
+      />
+    );
+  }
+
+  // Setup step - show quiz configuration
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div>
@@ -154,22 +241,30 @@ export const QuizPage = () => {
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Select Section
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {sections.map((section) => (
-                  <div
-                    key={section.id}
-                    className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                      selectedSection === section.id
-                        ? 'border-purple-500 bg-purple-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                    onClick={() => setSelectedSection(section.id)}
-                  >
-                    <p className="font-medium text-gray-900">{section.name}</p>
-                    <p className="text-sm text-gray-500">{section.questionCount} questions</p>
-                  </div>
-                ))}
-              </div>
+              {isLoadingSections ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {sections.map((section) => (
+                    <div
+                      key={section.id}
+                      className={`p-3 border rounded-lg cursor-pointer transition-all ${
+                        selectedSection === section.id
+                          ? 'border-purple-500 bg-purple-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      onClick={() => setSelectedSection(section.id)}
+                    >
+                      <p className="font-medium text-gray-900">{section.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {section.description || 'No description available'}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -221,22 +316,42 @@ export const QuizPage = () => {
         </CardContent>
       </Card>
 
+      {/* Error Display */}
+      {error && (
+        <Card className="border-red-200">
+          <CardContent className="p-4">
+            <p className="text-red-600 text-sm">{error}</p>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Start Quiz Button */}
       <div className="flex justify-center">
         <Button
           size="lg"
           onClick={handleStartQuiz}
-          disabled={selectedMode === 'section' && !selectedSection}
+          disabled={
+            isLoading || 
+            (selectedMode === 'section' && !selectedSection) ||
+            !user
+          }
           className="px-8 py-3 text-lg"
         >
-          Start Quiz
-          <ArrowRight className="ml-2 h-5 w-5" />
+          {isLoading ? 'Starting Quiz...' : 'Start Quiz'}
+          {!isLoading && <ArrowRight className="ml-2 h-5 w-5" />}
         </Button>
       </div>
 
+      {/* Helper messages */}
       {selectedMode === 'section' && !selectedSection && (
         <p className="text-center text-sm text-gray-500">
           Please select a section to continue
+        </p>
+      )}
+
+      {!user && (
+        <p className="text-center text-sm text-red-500">
+          Please log in to start a quiz
         </p>
       )}
     </div>

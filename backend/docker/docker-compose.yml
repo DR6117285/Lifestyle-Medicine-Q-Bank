@@ -14,6 +14,12 @@ services:
       - db-data:/var/lib/postgresql/data
       - ./volumes/db/init:/docker-entrypoint-initdb.d:Z
       - ./volumes/db/realtime.sql:/docker-entrypoint-initdb.d/migrations/99-realtime.sql:Z
+      - /home/dr6117285/lmqb/backend/supabase/migrations:/home/dr6117285/lmqb/backend/supabase/migrations:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - supabase_internal
 
