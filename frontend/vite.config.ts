@@ -1,9 +1,30 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
+import fs from 'fs'
+import path from 'path'
+
+const spaFallbackPlugin = () => {
+  return {
+    name: 'spa-fallback',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url === '/') {
+          const indexPath = path.join(__dirname, 'public', 'index.html')
+          if (fs.existsSync(indexPath)) {
+            res.setHeader('Content-Type', 'text/html')
+            res.end(fs.readFileSync(indexPath, 'utf-8'))
+            return
+          }
+        }
+        next()
+      })
+    }
+  }
+}
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), spaFallbackPlugin()],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
