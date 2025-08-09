@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="home-button-container">
+        <a href="{{ url_for('show_progress') }}" class="home-btn">Back to Progress</a>
+    </div>
+
+    <div class="incorrect-answers-container">
+        <h2 class="section-header">Incorrect Answers Review</h2>
+
+        {% if sections %}
+            <div class="stats-summary">
+                <p>Total incorrect answers: {{ stats.total_incorrect }}</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="{{ url_for('retry_incorrect') }}" class="primary-btn">Retry All Incorrect Questions</a>
+                <a href="{{ url_for('show_progress') }}" class="secondary-btn">Back to Progress</a>
+            </div>
+
+            {% for section, questions in sections.items() %}
+                <div class="section-block">
+                    <h3 class="section-title">{{ section }}</h3>
+
+                    <div class="questions-list">
+                        {% for item in questions %}
+                            <div class="question-card">
+                                <div class="question-text">
+                                    {{ item.question.question_text }}
+                                </div>
+
+                                <div class="answers">
+                                    <div class="selected-answer error">
+                                        <strong>Your Answer:</strong> {{ item.selected_answer }}
+                                    </div>
+
+                                    <div class="correct-answer success">
+                                        <strong>Correct Answer:</strong> {{ item.correct_answer }}
+                                    </div>
+                                </div>
+
+                                {% if item.question.rationale %}
+                                    <div class="rationale">
+                                        <strong>Rationale:</strong> {{ item.question.rationale }}
+                                    </div>
+                                {% endif %}
+
+                                {% if item.question.page_reference %}
+                                    <div class="page-reference">
+                                        <strong>Page Reference:</strong> {{ item.question.page_reference }}
+                                    </div>
+                                {% endif %}
+
+                                <div class="question-footer">
+                                    <span class="time-spent">Time spent: {{ item.time_spent|round(1) }} seconds</span>
+                                    <span class="question-meta">Section: {{ item.section }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No incorrect answers in this session.</p>
+                <div class="action-buttons">
+                    <a href="{{ url_for('show_progress') }}" class="secondary-btn">Back to Progress</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

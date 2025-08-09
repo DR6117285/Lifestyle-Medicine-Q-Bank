@@ -9,11 +9,11 @@ interface HeaderProps {
 }
 
 export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
-  const { user, signOut } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut();
+    await logout();
     setUserMenuOpen(false);
   };
 
@@ -25,27 +25,27 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 py-3">
+    <header className="bg-white border-b border-gray-200 px-4 py-3" style={{ borderBottomColor: 'var(--primary-color)' }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
             size="icon"
             onClick={onMenuToggle}
-            className="lg:hidden"
+            className="lg:hidden hover:bg-gray-50"
           >
             {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
           
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--primary-color)' }}>
               <span className="text-white font-semibold text-sm">LM</span>
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">
+              <h1 className="text-xl font-semibold" style={{ color: 'var(--primary-color)' }}>
                 Lifestyle Medicine Q-Bank
               </h1>
-              <p className="text-sm text-gray-500 hidden sm:block">
+              <p className="text-sm hidden sm:block" style={{ color: 'var(--text-muted)' }}>
                 Medical Education Platform
               </p>
             </div>
@@ -58,8 +58,8 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 font-medium text-sm">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--background-light)', border: '2px solid var(--primary-color)' }}>
+                <span className="font-medium text-sm" style={{ color: 'var(--primary-color)' }}>
                   {getUserInitials(user.displayName, user.email)}
                 </span>
               </div>

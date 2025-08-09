@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, BarChart3, Clock, BookOpen, Trophy, Target } from 'lucide-react';
+import { Play, BarChart3, Clock, BookOpen, Trophy, Target, Settings } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { ACLMButton } from '@/components/ui/ACLMButton';
 import { useAuthStore } from '@/stores/authStore';
 
 export const Dashboard = () => {
@@ -20,129 +21,89 @@ export const Dashboard = () => {
 
   const quickActions = [
     {
-      title: 'Random Practice',
-      description: 'Practice questions from all sections',
+      title: 'Practice Quiz',
+      description: 'Start a custom practice session',
       icon: Play,
-      href: '/quiz?mode=random',
-      color: 'bg-blue-500 hover:bg-blue-600'
+      href: '/landing',
+      color: 'btn-primary'
     },
     {
-      title: 'Timed Quiz',
+      title: 'Random Questions',
+      description: 'Quick random practice',
+      icon: Target,
+      href: '/quiz?mode=random',
+      color: 'btn-secondary'
+    },
+    {
+      title: 'Timed Exam',
       description: 'Simulate exam conditions',
       icon: Clock,
-      href: '/quiz?mode=timed',
-      color: 'bg-green-500 hover:bg-green-600'
+      href: '/exam',
+      color: 'btn-outline'
     },
     {
-      title: 'Study Sections',
-      description: 'Focus on specific topics',
-      icon: BookOpen,
-      href: '/sections',
-      color: 'bg-purple-500 hover:bg-purple-600'
-    },
-    {
-      title: 'View Statistics',
-      description: 'Track your progress',
+      title: 'View Progress',
+      description: 'Track your performance',
       icon: BarChart3,
       href: '/statistics',
-      color: 'bg-orange-500 hover:bg-orange-600'
+      color: 'btn-outline'
     }
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="container">
       {/* Welcome Section */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">
-          Welcome back, {user?.displayName || user?.email}!
-        </h1>
-        <p className="text-gray-600 mt-2">
-          Ready to continue your lifestyle medicine journey?
-        </p>
+      <div className="header">
+        <h1>Welcome back, {user?.displayName || user?.email}!</h1>
+        <p className="subtitle">Ready to continue your lifestyle medicine journey?</p>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Questions Answered
-            </CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.questionsAnswered}</div>
-            <p className="text-xs text-muted-foreground">
-              of {stats.totalQuestions} total
-            </p>
-          </CardContent>
-        </Card>
+      <div className="overall-stats">
+        <div className="stat-box stat-animate">
+          <h3>Questions Answered</h3>
+          <div className="stat-value">
+            {stats.questionsAnswered}
+          </div>
+          <div className="stat-detail">
+            of {stats.totalQuestions} total
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Overall Accuracy
-            </CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.accuracy}%</div>
-            <p className="text-xs text-muted-foreground">
-              +2.1% from last week
-            </p>
-          </CardContent>
-        </Card>
+        <div className="stat-box stat-animate">
+          <h3>Overall Accuracy</h3>
+          <div className="stat-value">{stats.accuracy}%</div>
+          <div className="stat-detail">+2.1% from last week</div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Current Streak
-            </CardTitle>
-            <Trophy className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.streak}</div>
-            <p className="text-xs text-muted-foreground">
-              days in a row
-            </p>
-          </CardContent>
-        </Card>
+        <div className="stat-box stat-animate">
+          <h3>Current Streak</h3>
+          <div className="stat-value">{stats.streak}</div>
+          <div className="stat-detail">days in a row</div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Last Session
-            </CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.lastSession}</div>
-            <p className="text-xs text-muted-foreground">
-              Keep it up!
-            </p>
-          </CardContent>
-        </Card>
+        <div className="stat-box stat-animate">
+          <h3>Last Session</h3>
+          <div className="stat-value">{stats.lastSession}</div>
+          <div className="stat-detail">Keep it up!</div>
+        </div>
       </div>
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 style={{ color: 'var(--primary-color)', marginBottom: '20px' }}>
           Quick Actions
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="action-buttons">
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (
-              <Link key={action.title} to={action.href}>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer group">
-                  <CardHeader>
-                    <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-105 transition-transform`}>
-                      <Icon className="h-6 w-6 text-white" />
-                    </div>
-                    <CardTitle className="text-lg">{action.title}</CardTitle>
-                    <CardDescription>{action.description}</CardDescription>
-                  </CardHeader>
-                </Card>
+              <Link key={action.title} to={action.href} className={`btn ${action.color}`}>
+                <Icon className="w-5 h-5 mr-2" />
+                <div>
+                  <div className="font-medium">{action.title}</div>
+                  <div className="text-sm opacity-90">{action.description}</div>
+                </div>
               </Link>
             );
           })}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="home-button-container">
+        <a href="{{ url_for('reset_session') }}" class="home-btn">Return to Home</a>
+    </div>
+
+    <div class="question-header">
+        <h1>Question {{ question_number }}</h1>
+    </div>
+
+    <div class="question">
+        {{ question.question_text }}
+    </div>
+
+    <form method="POST" data-question-id="{{ question.id }}">
+        <div class="options">
+            {% for option in options %}
+            <div class="option{% if selected_answer == option %} selected{% endif %}{% if feedback and option == correct_answer %} correct{% endif %}">
+                <input type="radio" name="selected_option" id="option-{{ loop.index }}" value="{{ option }}"
+                    {% if selected_answer == option %}checked{% endif %}
+                    {% if feedback %}disabled{% endif %}>
+                <label for="option-{{ loop.index }}">{{ option }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if not feedback and not session['question_history'][session['current_index']]['submitted'] %}
+        <div class="submit-container">
+            <button type="submit" class="submit-btn" disabled>Submit Answer</button>
+        </div>
+        {% endif %}
+    </form>
+
+    {% if feedback %}
+    <div class="feedback">
+        <div class="feedback-result {% if 'Correct' in feedback %}correct{% else %}incorrect{% endif %}">
+            {{ feedback }}
+        </div>
+        <p><strong>Correct Answer:</strong> {{ correct_answer }}</p>
+        {% if page_reference %}
+        <p><strong>Page Reference:</strong> {{ page_reference }}</p>
+        {% endif %}
+        {% if rationale %}
+        <p><strong>Rationale:</strong> {{ rationale }}</p>
+        {% endif %}
+        <p><strong>Section:</strong> {{ question.section }}</p>
+        <p><strong>Question Type:</strong> {{ question.question_type }}</p>
+    </div>
+    {% endif %}
+
+    <div class="navigation">
+        {% if previous_question_id %}
+        <a href="{{ url_for('show_question', question_id=previous_question_id) }}" class="nav-btn">Previous</a>
+        {% else %}
+        <button class="nav-btn" disabled>Previous</button>
+        {% endif %}
+        
+        {% if next_question_id %}
+        <a href="{{ url_for('show_question', question_id=next_question_id) }}" class="nav-btn">Next</a>
+        {% else %}
+        <button class="nav-btn" disabled>Next</button>
+        {% endif %}
+    </div>
+
+    <div class="progress-counter">
+        <a href="{{ url_for('show_progress') }}" class="nav-btn">View Progress</a>
+        <p>Correct answers: {{ correct_count }} / {{ total_questions_given }}</p>
+    </div>
+</div>
+{% endblock %}

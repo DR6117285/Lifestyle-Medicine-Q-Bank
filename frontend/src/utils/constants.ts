@@ -30,7 +30,7 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
-  DASHBOARD: '/dashboard',
+  DASHBOARD: '/',
   PROFILE: '/profile',
   QUIZ: '/quiz',
   ADMIN: '/admin',

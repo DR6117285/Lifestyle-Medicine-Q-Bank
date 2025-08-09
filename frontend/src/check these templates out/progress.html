@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="home-button-container">
+        <a href="{{ url_for('reset_session') }}" class="home-btn">Return to Home</a>
+    </div>
+
+    <div class="progress-container">
+        <h2 class="progress-header">Session Progress</h2>
+
+        <div class="overall-stats">
+            <div class="stat-box">
+                <h3>Overall Score</h3>
+                <div class="stat-value">{{ (total_correct / total_questions * 100)|round(1) if total_questions > 0 else 0 }}%</div>
+                <div class="stat-detail">{{ total_correct }} correct out of {{ total_questions }}</div>
+            </div>
+
+            <div class="stat-box">
+                <h3>Session Progress</h3>
+                <div class="stat-value">{{ total_questions }} / 100</div>
+                <div class="stat-detail">Questions attempted</div>
+            </div>
+
+            <div class="stat-box">
+                <h3>Average Time</h3>
+                <div class="stat-value">{{ avg_time|round(1) }}</div>
+                <div class="stat-detail">seconds per question</div>
+            </div>
+        </div>
+
+        <div class="section-progress">
+            <h3 class="section-header">Performance by Section</h3>
+            
+            {% for section, stats in section_progress.items() %}
+            <div class="section-box">
+                <h4>{{ section }} <span class="section-percentage">{{ stats.percentage|round(1) }}%</span></h4>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ stats.percentage }}%">
+                        <span class="progress-label">{{ stats.percentage|round(1) }}%</span>
+                    </div>
+                </div>
+                
+                <div class="section-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions:</span>
+                        <span class="detail-value">{{ stats.correct }}/{{ stats.total }} correct</span>
+                    </div>
+                    {% if stats.avg_time is defined %}
+                    <div class="detail-item">
+                        <span class="detail-label">Average Time:</span>
+                        <span class="detail-value">{{ stats.avg_time|round(1) }} seconds</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="progress-navigation">
+            <div class="nav-group">
+                {% if session.get('retry_mode') %}
+                    <a href="{{ url_for('return_to_main_session') }}" class="nav-btn return-btn">Return to Main Session</a>
+                {% elif current_question_id %}
+                    <a href="{{ url_for('show_question', question_id=current_question_id) }}" class="nav-btn">Return to Current Question</a>
+                {% else %}
+                    <a href="{{ url_for('home') }}" class="nav-btn">Start New Session</a>
+                {% endif %}
+            </div>
+            
+            <div class="nav-group">
+                {% if total_questions > 0 %}
+                    <a href="{{ url_for('show_incorrect_answers') }}" class="nav-btn">Review Incorrect Answers</a>
+                    {% set incorrect_count = total_questions - total_correct %}
+                    {% if incorrect_count > 0 %}
+                        <a href="{{ url_for('retry_incorrect') }}" class="nav-btn retry-btn">Retry {{ incorrect_count }} Incorrect Questions</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Progress bar animation
+    const progressBars = document.querySelectorAll('.progress-fill');
+    progressBars.forEach(bar => {
+        const percentage = bar.getAttribute('style').match(/width:\s*(\d+\.?\d*)%/)[1];
+        // Add color classes based on percentage
+        if (percentage >= 90) {
+            bar.classList.add('progress-excellent');
+        } else if (percentage >= 70) {
+            bar.classList.add('progress-good');
+        } else if (percentage >= 50) {
+            bar.classList.add('progress-fair');
+        } else {
+            bar.classList.add('progress-needs-improvement');
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

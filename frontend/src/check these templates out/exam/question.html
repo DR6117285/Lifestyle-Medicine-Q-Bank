@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="exam-header">
+        <div class="exam-progress">Question {{ current_number }} / {{ total_questions }}</div>
+        <div class="time-remaining">Time Remaining: {{ time_remaining }}</div>
+    </div>
+
+    <div class="question">
+        {{ question.question_text }}
+    </div>
+
+    <form method="post" action="{{ url_for('exam.show_question', question_id=question.id) }}">
+        <div class="options">
+            {% for option in options %}
+            <div class="option">
+                <input type="radio" name="selected_option" value="{{ option }}" id="option{{ loop.index }}">
+                <label for="option{{ loop.index }}">{{ option }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="exam-actions">
+            <button type="submit" class="submit-btn">Submit Answer</button>
+            <a href="{{ url_for('exam.skip_question', question_id=question.id) }}" class="skip-btn">Skip Question</a>
+            {% if session.get('skipped_questions') %}
+            <a href="{{ url_for('exam.review_skipped') }}" class="review-btn">Review Skipped ({{ session.get('skipped_questions')|length }})</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

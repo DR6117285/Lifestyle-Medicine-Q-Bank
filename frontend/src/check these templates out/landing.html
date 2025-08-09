@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Lifestyle Medicine Question Bank</h1>
+        <p class="subtitle">Select your practice preferences</p>
+    </div>
+
+    <form action="{{ url_for('start_session') }}" method="POST" class="preferences-form">
+        <div class="section-select">
+            <h2>Select Sections</h2>
+            <div class="select-controls">
+                <button type="button" class="control-btn" onclick="selectAll('section')">Select All</button>
+                <button type="button" class="control-btn" onclick="deselectAll('section')">Deselect All</button>
+            </div>
+            
+            {% for section, weight in sections.items() %}
+            <div class="checkbox-group">
+                <input type="checkbox" name="selected_sections" id="section-{{ loop.index }}" value="{{ section }}">
+                <label for="section-{{ loop.index }}">{{ section }} (Weight: {{ weight }}%)</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="type-select">
+            <h2>Select Question Types</h2>
+            <div class="select-controls">
+                <button type="button" class="control-btn" onclick="selectAll('type')">Select All</button>
+                <button type="button" class="control-btn" onclick="deselectAll('type')">Deselect All</button>
+            </div>
+            
+            {% for type in question_types %}
+            <div class="checkbox-group">
+                <input type="checkbox" name="selected_types" id="type-{{ loop.index }}" value="{{ type }}">
+                <label for="type-{{ loop.index }}">{{ type }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="start-container">
+            <button type="submit" class="start-btn">Start Practice Session</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function selectAll(type) {
+    const checkboxes = document.querySelectorAll(`input[name="selected_${type}s"]`);
+    checkboxes.forEach(checkbox => checkbox.checked = true);
+}
+
+function deselectAll(type) {
+    const checkboxes = document.querySelectorAll(`input[name="selected_${type}s"]`);
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+}
+</script>
+{% endblock %}
