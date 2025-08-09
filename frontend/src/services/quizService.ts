@@ -104,6 +104,8 @@ export class QuizService {
       // Filter by section if specified
       if (settings.sectionId) {
         query = query.eq('section_id', settings.sectionId);
+      } else if (settings.sectionIds && settings.sectionIds.length > 0) {
+        query = query.in('section_id', settings.sectionIds);
       }
 
       // For random selection, we'll use ORDER BY RANDOM() LIMIT
@@ -140,7 +142,7 @@ export class QuizService {
     try {
       const sessionData = {
         user_id: userId,
-        session_type: settings.mode,
+        session_type: settings.mode === 'custom' ? 'random' : settings.mode, // Map custom to random for DB
         section_id: settings.sectionId || null,
         total_questions: settings.questionCount,
         time_limit: settings.timeLimit || null,

@@ -1,270 +1,249 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Trophy, Clock, Target, BookOpen, Home, Download } from 'lucide-react';
-
-interface ExamResult {
-  totalQuestions: number;
-  correctAnswers: number;
-  incorrectAnswers: number;
-  skippedQuestions: number;
-  timeSpent: number; // in seconds
-  passingScore: number;
-  scorePercentage: number;
-  isPassed: boolean;
-  sectionBreakdown: {
-    [section: string]: {
-      total: number;
-      correct: number;
-      percentage: number;
-    };
-  };
-}
+import { 
+  Trophy, 
+  Target, 
+  Home, 
+  RotateCcw, 
+  BarChart3, 
+  CheckCircle,
+  Award,
+  Star,
+  BookOpen
+} from 'lucide-react';
+import { useQuizStore } from '@/stores/quizStore';
+import { useAuthStore } from '@/stores/authStore';
+import { formatTime } from '@/lib/utils';
+import '@/styles/quiz-interface.css';
 
 interface ExamCompleteProps {
-  examResult?: ExamResult;
   onReturnHome: () => void;
-  onStartNewExam: () => void;
-  onReviewAnswers: () => void;
+  onRetryIncorrect?: () => void;
+  onReviewAnswers?: () => void;
+  onNewSession?: () => void;
 }
 
-export const ExamComplete: React.FC<ExamCompleteProps> = ({
-  examResult,
-  onReturnHome,
-  onStartNewExam,
-  onReviewAnswers
+export const ExamComplete: React.FC<ExamCompleteProps> = ({ 
+  onReturnHome, 
+  onRetryIncorrect, 
+  onReviewAnswers,
+  onNewSession 
 }) => {
-  const navigate = useNavigate();
-  const [animatedScore, setAnimatedScore] = useState(0);
+  const { user } = useAuthStore();
+  const { 
+    getProgress
+  } = useQuizStore();
 
-  // Mock exam result data
-  const [result] = useState<ExamResult>(examResult || {
-    totalQuestions: 50,
-    correctAnswers: 38,
-    incorrectAnswers: 10,
-    skippedQuestions: 2,
-    timeSpent: 2580, // 43 minutes
-    passingScore: 70,
-    scorePercentage: 76,
-    isPassed: true,
-    sectionBreakdown: {
-      'Nutrition Science': { total: 15, correct: 12, percentage: 80 },
-      'Physical Activity': { total: 10, correct: 8, percentage: 80 },
-      'Behavior Change': { total: 12, correct: 9, percentage: 75 },
-      'Mental Health': { total: 8, correct: 6, percentage: 75 },
-      'Sleep Medicine': { total: 5, correct: 3, percentage: 60 }
-    }
-  });
+  const progress = getProgress();
 
-  // Animate score percentage
+  const totalQuestions = progress.total;
+  const answeredQuestions = progress.current;
+  const correctAnswers = progress.correct;
+  const incorrectAnswers = answeredQuestions - correctAnswers;
+  const accuracy = answeredQuestions > 0 ? Math.round((correctAnswers / answeredQuestions) * 100) : 0;
+
+  // Determine performance level
+  const getPerformanceLevel = (accuracy: number) => {
+    if (accuracy >= 90) return { level: 'Excellent', color: '#22c55e', icon: Trophy };
+    if (accuracy >= 80) return { level: 'Very Good', color: '#22c55e', icon: Award };
+    if (accuracy >= 70) return { level: 'Good', color: '#f59e0b', icon: Star };
+    if (accuracy >= 60) return { level: 'Fair', color: '#f59e0b', icon: Target };
+    return { level: 'Needs Improvement', color: '#ef4444', icon: BookOpen };
+  };
+
+  const performance = getPerformanceLevel(accuracy);
+  const PerformanceIcon = performance.icon;
+
+  // Show celebration animation for good performance
   useEffect(() => {
-    const timer = setInterval(() => {
-      setAnimatedScore(prev => {
-        if (prev >= result.scorePercentage) {
-          clearInterval(timer);
-          return result.scorePercentage;
-        }
-        return prev + 1;
-      });
-    }, 30);
-
-    return () => clearInterval(timer);
-  }, [result.scorePercentage]);
-
-  const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-
-    if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    if (accuracy >= 80) {
+      // Could add confetti animation here
+      console.log('Great performance!');
     }
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const getScoreColor = () => {
-    if (result.scorePercentage >= 90) return 'var(--primary-color)';
-    if (result.scorePercentage >= result.passingScore) return '#4CAF50';
-    return 'var(--error-color)';
-  };
-
-  const getSectionBarColor = (percentage: number) => {
-    if (percentage >= 90) return 'progress-excellent';
-    if (percentage >= 70) return 'progress-good';
-    if (percentage >= 50) return 'progress-fair';
-    return 'progress-needs-improvement';
-  };
-
-  const handleDownloadResults = () => {
-    // Generate and download exam results as PDF or CSV
-    console.log('Downloading exam results...');
-    // This would trigger a download
-  };
+  }, [accuracy]);
 
   return (
-    <div className="container">
-      {/* Header */}
-      <div className="header">
-        <h1 style={{ 
-          color: result.isPassed ? 'var(--primary-color)' : 'var(--error-color)' 
-        }}>
-          Exam Complete!
-        </h1>
-        <p className="subtitle">
-          {result.isPassed ? 'Congratulations! You have passed the exam.' : 'You did not meet the passing score this time.'}
-        </p>
-      </div>
-
-      {/* Overall Results */}
-      <div className="overall-stats">
-        <div className="stat-box stat-animate">
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '10px'
-          }}>
-            <Trophy className="h-8 w-8" style={{ color: getScoreColor(), marginRight: '10px' }} />
-            <h3>Final Score</h3>
-          </div>
-          <div className="stat-value" style={{ 
-            color: getScoreColor(),
-            fontSize: '3rem',
-            fontWeight: 'bold'
-          }}>
-            {animatedScore}%
-          </div>
-          <div className="stat-detail">
-            {result.correctAnswers} out of {result.totalQuestions} correct
-          </div>
-          <div className="stat-detail" style={{ 
-            color: result.isPassed ? 'var(--primary-color)' : 'var(--error-color)',
-            fontWeight: 'bold',
-            marginTop: '5px'
-          }}>
-            {result.isPassed ? 'PASSED' : 'FAILED'} (Passing: {result.passingScore}%)
-          </div>
-        </div>
-
-        <div className="stat-box stat-animate">
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '10px'
-          }}>
-            <Clock className="h-6 w-6" style={{ color: 'var(--secondary-color)', marginRight: '10px' }} />
-            <h3>Time Spent</h3>
-          </div>
-          <div className="stat-value" style={{ color: 'var(--secondary-color)' }}>
-            {formatTime(result.timeSpent)}
-          </div>
-          <div className="stat-detail">Total exam time</div>
-        </div>
-
-        <div className="stat-box stat-animate">
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '10px'
-          }}>
-            <Target className="h-6 w-6" style={{ color: 'var(--accent-color)', marginRight: '10px' }} />
-            <h3>Accuracy</h3>
-          </div>
-          <div className="stat-value" style={{ color: 'var(--accent-color)' }}>
-            {((result.correctAnswers / result.totalQuestions) * 100).toFixed(1)}%
-          </div>
-          <div className="stat-detail">
-            {result.incorrectAnswers} incorrect, {result.skippedQuestions} skipped
+    <div className="quiz-container fade-in">
+      {/* Celebration Header */}
+      <div className="quiz-header" style={{ textAlign: 'center', position: 'relative' }}>
+        <div>
+          <h1 style={{ marginBottom: '16px' }}>🎉 Quiz Complete! 🎉</h1>
+          <div className="quiz-meta">
+            <div className="question-progress">
+              Congratulations, {user?.displayName || user?.email?.split('@')[0]}!
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Section Breakdown */}
-      <div className="section-progress">
-        <h3 className="section-header">Performance by Section</h3>
+      {/* Final Results Card */}
+      <div className="question-card" style={{ textAlign: 'center', marginBottom: '30px' }}>
+        <div className="question-header" style={{ borderBottom: 'none', paddingBottom: '10px' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            gap: '16px',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{ 
+              padding: '16px',
+              borderRadius: '50%',
+              background: `${performance.color}20`,
+              border: `3px solid ${performance.color}`
+            }}>
+              <PerformanceIcon className="w-8 h-8" style={{ color: performance.color }} />
+            </div>
+            <div>
+              <h2 className="question-number" style={{ 
+                fontSize: '3rem',
+                color: performance.color,
+                marginBottom: '8px'
+              }}>
+                {accuracy}%
+              </h2>
+              <div style={{ 
+                fontSize: '1.4rem',
+                fontWeight: '600',
+                color: performance.color,
+                marginBottom: '4px'
+              }}>
+                {performance.level}
+              </div>
+            </div>
+          </div>
+        </div>
         
-        {Object.entries(result.sectionBreakdown).map(([sectionName, sectionData], index) => (
-          <div key={sectionName} className="section-box">
-            <h4>
-              {sectionName}
-              <span className="section-percentage">{sectionData.percentage.toFixed(1)}%</span>
-            </h4>
-            
-            <div className="progress-bar">
-              <div 
-                className={`progress-fill ${getSectionBarColor(sectionData.percentage)}`}
-                style={{ 
-                  width: `${sectionData.percentage}%`,
-                  animationDelay: `${index * 0.2}s`
-                }}
-              >
-                <span className="progress-label">{sectionData.percentage.toFixed(1)}%</span>
+        <div style={{ padding: '20px 0' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+            gap: '24px',
+            marginBottom: '30px'
+          }}>
+            <div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#0ea5e9' }}>
+                {answeredQuestions}
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+                Total Questions
               </div>
             </div>
-            
-            <div className="section-details">
-              <div className="detail-item">
-                <span className="detail-label">Questions:</span>
-                <span className="detail-value">{sectionData.correct}/{sectionData.total} correct</span>
+            <div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#22c55e' }}>
+                {correctAnswers}
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+                Correct Answers
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#ef4444' }}>
+                {incorrectAnswers}
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+                Incorrect
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#f59e0b' }}>
+                --
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+                Time Spent
               </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
+
 
       {/* Action Buttons */}
-      <div className="progress-navigation">
-        <div className="nav-group">
-          <button onClick={onReturnHome} className="nav-btn">
-            <Home className="w-4 h-4 mr-2" />
-            Return to Dashboard
+      <div className="action-buttons" style={{ marginTop: '40px' }}>
+        <button onClick={onReturnHome} className="btn btn-primary">
+          <Home className="w-5 h-5" />
+          Return to Dashboard
+        </button>
+
+        {onNewSession && (
+          <button onClick={onNewSession} className="btn btn-secondary">
+            <Target className="w-5 h-5" />
+            Start New Session
           </button>
-          
-          <button onClick={onReviewAnswers} className="nav-btn">
-            <BookOpen className="w-4 h-4 mr-2" />
+        )}
+
+        {incorrectAnswers > 0 && onRetryIncorrect && (
+          <button onClick={onRetryIncorrect} className="btn btn-retry">
+            <RotateCcw className="w-5 h-5" />
+            📚 Master {incorrectAnswers} Question{incorrectAnswers !== 1 ? 's' : ''}
+          </button>
+        )}
+
+        {onReviewAnswers && (
+          <button onClick={onReviewAnswers} className="btn btn-secondary">
+            <BarChart3 className="w-5 h-5" />
             Review All Answers
           </button>
-        </div>
-        
-        <div className="nav-group">
-          <button onClick={handleDownloadResults} className="nav-btn">
-            <Download className="w-4 h-4 mr-2" />
-            Download Results
-          </button>
-          
-          <button onClick={onStartNewExam} className="start-btn">
-            Take Another Exam
-          </button>
+        )}
+      </div>
+
+      {/* Motivational Message */}
+      <div className="progress-section" style={{ marginTop: '30px' }}>
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          {accuracy >= 90 && (
+            <p style={{ color: '#22c55e', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+              🌟 Outstanding performance! You've mastered this material! 🌟
+            </p>
+          )}
+          {accuracy >= 80 && accuracy < 90 && (
+            <p style={{ color: '#22c55e', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+              🎯 Great job! You're showing strong understanding of the concepts! 🎯
+            </p>
+          )}
+          {accuracy >= 70 && accuracy < 80 && (
+            <p style={{ color: '#f59e0b', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+              📚 Good work! Continue studying to improve your performance! 📚
+            </p>
+          )}
+          {accuracy >= 60 && accuracy < 70 && (
+            <p style={{ color: '#f59e0b', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+              💪 Keep practicing! You're making progress - don't give up! 💪
+            </p>
+          )}
+          {accuracy < 60 && (
+            <p style={{ color: '#ef4444', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+              📖 Consider reviewing the material and trying again. You've got this! 📖
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Next Steps */}
-      <div style={{
+      {/* Final Summary */}
+      <div className="feedback-section" style={{ 
         marginTop: '30px',
-        padding: '20px',
-        backgroundColor: 'var(--background-light)',
-        borderRadius: 'var(--border-radius-sm)',
-        textAlign: 'center'
+        background: '#f8fafc',
+        border: `2px solid ${performance.color}`,
+        borderLeft: `6px solid ${performance.color}`
       }}>
-        <h4 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>
-          Next Steps
-        </h4>
-        {result.isPassed ? (
-          <p style={{ color: 'var(--text-color)', lineHeight: '1.6' }}>
-            Excellent work! You've demonstrated solid knowledge in lifestyle medicine. 
-            Continue practicing to maintain and improve your expertise.
-          </p>
-        ) : (
-          <p style={{ color: 'var(--text-color)', lineHeight: '1.6' }}>
-            Don't be discouraged! Review the areas where you scored lower and take 
-            another practice exam when you're ready. Focus especially on sections 
-            where you scored below 70%.
-          </p>
-        )}
+        <div className="feedback-result" style={{ 
+          background: `${performance.color}20`,
+          color: performance.color,
+          border: `2px solid ${performance.color}`
+        }}>
+          <CheckCircle className="w-5 h-5" />
+          Session Complete
+        </div>
+        <div className="feedback-content" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+          <div>
+            <strong>Questions Answered:</strong> {answeredQuestions} / {totalQuestions}
+          </div>
+          <div>
+            <strong>Final Score:</strong> {accuracy}%
+          </div>
+          <div>
+            <strong>Performance Level:</strong> {performance.level}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
-export default ExamComplete;

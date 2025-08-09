@@ -80,6 +80,8 @@ export interface Category {
 export interface QuizSettings {
   mode: QuizMode;
   sectionId?: number;
+  sectionIds?: number[];      // Support multiple sections
+  questionTypeIds?: number[]; // Support question type filtering
   questionCount: number;
   timeLimit?: number;
 }
@@ -106,7 +108,7 @@ export interface QuizState {
   result: QuizResult | null;
 }
 
-export type QuizMode = 'random' | 'section' | 'timed';
+export type QuizMode = 'random' | 'section' | 'timed' | 'custom';
 
 // Helper types for question processing
 export interface ProcessedQuestion extends Omit<Question, 'options'> {

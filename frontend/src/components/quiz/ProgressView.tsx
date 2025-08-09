@@ -1,236 +1,246 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Home, RotateCcw, BookOpen, Target } from 'lucide-react';
-
-interface SectionStats {
-  name: string;
-  correct: number;
-  total: number;
-  percentage: number;
-  avgTime?: number;
-}
-
-interface ProgressStats {
-  totalCorrect: number;
-  totalQuestions: number;
-  avgTime: number;
-  sectionProgress: Record<string, SectionStats>;
-  incorrectQuestions: number;
-  canRetryIncorrect: boolean;
-}
+import React, { useState } from 'react';
+import { 
+  BarChart3, 
+  Clock, 
+  Target, 
+  TrendingUp, 
+  CheckCircle, 
+  XCircle, 
+  Home, 
+  RotateCcw,
+  BookOpen,
+  Trophy
+} from 'lucide-react';
+import { useQuizStore } from '@/stores/quizStore';
+import { useAuthStore } from '@/stores/authStore';
+import { formatTime } from '@/lib/utils';
+import { RetryView } from './RetryView';
+import '@/styles/quiz-interface.css';
 
 interface ProgressViewProps {
-  onReturnToQuiz?: () => void;
+  onReturn: () => void;
+  onReturnHome: () => void;
   onRetryIncorrect?: () => void;
-  onStartNewSession?: () => void;
-  currentQuestionId?: string;
-  isRetryMode?: boolean;
 }
 
-export const ProgressView: React.FC<ProgressViewProps> = ({
-  onReturnToQuiz,
-  onRetryIncorrect,
-  onStartNewSession,
-  currentQuestionId,
-  isRetryMode = false
+export const ProgressView: React.FC<ProgressViewProps> = ({ 
+  onReturn, 
+  onReturnHome, 
+  onRetryIncorrect 
 }) => {
-  const navigate = useNavigate();
-  const [stats, setStats] = useState<ProgressStats>({
-    totalCorrect: 0,
-    totalQuestions: 0,
-    avgTime: 0,
-    sectionProgress: {},
-    incorrectQuestions: 0,
-    canRetryIncorrect: false
-  });
+  const { user } = useAuthStore();
+  const [showRetryView, setShowRetryView] = useState(false);
+  
+  const { 
+    getProgress,
+    questions,
+    answers,
+    timeRemaining,
+    getIncorrectQuestions
+  } = useQuizStore();
 
-  // Mock data - replace with real API call
-  useEffect(() => {
-    const mockStats: ProgressStats = {
-      totalCorrect: 18,
-      totalQuestions: 25,
-      avgTime: 45.3,
-      sectionProgress: {
-        'Nutrition Science': {
-          name: 'Nutrition Science',
-          correct: 8,
-          total: 10,
-          percentage: 80,
-          avgTime: 42.1
-        },
-        'Physical Activity': {
-          name: 'Physical Activity',
-          correct: 6,
-          total: 8,
-          percentage: 75,
-          avgTime: 38.7
-        },
-        'Behavior Change': {
-          name: 'Behavior Change',
-          correct: 4,
-          total: 7,
-          percentage: 57.1,
-          avgTime: 52.8
-        }
-      },
-      incorrectQuestions: 7,
-      canRetryIncorrect: true
-    };
-    setStats(mockStats);
-  }, []);
+  const progress = getProgress();
+  const incorrectQuestions = getIncorrectQuestions();
+  
+  const totalQuestions = progress.total;
+  const answeredQuestions = answers.size; // Number of questions answered
+  const correctAnswers = progress.correct;
+  const incorrectAnswers = answeredQuestions - correctAnswers;
+  const accuracy = Math.round(progress.accuracy) || 0;
+  const averageTime = 45; // Placeholder for now
+  const sectionStats = {}; // Empty for now, will implement later
 
-  const getProgressBarColor = (percentage: number): string => {
-    if (percentage >= 90) return 'progress-excellent';
-    if (percentage >= 70) return 'progress-good';
-    if (percentage >= 50) return 'progress-fair';
-    return 'progress-needs-improvement';
-  };
-
-  const handleReturnHome = () => {
-    navigate('/');
-  };
-
-  const handleReturnToMainSession = () => {
-    if (onReturnToQuiz) {
-      onReturnToQuiz();
-    }
-  };
-
-  const handleRetryIncorrect = () => {
-    if (onRetryIncorrect) {
-      onRetryIncorrect();
-    }
-  };
-
-  const handleStartNewSession = () => {
-    if (onStartNewSession) {
-      onStartNewSession();
-    } else {
-      navigate('/quiz');
-    }
-  };
-
-  const overallPercentage = stats.totalQuestions > 0 
-    ? (stats.totalCorrect / stats.totalQuestions * 100) 
-    : 0;
+  // Show retry view if requested
+  if (showRetryView) {
+    return (
+      <RetryView 
+        onStartRetry={() => {
+          setShowRetryView(false);
+          onReturn(); // Return to quiz with retry questions
+        }}
+        onReturn={() => setShowRetryView(false)}
+        onReturnHome={onReturnHome}
+      />
+    );
+  }
 
   return (
-    <div className="container">
-      {/* Home Button Container */}
-      <div className="home-button-container">
-        <a href="#" onClick={(e) => { e.preventDefault(); handleReturnHome(); }} className="home-btn">
-          Return to Home
-        </a>
+    <div className="quiz-container fade-in">
+      {/* Header */}
+      <div className="quiz-header">
+        <h1>Session Progress</h1>
+        <div className="quiz-meta">
+          <div className="question-progress">
+            Welcome back, {user?.displayName || user?.email?.split('@')[0]}
+          </div>
+        </div>
       </div>
 
-      <div className="progress-container">
-        <h2 className="progress-header">Session Progress</h2>
-
-        {/* Overall Statistics */}
-        <div className="overall-stats">
-          <div className="stat-box stat-animate">
-            <h3>Overall Score</h3>
-            <div className="stat-value">{overallPercentage.toFixed(1)}%</div>
-            <div className="stat-detail">
-              {stats.totalCorrect} correct out of {stats.totalQuestions}
+      {/* Overall Stats */}
+      <div className="question-card">
+        <div className="question-header">
+          <h2 className="question-number">Overall Performance</h2>
+        </div>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+          <div className="feedback-section" style={{ border: '2px solid #22c55e', borderLeft: '6px solid #22c55e' }}>
+            <div className="feedback-result correct">
+              <Trophy className="w-5 h-5" />
+              Overall Score
+            </div>
+            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+              <div style={{ fontSize: '3rem', fontWeight: '800', color: '#22c55e', margin: 0 }}>
+                {accuracy}%
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>
+                {correctAnswers} correct out of {answeredQuestions}
+              </div>
             </div>
           </div>
 
-          <div className="stat-box stat-animate">
-            <h3>Session Progress</h3>
-            <div className="stat-value">{stats.totalQuestions} / 100</div>
-            <div className="stat-detail">Questions attempted</div>
+          <div className="feedback-section" style={{ border: '2px solid #0ea5e9', borderLeft: '6px solid #0ea5e9' }}>
+            <div className="feedback-result" style={{ background: '#eff6ff', color: '#0ea5e9', border: '2px solid #0ea5e9' }}>
+              <Target className="w-5 h-5" />
+              Session Progress
+            </div>
+            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0ea5e9', margin: 0 }}>
+                {answeredQuestions}
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>
+                of {totalQuestions} questions attempted
+              </div>
+            </div>
           </div>
 
-          <div className="stat-box stat-animate">
-            <h3>Average Time</h3>
-            <div className="stat-value">{stats.avgTime.toFixed(1)}</div>
-            <div className="stat-detail">seconds per question</div>
+          <div className="feedback-section" style={{ border: '2px solid #f59e0b', borderLeft: '6px solid #f59e0b' }}>
+            <div className="feedback-result" style={{ background: '#fef3c7', color: '#92400e', border: '2px solid #f59e0b' }}>
+              <Clock className="w-5 h-5" />
+              Average Time
+            </div>
+            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#f59e0b', margin: 0 }}>
+                {averageTime.toFixed(1)}s
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>
+                seconds per question
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Section Progress */}
-        {Object.keys(stats.sectionProgress).length > 0 && (
-          <div className="section-progress">
-            <h3 className="section-header">Performance by Section</h3>
-            
-            {Object.values(stats.sectionProgress).map((section, index) => (
-              <div key={section.name} className="section-box">
-                <h4>
-                  {section.name} 
-                  <span className="section-percentage">{section.percentage.toFixed(1)}%</span>
-                </h4>
-                
-                <div className="progress-bar">
-                  <div 
-                    className={`progress-fill ${getProgressBarColor(section.percentage)}`}
-                    style={{ 
-                      width: `${section.percentage}%`,
-                      animationDelay: `${index * 0.2}s`
-                    }}
-                  >
-                    <span className="progress-label">{section.percentage.toFixed(1)}%</span>
+      {/* Section Performance */}
+      {sectionStats && Object.keys(sectionStats).length > 0 && (
+        <div className="question-card">
+          <div className="question-header">
+            <h2 className="question-number">Performance by Section</h2>
+          </div>
+          
+          <div style={{ display: 'grid', gap: '20px' }}>
+            {Object.entries(sectionStats).map(([section, stats]) => (
+              <div key={section} className="option-item" style={{ cursor: 'default', padding: '24px' }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <h4 style={{ 
+                      margin: 0, 
+                      fontSize: '1.2rem', 
+                      fontWeight: '700',
+                      color: '#1e293b'
+                    }}>
+                      {section}
+                      <span style={{ 
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#f59e0b' : '#ef4444',
+                        marginLeft: '12px'
+                      }}>
+                        {stats.percentage.toFixed(1)}%
+                      </span>
+                    </h4>
                   </div>
-                </div>
-                
-                <div className="section-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Questions:</span>
-                    <span className="detail-value">{section.correct}/{section.total} correct</span>
+                  
+                  <div style={{ 
+                    width: '100%', 
+                    height: '8px', 
+                    background: '#e2e8f0', 
+                    borderRadius: '4px', 
+                    overflow: 'hidden',
+                    marginBottom: '12px'
+                  }}>
+                    <div style={{ 
+                      height: '100%', 
+                      width: `${stats.percentage}%`,
+                      background: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#f59e0b' : '#ef4444',
+                      borderRadius: '4px',
+                      transition: 'width 0.5s ease'
+                    }}></div>
                   </div>
-                  {section.avgTime && (
-                    <div className="detail-item">
-                      <span className="detail-label">Average Time:</span>
-                      <span className="detail-value">{section.avgTime.toFixed(1)} seconds</span>
-                    </div>
-                  )}
+                  
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#64748b' }}>
+                    <span>
+                      <strong>Questions:</strong> {stats.correct}/{stats.total} correct
+                    </span>
+                    {stats.avgTime && (
+                      <span>
+                        <strong>Avg Time:</strong> {stats.avgTime.toFixed(1)}s
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-        )}
-
-        {/* Navigation Options */}
-        <div className="progress-navigation">
-          <div className="nav-group">
-            {isRetryMode ? (
-              <button onClick={handleReturnToMainSession} className="nav-btn return-btn">
-                <Home className="w-4 h-4 mr-2" />
-                Return to Main Session
-              </button>
-            ) : currentQuestionId ? (
-              <button onClick={onReturnToQuiz} className="nav-btn">
-                <Target className="w-4 h-4 mr-2" />
-                Return to Current Question
-              </button>
-            ) : (
-              <button onClick={handleStartNewSession} className="nav-btn">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Start New Session
-              </button>
-            )}
-          </div>
-          
-          <div className="nav-group">
-            {stats.totalQuestions > 0 && (
-              <>
-                <button onClick={() => navigate('/incorrect-answers')} className="nav-btn">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Review Incorrect Answers
-                </button>
-                {stats.incorrectQuestions > 0 && stats.canRetryIncorrect && (
-                  <button onClick={handleRetryIncorrect} className="nav-btn retry-btn">
-                    <RotateCcw className="w-4 h-4 mr-2" />
-                    Retry {stats.incorrectQuestions} Incorrect Questions
-                  </button>
-                )}
-              </>
-            )}
-          </div>
         </div>
+      )}
+
+      {/* Navigation */}
+      <div className="navigation-section">
+        <div className="nav-buttons">
+          <button onClick={onReturnHome} className="nav-btn">
+            <Home className="w-4 h-4" />
+            Return to Home
+          </button>
+          
+          <button onClick={onReturn} className="nav-btn primary">
+            <BookOpen className="w-4 h-4" />
+            Continue Session
+          </button>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="action-buttons">
+        {incorrectAnswers > 0 && (
+          <button onClick={() => setShowRetryView(true)} className="btn btn-outline">
+            <RotateCcw className="w-4 h-4" />
+            Retry {incorrectAnswers} Incorrect Questions
+          </button>
+        )}
+        
+        <button 
+          onClick={() => {
+            // Could implement review functionality
+            alert('Review functionality coming soon!');
+          }} 
+          className="btn btn-secondary"
+        >
+          <BarChart3 className="w-4 h-4" />
+          Review All Answers
+        </button>
+      </div>
+
+      {/* Progress Summary */}
+      <div className="progress-section">
+        <p className="progress-text">
+          <CheckCircle className="w-4 h-4 inline" style={{ color: '#22c55e', marginRight: '8px' }} />
+          {correctAnswers} Correct
+          <XCircle className="w-4 h-4 inline" style={{ color: '#ef4444', marginLeft: '16px', marginRight: '8px' }} />
+          {incorrectAnswers} Incorrect
+          <TrendingUp className="w-4 h-4 inline" style={{ color: '#0ea5e9', marginLeft: '16px', marginRight: '8px' }} />
+          {accuracy}% Accuracy
+        </p>
       </div>
     </div>
   );
 };
-
-export default ProgressView;

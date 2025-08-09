@@ -33,11 +33,16 @@ interface QuizStore extends QuizState {
   
   // Utility getters
   getCurrentQuestion: () => ProcessedQuestion | null;
-  getProgress: () => { current: number; total: number; percentage: number };
+  getProgress: () => { current: number; total: number; percentage: number; correct: number; accuracy: number };
   canGoNext: () => boolean;
   canGoPrevious: () => boolean;
   isQuestionAnswered: (questionId: number) => boolean;
   getQuestionAnswer: (questionId: number) => string | undefined;
+  
+  // Retry functionality
+  getIncorrectQuestions: () => ProcessedQuestion[];
+  startRetrySession: () => void;
+  isRetryMode: boolean;
 }
 
 // Timer interval reference
@@ -59,6 +64,7 @@ export const useQuizStore = create<QuizStore>()(
       showRationale: false,
       quizCompleted: false,
       result: null,
+      isRetryMode: false,
 
       // Initialize quiz with settings
       initializeQuiz: async (userId: string, settings: QuizSettings) => {
@@ -160,8 +166,16 @@ export const useQuizStore = create<QuizStore>()(
           // Save to database
           const attempt = await QuizService.saveQuizAttempt(attemptData);
 
+          // Update question with correct/incorrect status
+          const updatedQuestions = questions.map(q => 
+            q.id === currentQuestion.id 
+              ? { ...q, isAnswered: true, isCorrect: isCorrect }
+              : q
+          );
+
           // Update local state
           set({
+            questions: updatedQuestions,
             attempts: [...attempts, attempt],
             showRationale: true
           });
@@ -176,33 +190,44 @@ export const useQuizStore = create<QuizStore>()(
 
       // Navigate to next question
       nextQuestion: () => {
-        const { currentQuestionIndex, questions } = get();
+        const { currentQuestionIndex, questions, answers } = get();
         if (currentQuestionIndex < questions.length - 1) {
+          const newIndex = currentQuestionIndex + 1;
+          const nextQuestion = questions[newIndex];
+          const isAnswered = answers.has(nextQuestion.id);
+          
           set({
-            currentQuestionIndex: currentQuestionIndex + 1,
-            showRationale: false
+            currentQuestionIndex: newIndex,
+            showRationale: isAnswered
           });
         }
       },
 
       // Navigate to previous question
       previousQuestion: () => {
-        const { currentQuestionIndex } = get();
+        const { currentQuestionIndex, questions, answers } = get();
         if (currentQuestionIndex > 0) {
+          const newIndex = currentQuestionIndex - 1;
+          const previousQuestion = questions[newIndex];
+          const isAnswered = answers.has(previousQuestion.id);
+          
           set({
-            currentQuestionIndex: currentQuestionIndex - 1,
-            showRationale: false
+            currentQuestionIndex: newIndex,
+            showRationale: isAnswered
           });
         }
       },
 
       // Go to specific question
       goToQuestion: (index: number) => {
-        const { questions } = get();
+        const { questions, answers } = get();
         if (index >= 0 && index < questions.length) {
+          const targetQuestion = questions[index];
+          const isAnswered = answers.has(targetQuestion.id);
+          
           set({
             currentQuestionIndex: index,
-            showRationale: false
+            showRationale: isAnswered
           });
         }
       },
@@ -339,12 +364,27 @@ export const useQuizStore = create<QuizStore>()(
       },
 
       getProgress: () => {
-        const { currentQuestionIndex, questions } = get();
+        const { currentQuestionIndex, questions, answers } = get();
         const current = currentQuestionIndex + 1;
         const total = questions.length;
         const percentage = total > 0 ? (current / total) * 100 : 0;
         
-        return { current, total, percentage };
+        // Calculate accuracy based on answered questions
+        let correct = 0;
+        let answered = 0;
+        
+        questions.forEach(question => {
+          if (answers.has(question.id)) {
+            answered++;
+            if (question.isCorrect) {
+              correct++;
+            }
+          }
+        });
+        
+        const accuracy = answered > 0 ? (correct / answered) * 100 : 0;
+        
+        return { current, total, percentage, correct, accuracy };
       },
 
       canGoNext: () => {
@@ -365,6 +405,48 @@ export const useQuizStore = create<QuizStore>()(
       getQuestionAnswer: (questionId: number) => {
         const { answers } = get();
         return answers.get(questionId);
+      },
+
+      // Get all incorrectly answered questions
+      getIncorrectQuestions: () => {
+        const { questions } = get();
+        return questions.filter(question => 
+          question.isAnswered && question.isCorrect === false
+        );
+      },
+
+      // Start a retry session with only incorrect questions
+      startRetrySession: () => {
+        const { questions } = get();
+        const incorrectQuestions = questions.filter(question => 
+          question.isAnswered && question.isCorrect === false
+        );
+
+        if (incorrectQuestions.length === 0) {
+          return; // No incorrect questions to retry
+        }
+
+        // Reset questions for retry (clear previous answers but keep original state)
+        const resetQuestions = incorrectQuestions.map(question => ({
+          ...question,
+          isAnswered: false,
+          isCorrect: undefined,
+          selectedAnswer: undefined
+        }));
+
+        // Clear answers for incorrect questions only
+        const { answers } = get();
+        const newAnswers = new Map(answers);
+        incorrectQuestions.forEach(q => newAnswers.delete(q.id));
+
+        set({
+          questions: resetQuestions,
+          currentQuestionIndex: 0,
+          answers: newAnswers,
+          showRationale: false,
+          isRetryMode: true,
+          quizCompleted: false
+        });
       }
     }),
     {

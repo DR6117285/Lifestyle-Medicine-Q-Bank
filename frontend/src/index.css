@@ -387,6 +387,11 @@
   /* Text utilities */
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    /* Fallback for better browser support */
+    background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .text-shadow-sm {
@@ -431,4 +436,77 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* PROFESSIONAL MEDICAL THEME - ENFORCED STYLES */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+  color: #0f172a !important;
+  min-height: 100vh !important;
+}
+
+/* REMOVE ANY YELLOW BACKGROUNDS */
+*[style*="yellow"], 
+*[style*="rgb(255, 255, 0)"], 
+*[style*="#ffff00"],
+*[style*="#fef3c7"]:not(.timer-display) {
+  background-color: #f8fafc !important;
+}
+
+/* Ensure main app container has proper background */
+#root {
+  background: transparent !important;
+  min-height: 100vh !important;
+}
+
+/* Dashboard and main content areas */
+.dashboard, .main-content, [class*="dashboard"], [class*="main"] {
+  background: transparent !important;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #0ea5e9, #14b8a6) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.bg-primary {
+  background-color: #0ea5e9 !important;
+}
+
+.bg-card {
+  background-color: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.text-primary {
+  color: #0ea5e9 !important;
+}
+
+.bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #0ea5e9, #14b8a6) !important;
+}
+
+/* FORCE REMOVE YELLOW BACKGROUNDS */
+.bg-background, 
+body, 
+html, 
+#root,
+.h-screen,
+main,
+.container {
+  background-color: #f8fafc !important;
+  background: #f8fafc !important;
+}
+
+/* Ensure layout backgrounds are correct */
+div[class*="bg-background"],
+div[class*="bg-gray"],
+div[class*="bg-yellow"] {
+  background-color: #f8fafc !important;
+  background: #f8fafc !important;
 }
