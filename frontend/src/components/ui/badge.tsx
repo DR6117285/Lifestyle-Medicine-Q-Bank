@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "../../lib/utils"
+import { cn } from "@/utils/cn"
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -8,18 +8,18 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "border-transparent bg-primary/10 text-primary hover:bg-primary/20",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        outline: "text-foreground",
+          "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/20",
+        outline: "text-foreground border-border hover:bg-muted",
         success:
-          "border-transparent bg-success text-white hover:bg-success/80",
+          "border-transparent bg-success-100 text-success-700 hover:bg-success-200",
         warning:
-          "border-transparent bg-warning text-white hover:bg-warning/80",
+          "border-transparent bg-warning-100 text-warning-700 hover:bg-warning-200",
         medical:
-          "border-transparent bg-medical-blue text-white hover:bg-medical-blue/80",
+          "border-transparent bg-gradient-to-r from-primary/10 to-accent/10 text-primary hover:from-primary/20 hover:to-accent/20",
       },
     },
     defaultVariants: {

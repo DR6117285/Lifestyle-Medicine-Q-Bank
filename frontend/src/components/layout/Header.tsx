@@ -25,27 +25,27 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 py-3" style={{ borderBottomColor: 'var(--primary-color)' }}>
-      <div className="flex items-center justify-between">
+    <header className="bg-card border-b border-border/50 backdrop-blur-sm sticky top-0 z-50">
+      <div className="flex items-center justify-between px-4 py-4 lg:px-6">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
-            size="icon"
+            size="icon-sm"
             onClick={onMenuToggle}
-            className="lg:hidden hover:bg-gray-50"
+            className="lg:hidden hover:bg-muted focus-ring"
           >
             {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
           
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--primary-color)' }}>
-              <span className="text-white font-semibold text-sm">LM</span>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-sm">LM</span>
             </div>
             <div>
-              <h1 className="text-xl font-semibold" style={{ color: 'var(--primary-color)' }}>
+              <h1 className="text-xl font-bold text-gradient tracking-tight">
                 Lifestyle Medicine Q-Bank
               </h1>
-              <p className="text-sm hidden sm:block" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-xs text-muted-foreground hidden sm:block">
                 Medical Education Platform
               </p>
             </div>
@@ -56,50 +56,56 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
           <div className="relative">
             <button
               onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center space-x-3 p-2 rounded-xl hover:bg-muted transition-all duration-200 focus-ring"
             >
-              <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--background-light)', border: '2px solid var(--primary-color)' }}>
-                <span className="font-medium text-sm" style={{ color: 'var(--primary-color)' }}>
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary/20 flex items-center justify-center">
+                <span className="font-semibold text-sm text-primary">
                   {getUserInitials(user.displayName, user.email)}
                 </span>
               </div>
-              <div className="text-left hidden sm:block">
-                <p className="text-sm font-medium text-gray-900">
-                  {user.displayName || user.email}
+              <div className="text-left hidden md:block">
+                <p className="text-sm font-semibold text-foreground">
+                  {user.displayName || user.email?.split('@')[0]}
                 </p>
-                <p className="text-xs text-gray-500 capitalize">
-                  {user.role}
+                <p className="text-xs text-muted-foreground capitalize flex items-center space-x-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
+                  <span>{user.role}</span>
                 </p>
               </div>
             </button>
 
             {userMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                <div className="px-4 py-3 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-900">
+              <div className="absolute right-0 mt-2 w-56 bg-card rounded-xl shadow-large border border-border/50 py-2 z-50 animate-scale-in">
+                <div className="px-4 py-3 border-b border-border/50">
+                  <p className="text-sm font-semibold text-foreground">
                     {user.displayName || user.email}
                   </p>
-                  <p className="text-xs text-gray-500">{user.email}</p>
-                  <p className="text-xs text-gray-400 capitalize">
-                    {user.role}
-                  </p>
+                  <p className="text-xs text-muted-foreground">{user.email}</p>
+                  <div className="flex items-center space-x-1 mt-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
+                    <p className="text-xs text-muted-foreground capitalize">
+                      {user.role}
+                    </p>
+                  </div>
                 </div>
                 
-                <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2">
-                  <User className="h-4 w-4" />
-                  <span>Profile</span>
-                </button>
+                <div className="py-1">
+                  <button className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors flex items-center space-x-3">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    <span>Profile</span>
+                  </button>
+                  
+                  <button className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors flex items-center space-x-3">
+                    <Settings className="h-4 w-4 text-muted-foreground" />
+                    <span>Settings</span>
+                  </button>
+                </div>
                 
-                <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2">
-                  <Settings className="h-4 w-4" />
-                  <span>Settings</span>
-                </button>
-                
-                <div className="border-t border-gray-100 my-1"></div>
+                <div className="border-t border-border/50 my-1"></div>
                 
                 <button
                   onClick={handleSignOut}
-                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2"
+                  className="w-full text-left px-4 py-3 text-sm text-destructive hover:bg-destructive/10 transition-colors flex items-center space-x-3"
                 >
                   <LogOut className="h-4 w-4" />
                   <span>Sign Out</span>
@@ -113,7 +119,7 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
       {/* Overlay for mobile menu */}
       {userMenuOpen && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-40 backdrop-blur-xs"
           onClick={() => setUserMenuOpen(false)}
         />
       )}

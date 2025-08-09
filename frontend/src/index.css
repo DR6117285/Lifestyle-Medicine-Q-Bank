@@ -1,5 +1,5 @@
-/* Import ACLM styles */
-@import './styles/styles.css';
+/* Import Inter Variable font for modern typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,65 +7,88 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Professional Medical Theme - Light Mode */
+    --background: 248 250 252; /* slate-50 */
+    --foreground: 15 23 42; /* slate-900 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 255 255 255; /* white */
+    --card-foreground: 15 23 42; /* slate-900 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
 
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 14 165 233; /* medical blue - sky-500 */
+    --primary-foreground: 255 255 255;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
+    --secondary: 241 245 249; /* slate-100 */
+    --secondary-foreground: 51 65 85; /* slate-700 */
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 241 245 249; /* slate-100 */
+    --muted-foreground: 100 116 139; /* slate-500 */
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 20 184 166; /* teal-500 - medical accent */
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68; /* red-500 */
+    --destructive-foreground: 255 255 255;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 226 232 240; /* slate-200 */
+    --input: 226 232 240;
+    --ring: 14 165 233; /* matches primary */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* More modern radius */
+
+    /* Success colors */
+    --success: 34 197 94; /* green-500 */
+    --success-foreground: 255 255 255;
+
+    /* Warning colors */
+    --warning: 245 158 11; /* amber-500 */
+    --warning-foreground: 255 255 255;
+
+    /* Custom gradient stops */
+    --gradient-from: 14 165 233; /* primary */
+    --gradient-to: 20 184 166; /* accent */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Professional Medical Theme - Dark Mode */
+    --background: 2 6 23; /* slate-950 */
+    --foreground: 248 250 252; /* slate-50 */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 15 23 42; /* slate-900 */
+    --card-foreground: 248 250 252;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 15 23 42;
+    --popover-foreground: 248 250 252;
 
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
+    --primary: 56 189 248; /* sky-400 - lighter for dark mode */
+    --primary-foreground: 15 23 42;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 30 41 59; /* slate-800 */
+    --secondary-foreground: 248 250 252;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184; /* slate-400 */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 45 212 191; /* teal-400 */
+    --accent-foreground: 15 23 42;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 248 113 113; /* red-400 */
+    --destructive-foreground: 15 23 42;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --border: 51 65 85; /* slate-700 */
+    --input: 51 65 85;
+    --ring: 56 189 248;
+
+    --success: 74 222 128; /* green-400 */
+    --success-foreground: 15 23 42;
+
+    --warning: 251 191 36; /* amber-400 */
+    --warning-foreground: 15 23 42;
+
+    --gradient-from: 56 189 248;
+    --gradient-to: 45 212 191;
   }
 }
 
@@ -73,82 +96,339 @@
   * {
     @apply border-border;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1;
+    font-optical-sizing: auto;
+  }
+
+  /* Improved focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary/70 ring-offset-2 ring-offset-background;
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, [role="button"], input, select, textarea {
+    @apply transition-colors duration-200;
+  }
+
+  /* Enhanced scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary/20;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-primary/20 text-primary-foreground;
+  }
+
+  /* Modern typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl lg:text-2xl;
+  }
+
+  /* Professional link styling */
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+
+  /* Enhanced form controls */
+  input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    @apply transition-all duration-200;
+  }
+
+  /* Loading states */
+  .loading {
+    @apply animate-pulse;
+  }
+
+  /* Accessibility improvements */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+@layer components {
+  /* Professional Component Styles */
+  .medical-gradient {
+    @apply bg-gradient-to-br from-primary via-medical-500 to-accent;
+  }
+
+  .medical-gradient-soft {
+    @apply bg-gradient-to-br from-primary/10 via-medical-100 to-accent/10;
+  }
+
+  /* Enhanced Card Styles */
+  .card-elevated {
+    @apply bg-card border border-border rounded-xl shadow-soft hover:shadow-medium transition-all duration-300;
+  }
+
+  .card-interactive {
+    @apply card-elevated hover:scale-[1.02] hover:border-primary/20 cursor-pointer;
+  }
+
+  /* Stats Card */
+  .stats-card {
+    @apply card-elevated bg-gradient-to-br from-card to-secondary/30 p-6;
+  }
+
+  .stats-value {
+    @apply text-3xl font-bold text-primary tracking-tight;
+  }
+
+  .stats-label {
+    @apply text-sm font-medium text-muted-foreground uppercase tracking-wide;
+  }
+
+  .stats-change {
+    @apply text-xs font-medium;
+  }
+
+  .stats-change.positive {
+    @apply text-success-600;
+  }
+
+  .stats-change.negative {
+    @apply text-destructive;
+  }
+
+  /* Button enhancements */
+  .btn-medical {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md active:scale-[0.98] font-medium px-6 py-3 rounded-lg transition-all duration-200;
+  }
+
+  .btn-medical-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent shadow-sm hover:shadow-md active:scale-[0.98] font-medium px-6 py-3 rounded-lg transition-all duration-200;
+  }
+
+  .btn-medical-secondary {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 shadow-sm hover:shadow-md active:scale-[0.98] font-medium px-6 py-3 rounded-lg transition-all duration-200;
+  }
+
+  .btn-medical-ghost {
+    @apply text-primary hover:bg-primary/10 hover:text-primary active:scale-[0.98] font-medium px-6 py-3 rounded-lg transition-all duration-200;
+  }
+
+  /* Navigation elements */
+  .nav-item {
+    @apply flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-secondary/80 hover:text-foreground active:scale-[0.98];
+  }
+
+  .nav-item.active {
+    @apply bg-primary/10 text-primary border border-primary/20;
+  }
+
+  /* Form elements */
+  .form-input {
+    @apply w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 placeholder:text-muted-foreground;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-foreground mb-2;
+  }
+
+  /* Progress elements */
+  .progress-bar {
+    @apply w-full bg-secondary rounded-full h-2 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-primary to-accent transition-all duration-500 ease-out;
+  }
+
+  .progress-ring {
+    @apply w-16 h-16;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin w-5 h-5 border-2 border-primary/20 border-t-primary rounded-full;
+  }
+
+  .loading-dots {
+    @apply flex space-x-1;
+  }
+
+  .loading-dots > div {
+    @apply w-2 h-2 bg-primary rounded-full animate-pulse;
+  }
+
+  /* Toast/notification styles */
+  .toast {
+    @apply flex items-start p-4 rounded-lg shadow-lg border;
+  }
+
+  .toast-success {
+    @apply bg-success-50 border-success-200 text-success-800;
+  }
+
+  .toast-error {
+    @apply bg-destructive/5 border-destructive/20 text-destructive;
+  }
+
+  .toast-warning {
+    @apply bg-warning-50 border-warning-200 text-warning-800;
+  }
+
+  .toast-info {
+    @apply bg-primary/5 border-primary/20 text-primary;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .badge-success {
+    @apply bg-success-100 text-success-700;
+  }
+
+  .badge-warning {
+    @apply bg-warning-100 text-warning-700;
+  }
+
+  .badge-error {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    @apply border-t border-border my-8;
+  }
+
+  /* Glassmorphism effects */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/80 backdrop-blur-md border border-white/10;
+  }
+
+  /* Medical theme specific patterns */
+  .medical-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(14, 165, 233, 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+
+  /* Hover effects for interactive elements */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-glow;
+  }
+
+  /* Focus ring for custom components */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+@layer utilities {
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Text utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
+  }
+
+  /* Backdrop utilities */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Focus styles for accessibility */
-.focus-visible:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-}
-
-/* Animation classes */
+/* Keyframe animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-in-out;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Medical/professional styling overrides */
-.medical-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.stats-card {
-  @apply transition-all duration-200 hover:shadow-lg hover:scale-105;
-}
-
-/* Custom button variants for medical theme */
-.btn-medical {
-  @apply bg-blue-600 hover:bg-blue-700 text-white font-medium;
-}
-
-.btn-medical-outline {
-  @apply border-blue-600 text-blue-600 hover:bg-blue-50;
-}
-
-/* Loading states */
-.pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Toast/notification styles */
-.toast-success {
-  @apply bg-green-50 border-green-200 text-green-800;
-}
-
-.toast-error {
-  @apply bg-red-50 border-red-200 text-red-800;
-}
-
-.toast-warning {
-  @apply bg-yellow-50 border-yellow-200 text-yellow-800;
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

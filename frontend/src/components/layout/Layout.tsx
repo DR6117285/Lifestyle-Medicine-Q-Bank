@@ -13,7 +13,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div className="h-screen flex" style={{ backgroundColor: 'var(--background-light)' }}>
+    <div className="h-screen flex bg-background">
       {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
       
@@ -22,12 +22,20 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header onMenuToggle={toggleSidebar} isSidebarOpen={sidebarOpen} />
         
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 overflow-y-auto">
+          <div className="container mx-auto px-6 py-8 max-w-7xl">
             {children}
           </div>
         </main>
       </div>
+      
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          onClick={closeSidebar}
+        />
+      )}
     </div>
   );
 };
