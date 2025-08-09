@@ -183,6 +183,14 @@ export default function App() {
               </ProtectedRoute>
             } />
 
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Dashboard />
+                </Layout>
+              </ProtectedRoute>
+            } />
+
             <Route path="/landing" element={
               <ProtectedRoute>
                 <Layout>

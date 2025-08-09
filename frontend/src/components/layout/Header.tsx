@@ -67,10 +67,10 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
                 <p className="text-sm font-semibold text-foreground">
                   {user.displayName || user.email?.split('@')[0]}
                 </p>
-                <p className="text-xs text-muted-foreground capitalize flex items-center space-x-1">
+                <div className="text-xs text-muted-foreground capitalize flex items-center space-x-1">
                   <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
                   <span>{user.role}</span>
-                </p>
+                </div>
               </div>
             </button>
 
@@ -83,9 +83,9 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                   <div className="flex items-center space-x-1 mt-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
-                    <p className="text-xs text-muted-foreground capitalize">
+                    <span className="text-xs text-muted-foreground capitalize">
                       {user.role}
-                    </p>
+                    </span>
                   </div>
                 </div>
                 
