@@ -89,7 +89,7 @@ const stats = {
 
 /**
  * Parse filename to extract category and section information
- * Format: "[Category] - [Section Number]. [Section Name].json"
+ * Format: "[Category] - [Section Number]. [Section Name].json" OR "[Section Number]. [Section Name].json"
  */
 function parseFilename(filename) {
   logger.verbose(`Parsing filename: ${filename}`);
@@ -97,7 +97,23 @@ function parseFilename(filename) {
   // Remove .json extension
   const nameWithoutExt = filename.replace('.json', '');
   
-  // Split on the first " - " to separate category from section
+  // Check if it's the new format: "01. Introduction to Lifestyle Medicine"
+  const newFormatMatch = nameWithoutExt.match(/^(\d+)\.\s*(.+)$/);
+  if (newFormatMatch) {
+    const sectionNumber = newFormatMatch[1];
+    const sectionName = newFormatMatch[2].trim();
+    
+    // For combined files, we'll use "Comprehensive" as the category
+    logger.verbose('Parsed filename (new format)', { category: 'Comprehensive', sectionNumber, sectionName });
+    
+    return {
+      category: 'Comprehensive',
+      sectionNumber: sectionNumber,
+      sectionName: sectionName
+    };
+  }
+  
+  // Fall back to old format: "Category - Section Number. Section Name"
   const dashIndex = nameWithoutExt.indexOf(' - ');
   if (dashIndex === -1) {
     throw new Error(`Invalid filename format: ${filename}`);
@@ -116,7 +132,7 @@ function parseFilename(filename) {
   const sectionNumber = match[1] || null;
   const sectionName = match[2].trim();
   
-  logger.verbose('Parsed filename', { category, sectionNumber, sectionName });
+  logger.verbose('Parsed filename (old format)', { category, sectionNumber, sectionName });
   
   return {
     category: category,

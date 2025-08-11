@@ -544,7 +544,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
             </Button>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

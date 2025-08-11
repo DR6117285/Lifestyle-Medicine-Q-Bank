@@ -1,0 +1,1539 @@
+[
+    {
+        "question_text": "A 45-year-old man is discussing his struggles with maintaining a consistent exercise routine with his health coach. The coach asks, \"On a scale of 1 to 10, how confident are you that you can exercise for 30 minutes, three times a week?\" The patient responds, \"I'd say about a 4.\" Which of the following responses from the coach best demonstrates the appropriate use of scaling questions?",
+        "options": [
+            "A) \"What would it take to get you to a 7 or 8?\"",
+            "B) \"Why aren't you more confident in your ability?\"",
+            "C) \"What makes you a 4 rather than a 1 or 2?\"",
+            "D) \"Let's set a goal to get you to a 6 by next month.\""
+        ],
+        "correct_answer": "C) \"What makes you a 4 rather than a 1 or 2?\"",
+        "page_reference": "35-36",
+        "rationale": "This question tests understanding of the proper use of scaling questions, as discussed in Objective 4. The correct response avoids the \"righting reflex\" and instead encourages the patient to elaborate on their current level of confidence. This approach allows the patient to vocalize their own reasons for confidence, potentially uncovering strengths and motivations that can be built upon.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00808",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old woman has been working with her health care provider to lose weight. She has successfully lost 10 pounds over the past three months but becomes discouraged when she doesn't lose any weight for two weeks. She says, \"I guess I'm just not cut out for this. I always fail at diets eventually.\" Which cognitive distortion is the patient exhibiting?",
+        "options": [
+            "A) Catastrophizing",
+            "B) Mind reading",
+            "C) Overgeneralization",
+            "D) Personalization"
+        ],
+        "correct_answer": "C) Overgeneralization",
+        "page_reference": "39-40",
+        "rationale": "This question assesses knowledge of cognitive distortions, as outlined in Objective 5. The patient is demonstrating overgeneralization by taking a single instance (two weeks without weight loss) and using it to make a broad negative conclusion about her overall ability to lose weight. Recognizing this type of non-productive thinking is crucial for helping patients reframe their thoughts in a more constructive way.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00809",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 28-year-old man is working with a health coach to improve his sleep habits. He has been trying to establish a consistent bedtime routine but finds himself struggling to stick to it. The coach asks, \"What do you think is the biggest obstacle preventing you from following your bedtime routine?\" This question is an example of which motivational interviewing skill?",
+        "options": [
+            "A) Affirmation",
+            "B) Open-ended question",
+            "C) Reflection",
+            "D) Summary"
+        ],
+        "correct_answer": "B) Open-ended question",
+        "page_reference": "38, 44",
+        "rationale": "This question tests understanding of the core skills of motivational interviewing (MI), known as OARS (Open-ended questions, Affirmations, Reflections, Summaries). The coach's question is an open-ended question, which invites the patient to explore and elaborate on his challenges, promoting self-reflection and potentially leading to insight about his behavior.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00810",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 55-year-old woman with hypertension is discussing lifestyle changes with her doctor. The doctor says, \"It's really important that you start exercising regularly and cut down on salt. If you don't, you're putting yourself at risk for serious complications.\" This approach is an example of:",
+        "options": [
+            "A) Motivational interviewing",
+            "B) The righting reflex",
+            "C) Cognitive behavioral therapy",
+            "D) The transtheoretical model"
+        ],
+        "correct_answer": "B) The righting reflex",
+        "page_reference": "43",
+        "rationale": "This question assesses understanding of the \"righting reflex,\", the doctor's approach, while well-intentioned, demonstrates an attempt to use an expert stance to urge the patient into change. This is likely to evoke defensiveness rather than promote collaborative discussion about change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00811",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 40-year-old man is working with a health coach to increase his physical activity. He has successfully added a 15-minute walk to his daily routine and maintained this for two weeks. Which stage of the Transtheoretical Model (TTM) is he most likely in?",
+        "options": [
+            "A) Contemplation",
+            "B) Preparation",
+            "C) Action",
+            "D) Maintenance"
+        ],
+        "correct_answer": "C) Action",
+        "page_reference": "30, 46",
+        "rationale": "This question tests knowledge of the stages of change in the Transtheoretical Model (TTM). The Action stage is characterized by specific behavior changes that have been implemented for less than 6 months. The patient has made a concrete change (daily 15-minute walks) and maintained it for two weeks, placing him squarely in the Action stage.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00812",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 35-year-old woman who wants to improve her diet. The coach asks, \"What are some of the ways you've successfully made changes in your life before?\" This question is primarily aimed at building which aspect of behavior change?",
+        "options": [
+            "A) Readiness",
+            "B) Self-efficacy",
+            "C) Outcome expectations",
+            "D) Social support"
+        ],
+        "correct_answer": "B) Self-efficacy",
+        "page_reference": "35, 41",
+        "rationale": "This question assesses understanding of self-efficacy, a key concept in Social Cognitive Theory and behavior change. By asking about past successes, the coach is helping the patient recall mastery experiences, which are a primary source of self-efficacy. Increased self-efficacy can enhance the patient's confidence in her ability to make and sustain new dietary changes.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00813",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 60-year-old man with type 2 diabetes is discussing his frustration with dietary changes. He says, \"I've tried everything, but nothing works. I'll never be able to control my blood sugar.\" The health care provider responds, \"It sounds like you're feeling discouraged about managing your diabetes.\" This response is an example of:",
+        "options": [
+            "A) Reframing",
+            "B) Reflection",
+            "C) Affirmation",
+            "D) Open-ended questioning"
+        ],
+        "correct_answer": "B) Reflection",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of reflective listening, a key skill in motivational interviewing. The provider's response is a simple reflection, mirroring back the emotional content of the patient's statement. This technique demonstrates empathy and can help build rapport while encouraging the patient to further explore his feelings and experiences.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00814",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 30-year-old woman is working with her health coach to quit smoking. She has successfully abstained for three weeks but had a cigarette after a stressful day at work. The coach responds, \"A slip doesn't mean you've failed. What can we learn from this experience?\" This approach is most consistent with which principle of behavior change?",
+        "options": [
+            "A) Social support",
+            "B) Relapse prevention",
+            "C) Positive psychology",
+            "D) Cognitive restructuring"
+        ],
+        "correct_answer": "B) Relapse prevention",
+        "page_reference": "48",
+        "rationale": "This question assesses understanding of relapse prevention strategies. The coach's response acknowledges that lapses are a normal part of the behavior change process and focuses on learning from the experience rather than viewing it as a failure. This approach is consistent with relapse prevention planning, which aims to help patients identify triggers and develop coping strategies to prevent future lapses from becoming full relapses.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00815",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health care provider is working with a 45-year-old woman to develop an action plan for increasing physical activity. Which of the following goals would be most consistent with the SMART goal format?",
+        "options": [
+            "A) \"I will exercise more often.\"",
+            "B) \"I will walk for 30 minutes, three times a week, for the next month.\"",
+            "C) \"I will try to be more active whenever possible.\"",
+            "D) \"I will lose 10 pounds through exercise.\""
+        ],
+        "correct_answer": "B) \"I will walk for 30 minutes, three times a week, for the next month.\"",
+        "page_reference": "36",
+        "rationale": "This question tests knowledge of SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound). The correct answer meets all SMART criteria: it's specific (walking), measurable (30 minutes, three times a week), likely achievable, relevant to increasing physical activity, and time-bound (for the next month).",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00816",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old man is discussing his attempts to reduce alcohol consumption with his health coach. The coach asks, \"How has reducing your alcohol intake affected your relationships with family and friends?\" This question is primarily aimed at exploring which aspect of behavior change?",
+        "options": [
+            "A) Readiness to change",
+            "B) Self-efficacy",
+            "C) Social determinants of health",
+            "D) Outcome expectations"
+        ],
+        "correct_answer": "C) Social determinants of health",
+        "page_reference": "31",
+        "rationale": "This question assesses understanding of social determinants of health, which include social support and community inclusivity. By asking about the impact of behavior change on relationships, the coach is exploring how social factors may influence the patient's ability to maintain the change. This approach recognizes that health behaviors don't occur in isolation but are influenced by social and environmental contexts.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00817",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 38-year-old woman is working with her health coach to improve her diet. When asked how important it is for her to eat healthier on a scale of 1 to 10, she responds with a 7. Which of the following is the most appropriate follow-up question?",
+        "options": [
+            "A) \"Why isn't it a 10?\"",
+            "B) \"What would it take to get you to a 9?\"",
+            "C) \"What makes it a 7 and not a 5?\"",
+            "D) \"How can we work together to make it more important to you?\""
+        ],
+        "correct_answer": "C) \"What makes it a 7 and not a 5?\"",
+        "page_reference": "35-36",
+        "rationale": "This question tests understanding of the proper use of scaling questions in motivational interviewing. The correct response avoids the \"righting reflex\" and instead encourages the patient to vocalize her own reasons for the importance of the change, potentially uncovering motivations that can be reinforced.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00818",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 42-year-old man is working with his health coach to increase his physical activity. The coach suggests finding a workout buddy and joining a local running club. This approach is most closely aligned with which aspect of Social Cognitive Theory?",
+        "options": [
+            "A) Self-efficacy",
+            "B) Outcome expectations",
+            "C) Vicarious learning",
+            "D) Reciprocal determinism"
+        ],
+        "correct_answer": "C) Vicarious learning",
+        "page_reference": "29",
+        "rationale": "This question tests understanding of Social Cognitive Theory. By suggesting a workout buddy and joining a running club, the coach is promoting vicarious learning, where the patient can observe and learn from others engaged in the desired behavior. This is a key component of Social Cognitive Theory, along with self-efficacy, outcome expectations, and reciprocal determinism.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00819",
+        "section_id": "02"
+    },
+    {
+        "question_text": "During a follow-up appointment, a 45-year-old woman becomes visibly upset and says, \"You keep pushing me to exercise, but you have no idea how hard it is with my schedule!\" Which of the following responses best demonstrates the use of a reflection to manage discord?",
+        "options": [
+            "A) \"I understand it's challenging, but exercise is crucial for your health.\"",
+            "B) \"You're feeling frustrated because you feel I don't understand your situation.\"",
+            "C) \"Let's take a step back and look at your schedule to find some time for exercise.\"",
+            "D) \"What would make it easier for you to incorporate exercise into your routine?\""
+        ],
+        "correct_answer": "B) \"You're feeling frustrated because you feel I don't understand your situation.\"",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of reflective listening as a strategy to manage discord. The correct answer demonstrates a complex reflection, capturing both the emotional content (frustration) and the underlying reason (feeling misunderstood). This type of reflection can help de-escalate tension and show empathy, potentially leading to a more productive conversation.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00820",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old man reports that his wife constantly reminds him to take his blood pressure medication, which he finds annoying. Which of the following responses best demonstrates the use of reframing?",
+        "options": [
+            "A) \"How does your wife usually communicate her concerns about your health?\"",
+            "B) \"It sounds like your wife is really invested in your health and wellbeing.\"",
+            "C) \"Have you told your wife how her reminders make you feel?\"",
+            "D) \"Perhaps we could find someone else to help you remember your medication.\""
+        ],
+        "correct_answer": "B) \"It sounds like your wife is really invested in your health and wellbeing.\"",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of reframing as a technique in behavior change counseling. The correct answer offers a different perspective on the situation, inviting the patient to view his wife's reminders as a sign of care and concern rather than an annoyance. This positive reinterpretation can potentially shift the patient's attitude and improve medication adherence.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00821",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 35-year-old woman is trying to reduce her sugar intake. After eating a doughnut at a work meeting, she thinks, \"I've ruined my diet. I might as well give up.\" Using the ABCDE method, which of the following would be the most effective way for her to dispute this belief?",
+        "options": [
+            "A) \"One doughnut won't undo all my progress. I can get back on track with my next meal.\"",
+            "B) \"I shouldn't be so hard on myself. Changing habits is difficult.\"",
+            "C) \"I need to avoid all temptations in the future to succeed.\"",
+            "D) \"I should focus on how guilty I feel to motivate myself to do better.\""
+        ],
+        "correct_answer": "A) \"One doughnut won't undo all my progress. I can get back on track with my next meal.\"",
+        "page_reference": "39-41",
+        "rationale": "This question tests understanding of the ABCDE (Activating event, Belief, Consequences, Disputing, Effect) method in cognitive behavioral techniques. The correct answer effectively disputes the all-or-nothing thinking by recognizing that a single setback doesn't negate overall progress and emphasizes the ability to return to the desired behavior immediately.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00822",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 42-year-old woman with type 2 diabetes is working with her health coach to improve her diet. She has been tracking her food intake for two weeks but feels overwhelmed by the process. During a follow-up appointment, she expresses frustration, saying, \"I can't do this anymore. It's just too complicated.\" Which of the following responses from the health coach would best demonstrate the use of a reflective strategy to manage discord?",
+        "options": [
+            "A) \"Let's simplify your tracking method to make it more manageable.\"",
+            "B) \"You're finding the tracking process to be more challenging than you expected.\"",
+            "C) \"It's important to continue tracking your food intake for your health.\"",
+            "D) \"How about we take a break from tracking and focus on something else?\""
+        ],
+        "correct_answer": "B) \"You're finding the tracking process to be more challenging than you expected.\"",
+        "page_reference": "44",
+        "rationale": "This question tests the understanding of reflective strategies in managing discord, as covered in Objective 7 of the provided material. The correct answer demonstrates a simple reflection, which is a key skill in motivational interviewing. By reflecting the patient's frustration without judgment or immediately trying to solve the problem, the health coach shows empathy and invites the patient to elaborate on her experience. This approach can help maintain the therapeutic alliance and potentially lead to a more productive discussion about how to address the challenges she's facing.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00823",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 42-year-old woman has been working with her health coach to increase her physical activity. She has been consistently exercising for 30 minutes, three times a week for the past two months. According to the Transtheoretical Model (TTM), which stage of change is she most likely in?",
+        "options": [
+            "A) Preparation",
+            "B) Action",
+            "C) Maintenance",
+            "D) Termination"
+        ],
+        "correct_answer": "B) Action",
+        "page_reference": "29-30",
+        "rationale": "This question tests understanding of the stages of change in the TTM. The Action stage is characterized by specific behavior changes that have been implemented for less than 6 months. Since the patient has been consistently exercising for two months, she is in the Action stage.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00824",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 55-year-old man who wants to improve his diet. The coach asks, \"What do you think would be different in your life if you were eating healthier?\" This question is primarily aimed at eliciting which type of change talk?",
+        "options": [
+            "A) Desire",
+            "B) Ability",
+            "C) Reasons",
+            "D) Need"
+        ],
+        "correct_answer": "C) Reasons",
+        "page_reference": "45",
+        "rationale": "This question assesses understanding of change talk in motivational interviewing. By asking about potential positive outcomes of the behavior change, the coach is encouraging the patient to verbalize reasons for change, which is a key component of change talk.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00825",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 38-year-old woman is discussing her attempts to quit smoking with her health care provider. She says, \"I've tried to quit before, but I always end up smoking again. I'm just not strong enough.\" Which cognitive distortion is the patient exhibiting?",
+        "options": [
+            "A) Catastrophizing",
+            "B) Overgeneralization",
+            "C) Personalization",
+            "D) Mental filter"
+        ],
+        "correct_answer": "B) Overgeneralization",
+        "page_reference": "39-40",
+        "rationale": "This question tests knowledge of cognitive distortions. The patient is demonstrating overgeneralization by using past experiences to make a broad negative conclusion about her ability to quit smoking. Recognizing this type of non-productive thinking is crucial for helping patients reframe their thoughts in a more constructive way.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00826",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 60-year-old man to develop an action plan for managing his type 2 diabetes. Which of the following goals would be most consistent with the SMART goal format?",
+        "options": [
+            "A) \"I will eat healthier to control my blood sugar.\"",
+            "B) \"I will check my blood glucose levels twice daily for the next month.\"",
+            "C) \"I will try to lose weight to improve my diabetes.\"",
+            "D) \"I will exercise more frequently to manage my condition.\""
+        ],
+        "correct_answer": "B) \"I will check my blood glucose levels twice daily for the next month.\"",
+        "page_reference": "36",
+        "rationale": "This question assesses understanding of SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound). The correct answer meets all SMART criteria: it's specific (checking blood glucose), measurable (twice daily), likely achievable, relevant to managing diabetes, and time-bound (for the next month).",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00827",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 45-year-old woman is working with her health coach to reduce stress. The coach suggests practicing mindfulness meditation and joining a yoga class. This approach is most closely aligned with which pillar of lifestyle medicine?",
+        "options": [
+            "A) Nutrition",
+            "B) Physical activity",
+            "C) Stress management",
+            "D) Sleep"
+        ],
+        "correct_answer": "C) Stress management",
+        "page_reference": "52",
+        "rationale": "This question tests knowledge of the pillars of lifestyle medicine. Mindfulness meditation and yoga are commonly recommended practices for stress management, which is one of the six pillars of lifestyle medicine outlined in the ACLM's handouts.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00828",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old man tells his health coach, \"I know I should exercise, but I just don't have the willpower.\" Which of the following responses best demonstrates the use of a double-sided reflection?",
+        "options": [
+            "A) \"You're finding it challenging to start exercising regularly.\"",
+            "B) \"On one hand, you recognize the importance of exercise, and on the other hand, you're struggling to get started.\"",
+            "C) \"It sounds like you're not confident in your ability to exercise consistently.\"",
+            "D) \"What do you think is holding you back from exercising?\""
+        ],
+        "correct_answer": "B) \"On one hand, you recognize the importance of exercise, and on the other hand, you're struggling to get started.\"",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of reflective listening techniques in motivational interviewing. A double-sided reflection acknowledges both sides of a patient's ambivalence, in this case, recognizing the importance of exercise while also acknowledging the difficulty in starting.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00829",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 35-year-old woman who wants to improve her sleep habits. The coach asks, \"Can you tell me about a time when you had a good night's sleep? What was different about that night?\" This question is primarily aimed at building which aspect of behavior change?",
+        "options": [
+            "A) Readiness",
+            "B) Self-efficacy",
+            "C) Outcome expectations",
+            "D) Social support"
+        ],
+        "correct_answer": "B) Self-efficacy",
+        "page_reference": "35, 41",
+        "rationale": "This question assesses understanding of self-efficacy. By asking about past successes, the coach is helping the patient recall mastery experiences, which are a primary source of self-efficacy. Increased self-efficacy can enhance the patient's confidence in her ability to make and sustain new sleep habits.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00830",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 40-year-old man is discussing his attempts to reduce alcohol consumption with his health coach. He says, \"I've cut back to only drinking on weekends, but my friends always pressure me to drink more when we're out.\" Which of the following factors influencing health behavior does this statement primarily reflect?",
+        "options": [
+            "A) Intrapersonal factors",
+            "B) Interpersonal factors",
+            "C) Institutional factors",
+            "D) Community factors"
+        ],
+        "correct_answer": "B) Interpersonal factors",
+        "page_reference": "30",
+        "rationale": "This question tests understanding of the various factors that influence health behavior. The patient's statement reflects the influence of friends, which falls under interpersonal factors. These include the influence of family, friends, peers, and health providers on an individual's health behaviors.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00831",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health care provider is discussing weight loss with a 55-year-old woman. The provider says, \"It's really important that you lose weight to reduce your risk of heart disease. You need to start exercising and eating better right away.\" This approach is an example of:",
+        "options": [
+            "A) Motivational interviewing",
+            "B) The righting reflex",
+            "C) Cognitive behavioral therapy",
+            "D) The transtheoretical model"
+        ],
+        "correct_answer": "B) The righting reflex",
+        "page_reference": "43",
+        "rationale": "This question assesses understanding of the \"righting reflex.\" The provider's approach, while well-intentioned, demonstrates an attempt to use an expert stance to urge the patient into change. This is likely to evoke defensiveness rather than promote collaborative discussion about change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00832",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 30-year-old man is working with his health coach to quit smoking. He has successfully abstained for two weeks but had a cigarette after a stressful day at work. The coach responds, \"Let's talk about what led to this situation and how we can plan for similar challenges in the future.\" This approach is most consistent with which principle of behavior change?",
+        "options": [
+            "A) Social support",
+            "B) Relapse prevention",
+            "C) Positive psychology",
+            "D) Cognitive restructuring"
+        ],
+        "correct_answer": "B) Relapse prevention",
+        "page_reference": "48",
+        "rationale": "This question assesses understanding of relapse prevention strategies. The coach's response focuses on learning from the experience and planning for future challenges, which are key components of relapse prevention planning.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00833",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 45-year-old woman to develop an action plan for increasing physical activity. The coach asks, \"What have you successfully changed in your life before? How did you do it?\" This question is primarily aimed at:",
+        "options": [
+            "A) Assessing readiness to change",
+            "B) Building self-efficacy",
+            "C) Exploring outcome expectations",
+            "D) Identifying social support"
+        ],
+        "correct_answer": "B) Building self-efficacy",
+        "page_reference": "35, 41",
+        "rationale": "This question tests understanding of self-efficacy. By asking about past successes in making changes, the coach is helping the patient recall mastery experiences, which are a primary source of self-efficacy. This can increase the patient's confidence in her ability to make and sustain new changes.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00834",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old man with type 2 diabetes tells his health care provider, \"I know I should check my blood sugar regularly, but I always forget.\" Which of the following responses best demonstrates the use of an open-ended question to explore barriers?",
+        "options": [
+            "A) \"How often do you think you should be checking your blood sugar?\"",
+            "B) \"What do you think might help you remember to check your blood sugar?\"",
+            "C) \"Do you think setting an alarm on your phone would help?\"",
+            "D) \"It's important to check your blood sugar regularly to manage your diabetes.\""
+        ],
+        "correct_answer": "B) \"What do you think might help you remember to check your blood sugar?\"",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of open-ended questions in motivational interviewing. The correct answer is an open-ended question that invites the patient to explore potential solutions to his barrier, promoting problem-solving and autonomy.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00835",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A health coach is working with a 35-year-old woman to improve her diet. The coach suggests keeping a food diary and joining a cooking class. This approach is most closely aligned with which theory of behavior change?",
+        "options": [
+            "A) Health Belief Model",
+            "B) Social Cognitive Theory",
+            "C) Theory of Planned Behavior",
+            "D) Transtheoretical Model"
+        ],
+        "correct_answer": "B) Social Cognitive Theory",
+        "page_reference": "29",
+        "rationale": "This question assesses understanding of behavior change theories. The suggested interventions align with Social Cognitive Theory, which emphasizes the importance of self-monitoring (food diary) and skill development (cooking class) in behavior change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00836",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 60-year-old man has been trying to lose weight for several months with little success. He tells his health coach, \"I've been sticking to my diet, but the scale hasn't budged in weeks. I might as well give up.\" Which of the following responses best demonstrates the use of reframing?",
+        "options": [
+            "A) \"Let's look at other measures of progress besides just the number on the scale.\"",
+            "B) \"It's normal for weight loss to plateau sometimes. Let's adjust your plan.\"",
+            "C) \"Don't give up now. You've come so far already.\"",
+            "D) \"How does giving up align with your health goals?\""
+        ],
+        "correct_answer": "A) \"Let's look at other measures of progress besides just the number on the scale.\"",
+        "page_reference": "44",
+        "rationale": "This question tests understanding of reframing in cognitive behavioral techniques. The correct answer invites the patient to consider a different perspective on his progress, potentially shifting his focus from the \"stuck\" scale number to other positive changes he may have experienced.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00837",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following best describes the \"righting reflex\" in the context of motivational interviewing?",
+        "options": [
+            "A) The tendency to automatically affirm a patient's progress",
+            "B) The urge to correct or fix a patient's problematic behaviour",
+            "C) The practice of reflecting back a patient's statements",
+            "D) The act of setting challenging goals for patients"
+        ],
+        "correct_answer": "B",
+        "page_reference": "38",
+        "rationale": "The \"righting reflex\" refers to the natural tendency of healthcare providers to want to correct or fix a patient's problematic behaviour. This is often counterproductive in motivational interviewing, as it can lead to resistance from the patient. Instead, motivational interviewing emphasises rolling with resistance and allowing the patient to generate their own reasons for change. Options A, C, and D do not accurately describe the righting reflex concept.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00838",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In motivational interviewing, what technique involves accepting and exploring a patient's reluctance to change rather than opposing it directly?",
+        "options": [
+            "A) Setting stretch goals",
+            "B) Invitational challenging",
+            "C) Rolling with resistance",
+            "D) Reframing thoughts"
+        ],
+        "correct_answer": "C",
+        "page_reference": "38",
+        "rationale": "\"Rolling with resistance\" is a key principle of motivational interviewing. It involves accepting and exploring a patient's reluctance to change rather than opposing it directly. This technique helps to avoid discord in the relationship by remaining nonjudgmental, listening well, and encouraging the patient to continue to share. Options A, B, and D are not specific principles of motivational interviewing as described in the given material.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00839",
+        "section_id": "02"
+    },
+    {
+        "question_text": "When a healthcare provider asks a patient, \"What would it take to increase your confidence level to an 8 to 10?\", this is an example of which motivational interviewing technique?",
+        "options": [
+            "A) Open-ended questioning",
+            "B) Affirmation",
+            "C) Reflection",
+            "D) Summarizing"
+        ],
+        "correct_answer": "A",
+        "page_reference": "35",
+        "rationale": "This question is an example of open-ended questioning, which is one of the core skills of motivational interviewing (part of the OARS technique: Open-ended questions, Affirmations, Reflections, Summaries). Open-ended questions cannot be answered with a one- or two-word response and encourage the patient to elaborate on their thoughts and feelings. In this case, the question prompts the patient to think about what factors might increase their confidence. Options B, C, and D represent other skills used in motivational interviewing but do not accurately describe the technique used in this specific question.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "00840",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 45-year-old woman with type 2 diabetes has been struggling to adhere to her medication regimen and make lifestyle changes. Her physician decides to use motivational interviewing techniques. Which of the following statements best reflects the core principle of motivational interviewing in this scenario?",
+        "options": [
+            "A) \"You need to take your medication regularly to avoid serious complications.\"",
+            "B) \"Let's explore your reasons for wanting to improve your health and what might be holding you back.\"",
+            "C) \"If you don't make these changes, your diabetes will likely worsen.\"",
+            "D) \"I'll create a strict plan for you to follow, which should solve these issues.\""
+        ],
+        "correct_answer": "B",
+        "page_reference": "Pages 38-39",
+        "rationale": "Motivational interviewing, as described by Miller and Rollnick, is a collaborative, goal-oriented style of communication designed to strengthen personal motivation for change. Option B reflects this approach by exploring the patient's own reasons for change and potential barriers, which is more likely to elicit \"change talk\" and build intrinsic motivation.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00555",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to Bandura's self-efficacy theory, which of the following experiences would most effectively increase a patient's self-efficacy for maintaining a regular exercise routine?",
+        "options": [
+            "A) Watching a video of people successfully exercising",
+            "B) Receiving verbal encouragement from their healthcare provider",
+            "C) Successfully completing a 30-minute walk three times a week for a month",
+            "D) Learning about the health benefits of regular exercise"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 34",
+        "rationale": "Bandura's self-efficacy theory emphasizes that mastery experiences are the most powerful source of self-efficacy. Option C represents a mastery experience where the patient has successfully performed the desired behaviour over time, which is likely to significantly boost their confidence in their ability to maintain the exercise routine.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00556",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 50-year-old man expresses interest in losing weight but states, \"I've tried dieting before, and it never works. I always gain the weight back.\" Based on the Transtheoretical Model of behaviour change, which stage is this patient most likely in?",
+        "options": [
+            "A) Precontemplation",
+            "B) Contemplation",
+            "C) Preparation",
+            "D) Action"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Pages 31-32",
+        "rationale": "The patient is expressing ambivalence about change, recognizing the need to lose weight but also expressing doubt based on past experiences. This aligns with the Contemplation stage of the Transtheoretical Model, where individuals are considering making a change within the next 6 months but are not yet committed to taking action.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00557",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A study by Hojat et al. (2011) found that physicians with high empathy scores were more likely to have patients with good HbA1c control. Which of the following best explains why physician empathy might lead to better clinical outcomes?",
+        "options": [
+            "A) Empathetic physicians are more likely to prescribe the latest medications",
+            "B) Patients of empathetic physicians are more likely to adhere to treatment plans",
+            "C) Empathetic physicians spend more time with their patients",
+            "D) Patients of empathetic physicians have less severe diabetes"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Page 43",
+        "rationale": "The study by Hojat et al. suggests that physician empathy is associated with better clinical outcomes, particularly in diabetes management. The most likely explanation for this is that patients of empathetic physicians feel more understood and supported, leading to better adherence to treatment plans and lifestyle recommendations.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00558",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Health Belief Model, which of the following interventions would be most effective in promoting behaviour change for a patient who doesn't believe they are at risk for developing cardiovascular disease?",
+        "options": [
+            "A) Providing detailed information about the effectiveness of statins",
+            "B) Offering a free gym membership",
+            "C) Personalizing the patient's risk factors and explaining their individual susceptibility",
+            "D) Demonstrating how to prepare heart-healthy meals"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 28",
+        "rationale": "The Health Belief Model posits that perceived susceptibility is a key factor in health behaviour change. By personalizing the patient's risk factors and explaining their individual susceptibility to cardiovascular disease, the intervention directly addresses the \"perceived susceptibility\" component of the model, which is likely to be most effective in promoting behaviour change in this scenario.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00559",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the study by Pollak et al. (2010) on physician communication techniques and weight loss, which of the following was found to be most effective in promoting patient weight loss?",
+        "options": [
+            "A) Providing detailed nutritional information",
+            "B) Prescribing specific exercise regimens",
+            "C) Using motivational interviewing techniques",
+            "D) Emphasizing the health risks of obesity"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 40",
+        "rationale": "The study by Pollak et al. (2010) found that patients whose physicians used motivational interviewing techniques lost more weight compared to those whose physicians did not use these techniques. This highlights the importance of communication style in promoting behaviour change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00560",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the research by Wing and Jeffery (1999) on social support and weight loss, which of the following strategies is most likely to improve weight loss outcomes?",
+        "options": [
+            "A) Encouraging patients to keep their weight loss goals private",
+            "B) Recruiting participants with friends for weight loss programs",
+            "C) Focusing solely on individual counselling sessions",
+            "D) Emphasizing competition between participants"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Page 50",
+        "rationale": "Wing and Jeffery's study found that recruiting participants with friends and increasing social support led to better weight loss and maintenance outcomes. This suggests that leveraging social connections can enhance the effectiveness of weight loss interventions.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00561",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Based on the Transtheoretical Model described by Prochaska and Velicer (1997), which of the following interventions would be most appropriate for a patient in the Preparation stage of change?",
+        "options": [
+            "A) Providing information about the health risks of their current behaviour",
+            "B) Helping them create a specific action plan with clear goals",
+            "C) Encouraging them to consider the possibility of change in the future",
+            "D) Focusing on strategies to prevent relapse"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Pages 31-32",
+        "rationale": "According to the Transtheoretical Model, individuals in the Preparation stage are planning to take action within the next month. The most appropriate intervention at this stage is to help them create a specific action plan with clear goals, as they are ready to make concrete steps towards change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00562",
+        "section_id": "02"
+    },
+    {
+        "question_text": "The systematic review by Sforzo et al. (2020) on health and wellness coaching found consistent effects in which two areas of behaviour change?",
+        "options": [
+            "A) Sleep and stress management",
+            "B) Exercise and nutrition",
+            "C) Smoking cessation and alcohol reduction",
+            "D) Medication adherence and chronic disease management"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Page 42",
+        "rationale": "The systematic review by Sforzo et al. (2020) found that the most consistent effects of health and wellness coaching were observed in both exercise and nutrition behaviour. This highlights the potential effectiveness of coaching interventions in these key areas of lifestyle medicine.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00563",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to Bandura's self-efficacy theory (1977), which of the following sources of self-efficacy is considered the most powerful in influencing behaviour change?",
+        "options": [
+            "A) Vicarious experiences",
+            "B) Verbal persuasion",
+            "C) Emotional arousal",
+            "D) Mastery experiences"
+        ],
+        "correct_answer": "D",
+        "page_reference": "Page 34",
+        "rationale": "Bandura's self-efficacy theory posits that mastery experiences are the most powerful source of self-efficacy. Successfully performing a behaviour increases one's confidence in their ability to perform that behaviour again in the future, making it a crucial component in promoting sustained behaviour change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00564",
+        "section_id": "02"
+    },
+    {
+        "question_text": "The 2013 AHA/ACC/TOS guidelines for the management of overweight and obesity in adults (Jensen et al., 2014) recommend which of the following as a key component of weight loss interventions?",
+        "options": [
+            "A) Focusing primarily on increasing physical activity",
+            "B) Emphasizing rapid weight loss in the first month",
+            "C) Providing a comprehensive lifestyle intervention",
+            "D) Prioritizing pharmacological treatments over behavioural changes"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 34",
+        "rationale": "The 2013 AHA/ACC/TOS guidelines emphasize the importance of providing a comprehensive lifestyle intervention for weight loss. This typically includes a combination of reduced calorie intake, increased physical activity, and behavioural strategies to facilitate adherence to diet and activity recommendations.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00565",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Based on the findings of Hojat et al. (2011) regarding physician empathy and clinical outcomes for diabetic patients, which of the following statements is most accurate?",
+        "options": [
+            "A) Physician empathy had no significant impact on patient outcomes",
+            "B) Patients of physicians with high empathy scores were more likely to have good HbA1c control",
+            "C) Physician empathy was only effective for patients with type 1 diabetes",
+            "D) High physician empathy was associated with worse clinical outcomes"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Page 43",
+        "rationale": "The study by Hojat et al. (2011) found that patients of physicians with high empathy scores were more likely to have good HbA1c control compared to those with low empathy scores. This underscores the importance of empathy in the physician-patient relationship and its potential impact on clinical outcomes.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00566",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Theory of Planned Behaviour, which of the following factors is considered the most important in predicting behaviour?",
+        "options": [
+            "A) Attitude towards the behaviour",
+            "B) Subjective norms",
+            "C) Perceived behavioural control",
+            "D) Behavioural intention"
+        ],
+        "correct_answer": "D",
+        "page_reference": "Page 28",
+        "rationale": "The Theory of Planned Behaviour states that behavioural intention is the most important factor in predicting behaviour. While attitude, subjective norms, and perceived behavioural control all contribute to behavioural intention, it is the intention itself that most directly predicts the likelihood of engaging in a specific behaviour.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00567",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the context of positive psychology and its application to health behaviour change, which of the following best describes the concept of \"flourishing\"?",
+        "options": [
+            "A) The absence of mental illness",
+            "B) Experiencing positive emotions frequently",
+            "C) Having a high level of life satisfaction",
+            "D) Feeling good, functioning well, and contributing to society"
+        ],
+        "correct_answer": "D",
+        "page_reference": "Page 41",
+        "rationale": "In positive psychology, flourishing is not just about feeling good or the absence of mental illness. It encompasses feeling good, functioning well in life, and contributing to society. This holistic view of well-being includes elements such as positive emotions, engagement, positive relationships, meaning, and accomplishment (PERMA).",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00568",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is NOT one of the core skills of Motivational Interviewing as described by the OARS acronym?",
+        "options": [
+            "A) Open-ended questions",
+            "B) Affirmations",
+            "C) Reflections",
+            "D) Suggestions"
+        ],
+        "correct_answer": "D",
+        "page_reference": "Page 38",
+        "rationale": "The core skills of Motivational Interviewing are represented by the acronym OARS: Open-ended questions, Affirmations, Reflections, and Summaries. Suggestions are not part of this core set of skills, as Motivational Interviewing focuses on eliciting change talk from the client rather than providing direct advice or suggestions.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00569",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Social Cognitive Theory, which of the following best describes the concept of \"reciprocal determinism\"?",
+        "options": [
+            "A) The influence of past experiences on future behaviour",
+            "B) The mutual influence of personal factors, environment, and behaviour on each other",
+            "C) The impact of social norms on individual decision-making",
+            "D) The role of reinforcement in shaping behaviour"
+        ],
+        "correct_answer": "B",
+        "page_reference": "Page 29",
+        "rationale": "In Social Cognitive Theory, reciprocal determinism refers to the idea that personal factors, environmental influences, and behaviour all operate as interlocking determinants of each other. This concept emphasizes the dynamic and reciprocal nature of the factors that influence human behaviour and learning.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00570",
+        "section_id": "02"
+    },
+    {
+        "question_text": "When using the ABCD method of behavioural change to help a patient reframe nonproductive thinking, what does the \"D\" stand for?",
+        "options": [
+            "A) Determine",
+            "B) Develop",
+            "C) Dispute",
+            "D) Decide"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 41",
+        "rationale": "In the ABCD method of behavioural change, \"D\" stands for Dispute. This step involves challenging or disputing the beliefs that seem to be distorted or unhealthy. It's a crucial part of cognitive restructuring, helping patients to replace nonproductive thoughts with more realistic and helpful ones.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00571",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the content on health coaching and behaviour change techniques, which of the following outcomes has been most consistently associated with health and wellness coaching interventions?",
+        "options": [
+            "A) Improved sleep quality",
+            "B) Reduced stress levels",
+            "C) Positive changes in exercise and nutrition behaviour",
+            "D) Enhanced medication adherence"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 42",
+        "rationale": "According to the systematic review by Sforzo et al. (2020), the most consistent effects of health and wellness coaching were observed in both exercise and nutrition behaviour. This finding highlights the potential effectiveness of coaching interventions in these key areas of lifestyle medicine.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00572",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the context of building therapeutic alliances with patients, which of the following is NOT mentioned as one of the five key components of trust?",
+        "options": [
+            "A) Benevolence",
+            "B) Honesty",
+            "C) Openness",
+            "D) Efficiency"
+        ],
+        "correct_answer": "D",
+        "page_reference": "Page 51",
+        "rationale": "The five key components of trust mentioned in building therapeutic alliances are benevolence, honesty, openness, reliability, and competence. Efficiency, while potentially important in healthcare delivery, is not specifically mentioned as one of these key trust components in the therapeutic alliance.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00573",
+        "section_id": "02"
+    },
+    {
+        "question_text": "When considering the social determinants of health in lifestyle medicine practice, which of the following is an example of a factor that the American Medical Association and United Healthcare have established an ICD-10 code to capture?",
+        "options": [
+            "A) Personal exercise habits",
+            "B) Dietary preferences",
+            "C) Food insecurity",
+            "D) Genetic predisposition to disease"
+        ],
+        "correct_answer": "C",
+        "page_reference": "Page 31",
+        "rationale": "Food insecurity is an example of a social determinant of health that has been recognized as significant enough to warrant its own ICD-10 code. This reflects the growing understanding of how social and environmental factors can significantly impact health outcomes and the need to address these factors in healthcare practice.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Study-Tool Based",
+        "question_id": "00574",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine team is developing an intervention for patients with prediabetes. Based on Social Cognitive Theory, which combination of elements would most effectively support sustainable behavior change?",
+        "options": [
+            "A) Providing detailed nutritional information and exercise guidelines",
+            "B) Offering regular group support sessions and progress tracking",
+            "C) Combining mastery experiences, peer modeling, verbal encouragement, and management of physiological feedback",
+            "D) Creating a reward system and accountability structure"
+        ],
+        "correct_answer": "C) Combining mastery experiences, peer modeling, verbal encouragement, and management of physiological feedback",
+        "page_reference": "29, 41",
+        "rationale": "According to Social Cognitive Theory, behavior change is influenced by four key components that build self-efficacy: mastery experiences (direct success), vicarious experiences (peer modeling), verbal/social persuasion (encouragement), and management of emotional/physiological states. This comprehensive approach addresses both the behavioral and environmental factors that influence behavior change, while also considering personal factors.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1056",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine physician is consulting with a 45-year-old woman who states, 'I've tried every diet and always gain the weight back. My mother and sister are both overweight, so I probably just have bad genes.' Using the ABCDE method of behavioral change, which sequence of responses would best help the patient reframe this nonproductive thinking?",
+        "options": [
+            "A) Acknowledge her frustration, blame genetics, challenge diet culture, discuss emotional eating, explore new options",
+            "B) Analyze past diets, build confidence, create new goals, develop support system, evaluate progress",
+            "C) Identify the activating event (failed diets), examine beliefs about genetics, explore consequences of this thinking, dispute the genetic determinism, discuss effect of new perspective",
+            "D) Investigate family dynamics, build motivation, create healthy habits, determine barriers, establish new patterns"
+        ],
+        "correct_answer": "C) Identify the activating event (failed diets), examine beliefs about genetics, explore consequences of this thinking, dispute the genetic determinism, discuss effect of new perspective",
+        "page_reference": "39-41",
+        "rationale": "The ABCDE method specifically addresses cognitive restructuring through: A (Action/activating event), B (Beliefs), C (Consequences), D (Disputing negative thinking), and E (Effect of new thinking). The correct response follows this framework systematically, addressing each component in sequence while maintaining focus on the specific cognitive distortion present.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1057",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine practitioner is working with several patients at different stages of change. One patient states, 'I know I should exercise, but I'm not ready to start yet. Maybe in a few months.' Another says, 'I've been walking daily for two weeks now.' And a third reports, 'I've maintained my plant-based diet for 8 months without any trouble.' According to the Transtheoretical Model, which stage-matched intervention sequence would be most appropriate for these patients, respectively?",
+        "options": [
+            "A) Provide health risk information, develop action plan, celebrate success",
+            "B) Create specific goals, prevent relapse, increase challenge level",
+            "C) Raise awareness of benefits, support current efforts with problem-solving, reinforce behavioral commitment",
+            "D) Set timeline for change, provide accountability, maintain status quo"
+        ],
+        "correct_answer": "C) Raise awareness of benefits, support current efforts with problem-solving, reinforce behavioral commitment",
+        "page_reference": "29-32",
+        "rationale": "This question tests understanding of stage-matched interventions in the Transtheoretical Model. The first patient is in Precontemplation (not ready for change within 6 months), requiring consciousness-raising about benefits. The second is in Action (actively making changes for less than 6 months), needing support and problem-solving. The third is in Maintenance (sustained change for over 6 months), requiring reinforcement and commitment strategies. The correct response sequence appropriately matches interventions to each stage.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1058",
+        "section_id": "02"
+    },
+    {
+        "question_text": "During a group visit focused on stress management, a patient becomes visibly upset and states, 'I've completely failed at meditation. I missed two days this week, so I might as well give up.' According to cognitive behavioral techniques, which combination of interventions would most effectively address this nonproductive thinking pattern?",
+        "options": [
+            "A) Provide reassurance about normal meditation challenges and suggest an easier practice",
+            "B) Recommend taking a break from meditation and trying a different stress management technique",
+            "C) Identify the all-or-nothing thinking, examine evidence for 'complete failure,' explore partial successes, and develop a more balanced view of progress",
+            "D) Focus on building a more consistent meditation schedule with reminders and accountability"
+        ],
+        "correct_answer": "C) Identify the all-or-nothing thinking, examine evidence for 'complete failure,' explore partial successes, and develop a more balanced view of progress",
+        "page_reference": "39-40",
+        "rationale": "The patient demonstrates classic all-or-nothing thinking, viewing any deviation from perfect practice as complete failure. The correct response follows CBT principles by: 1) identifying the specific cognitive distortion, 2) examining evidence that challenges the distorted thought, 3) acknowledging partial successes, and 4) helping develop a more realistic perspective. This comprehensive approach addresses both the cognitive distortion and builds a foundation for more sustainable behavior change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1059",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine program is implementing positive psychology principles through the PERMA model. Which combined intervention strategy would most effectively support lasting behavior change while adhering to positive psychology principles?",
+        "options": [
+            "A) Track positive emotions daily and celebrate small wins",
+            "B) Focus on building willpower and eliminating negative thoughts",
+            "C) Integrate strength-based activities, meaningful goals, supportive relationships, flow experiences, and recognition of accomplishments",
+            "D) Emphasize gratitude journaling and positive affirmations"
+        ],
+        "correct_answer": "C) Integrate strength-based activities, meaningful goals, supportive relationships, flow experiences, and recognition of accomplishments",
+        "page_reference": "41-42",
+        "rationale": "The PERMA model encompasses Positive emotions, Engagement (flow), Relationships, Meaning, and Accomplishment. The correct answer comprehensively addresses all five components: strength-based activities foster engagement and flow, meaningful goals provide purpose, supportive relationships build connection, and recognition of accomplishments builds confidence. This approach aligns with positive psychology's emphasis on building well-being through multiple complementary pathways rather than focusing on single elements.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1060",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A patient with a history of multiple unsuccessful behavior change attempts tells their lifestyle medicine physician, 'I keep trying to lose weight, but I just don't have enough willpower. I always give in when I'm stressed.' Using Self-Determination Theory and motivational interviewing principles, which response sequence would most effectively support the development of autonomous motivation?",
+        "options": [
+            "A) Provide stress management techniques and create a structured eating plan",
+            "B) Suggest tracking triggers and developing specific coping strategies",
+            "C) Explore personal values, examine past successes in other areas, identify meaningful reasons for change, and support autonomy in goal-setting",
+            "D) Focus on building accountability and establishing regular check-ins"
+        ],
+        "correct_answer": "C) Explore personal values, examine past successes in other areas, identify meaningful reasons for change, and support autonomy in goal-setting",
+        "page_reference": "30, 38",
+        "rationale": "Self-Determination Theory emphasizes that autonomous motivation leads to sustained behavior change. The correct response integrates this with MI principles by: exploring personal values (supporting autonomy), examining past successes (building competence), and identifying meaningful reasons for change (fostering relatedness). This approach helps shift from external motivation ('willpower') to internal motivation based on personal values and meaningful goals.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1061",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine practitioner notices that several patients have experienced lapses in their health behavior changes following major work deadlines. Which comprehensive relapse prevention strategy would most effectively address this pattern?",
+        "options": [
+            "A) Recommend taking time off work during stressful periods",
+            "B) Create a more flexible behavior change schedule",
+            "C) Develop a prevention plan identifying work stress triggers, plan specific coping responses, establish environmental supports, and reframe lapses as learning opportunities",
+            "D) Focus on building stronger habits before stressful periods"
+        ],
+        "correct_answer": "C) Develop a prevention plan identifying work stress triggers, plan specific coping responses, establish environmental supports, and reframe lapses as learning opportunities",
+        "page_reference": "48",
+        "rationale": "Effective relapse prevention requires a comprehensive approach that includes: identifying specific triggers (work deadlines), developing planned responses, creating environmental supports, and maintaining a learning orientation toward lapses. This strategy addresses both the predictable nature of the trigger and the need for systematic preparation, while also supporting psychological resilience through appropriate framing of lapses.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1062",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine clinic is working to repair trust with patients who have had negative healthcare experiences. Which combination of trust-building elements would most effectively address past healthcare trauma while establishing a therapeutic alliance?",
+        "options": [
+            "A) Set clear boundaries and maintain professional distance",
+            "B) Focus primarily on clinical outcomes and education",
+            "C) Demonstrate benevolence through caring interactions, maintain transparent communication, practice cultural humility, ensure reliability in follow-through, and display clinical competence",
+            "D) Emphasize provider expertise and evidence-based practices"
+        ],
+        "correct_answer": "C) Demonstrate benevolence through caring interactions, maintain transparent communication, practice cultural humility, ensure reliability in follow-through, and display clinical competence",
+        "page_reference": "51",
+        "rationale": "Building trust requires addressing five key elements: benevolence, honesty, openness, reliability, and competence. The correct answer integrates all these elements while specifically addressing the needs of patients with healthcare trauma. This comprehensive approach builds trust through consistent demonstration of care, cultural sensitivity, and professional reliability, rather than focusing solely on clinical or professional aspects.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1063",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine team is working with patients from diverse socioeconomic backgrounds on health behavior change. Which strategy would most effectively integrate social determinants of health considerations with behavior change support?",
+        "options": [
+            "A) Provide standard health education materials to all patients",
+            "B) Focus exclusively on individual motivation and goal-setting",
+            "C) Assess environmental barriers, develop contextually appropriate strategies, connect with community resources, and adapt interventions to cultural and social realities",
+            "D) Emphasize personal responsibility for health outcomes"
+        ],
+        "correct_answer": "C) Assess environmental barriers, develop contextually appropriate strategies, connect with community resources, and adapt interventions to cultural and social realities",
+        "page_reference": "31",
+        "rationale": "Effective behavior change support must consider social determinants of health, including economic, environmental, and cultural factors. The correct response integrates assessment of specific barriers, development of appropriate strategies, connection to resources, and cultural adaptation of interventions. This comprehensive approach acknowledges both individual and systemic factors influencing health behaviors.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1064",
+        "section_id": "02"
+    },
+    {
+        "question_text": "During a lifestyle medicine consultation, a patient states, 'I want to exercise but I'm too busy with work and family.' Which sequence of motivational interviewing responses would most effectively demonstrate the integration of OARS skills while evoking change talk?",
+        "options": [
+            "A) Provide advice about time management and exercise options",
+            "B) Share information about health benefits of exercise",
+            "C) Use open questions to explore values, affirm current efforts, reflect ambivalence, summarize motivation, and selectively respond to change talk",
+            "D) Focus on creating a structured exercise schedule"
+        ],
+        "correct_answer": "C) Use open questions to explore values, affirm current efforts, reflect ambivalence, summarize motivation, and selectively respond to change talk",
+        "page_reference": "38",
+        "rationale": "Effective motivational interviewing requires skilled integration of OARS (Open questions, Affirmations, Reflections, Summaries) while strategically evoking and responding to change talk. The correct response demonstrates this comprehensive approach by: using open questions to explore values, affirming efforts, reflecting ambivalence, summarizing motivation, and reinforcing change talk. This approach maintains the spirit of MI while utilizing specific technical skills.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1065",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine clinic is implementing the Health Belief Model (HBM) to improve medication adherence in patients with hypertension. Which combination of interventions would most effectively address all six key constructs of the HBM?",
+        "options": [
+            "A) Focus on medication benefits and provide reminder systems",
+            "B) Emphasize health risks and simplify medication regimens",
+            "C) Address perceived susceptibility to complications, discuss severity of uncontrolled hypertension, highlight treatment benefits, reduce barriers to adherence, identify cues to action, and build self-efficacy",
+            "D) Create accountability systems and provide education materials"
+        ],
+        "correct_answer": "C) Address perceived susceptibility to complications, discuss severity of uncontrolled hypertension, highlight treatment benefits, reduce barriers to adherence, identify cues to action, and build self-efficacy",
+        "page_reference": "28",
+        "rationale": "The Health Belief Model includes six key constructs: perceived susceptibility, perceived severity, perceived benefits, perceived barriers, cues to action, and self-efficacy. The correct answer systematically addresses all six components, providing a comprehensive framework for behavior change. This approach recognizes that successful behavior change requires addressing both perceptions of health threats and beliefs about the effectiveness of proposed actions.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1086",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine practitioner is helping a patient develop a physical activity goal using SMART criteria. Which of the following goals best demonstrates all components of the SMART framework?",
+        "options": [
+            "A) 'I will try to exercise more regularly this month'",
+            "B) 'I will walk briskly for 30 minutes, Monday through Friday at 5:30 PM, starting tomorrow, tracking progress with my fitness app'",
+            "C) 'I will exercise whenever I have free time'",
+            "D) 'I will do any type of exercise three times per week'"
+        ],
+        "correct_answer": "B) 'I will walk briskly for 30 minutes, Monday through Friday at 5:30 PM, starting tomorrow, tracking progress with my fitness app'",
+        "page_reference": "36",
+        "rationale": "SMART goals must be Specific (walking briskly), Measurable (30 minutes, tracked with app), Achievable (reasonable duration and frequency), Relevant (appropriate exercise choice), and Time-bound (specific days and time, starting tomorrow). The correct answer includes all these elements, while other options lack specificity, measurability, or time boundaries.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1087",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine program is implementing group visits for patients with prediabetes. Which combination of elements would most effectively leverage the benefits of shared medical appointments while addressing behavior change principles?",
+        "options": [
+            "A) Focus on providing standardized diabetes education to all participants",
+            "B) Schedule individual follow-up appointments after group sessions",
+            "C) Integrate peer support, shared goal-setting, vicarious learning experiences, group problem-solving, and collective progress monitoring",
+            "D) Deliver lectures on diabetes management and lifestyle changes"
+        ],
+        "correct_answer": "C) Integrate peer support, shared goal-setting, vicarious learning experiences, group problem-solving, and collective progress monitoring",
+        "page_reference": "50",
+        "rationale": "Effective group visits should leverage social learning theory and group dynamics while incorporating behavior change principles. The correct answer integrates key elements that make group visits effective: peer support (enhancing motivation), shared goal-setting (building commitment), vicarious learning (observing others' successes), group problem-solving (developing strategies), and collective monitoring (providing accountability).",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1088",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine clinic is implementing a new plant-based diet program using the Theory of Planned Behavior. Which combination of interventions would most effectively address all main constructs of this theory?",
+        "options": [
+            "A) Focus only on providing nutrition education and meal plans",
+            "B) Address environmental barriers and provide cooking classes",
+            "C) Target attitudes toward plant-based eating, address social norms, build behavioral control through skills training, and strengthen intentions through goal-setting",
+            "D) Emphasize health benefits and offer support groups"
+        ],
+        "correct_answer": "C) Target attitudes toward plant-based eating, address social norms, build behavioral control through skills training, and strengthen intentions through goal-setting",
+        "page_reference": "28-29",
+        "rationale": "The Theory of Planned Behavior includes six main constructs: attitude, behavioral intention, subjective norms, social norms, perceived power, and perceived behavioral control. The correct answer comprehensively addresses these elements by targeting attitudes (positive/negative evaluations), addressing social norms (others' beliefs and customs), building behavioral control (perceived ease/difficulty), and strengthening intentions (motivational factors).",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1185",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A community health program is implementing a new lifestyle intervention. According to the Diffusion of Innovation theory, which sequence of adoption would be most effective in promoting widespread behavior change?",
+        "options": [
+            "A) Target the majority population first to maximize impact",
+            "B) Focus on resistant individuals to overcome barriers early",
+            "C) Identify and engage innovators first, then early adopters, followed by early majority, late majority, and finally laggards",
+            "D) Implement the program uniformly across all population segments"
+        ],
+        "correct_answer": "C) Identify and engage innovators first, then early adopters, followed by early majority, late majority, and finally laggards",
+        "page_reference": "30",
+        "rationale": "The Diffusion of Innovation theory describes how new ideas or behaviors spread through a population. It identifies five adopter categories: innovators, early adopters, early majority, late majority, and laggards. The correct sequence recognizes that behavior change spreads most effectively when starting with innovators and early adopters, who then influence the broader population.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1186",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A patient's health behaviors are being influenced by various social determinants of health. Which combination of factors would most comprehensively represent the institutional, community, and policy influences on behavior change?",
+        "options": [
+            "A) Personal motivation and family support",
+            "B) Healthcare access and individual resources",
+            "C) Workplace policies, community design, social networks, and public health regulations",
+            "D) Educational level and income status"
+        ],
+        "correct_answer": "C) Workplace policies, community design, social networks, and public health regulations",
+        "page_reference": "30-31",
+        "rationale": "The notes identify multiple levels of influence on health behavior: institutional (workplace rules/policies), community factors (social networks, built environments), and public policy (regulations). The correct answer integrates these various levels of influence, recognizing that behavior change is affected by organizational policies, community design, social networks, and broader public health regulations.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1187",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A lifestyle medicine program is addressing social determinants of health in behavior change interventions. Which combination of factors would most effectively need to be assessed and addressed to support sustainable behavior change?",
+        "options": [
+            "A) Focus only on individual motivation and goals",
+            "B) Address financial resources and transportation",
+            "C) Consider income, education, occupation, food access, housing, transportation, social support, and environmental conditions",
+            "D) Evaluate personal habits and family history"
+        ],
+        "correct_answer": "C) Consider income, education, occupation, food access, housing, transportation, social support, and environmental conditions",
+        "page_reference": "31",
+        "rationale": "The notes identify specific social determinants of health including income level, educational opportunities, occupation, food security, housing, transportation, social support, and environmental conditions. The correct answer comprehensively addresses these multiple determinants, recognizing that effective behavior change support must consider and address these broader social and environmental factors.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "Supplementary",
+        "question_id": "1188",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following best describes the Health Belief Model's approach to understanding health behaviour?",
+        "options": [
+            "A) It focuses on the stages of change an individual goes through",
+            "B) It emphasizes the role of social learning in behaviour change",
+            "C) It proposes that personal beliefs or perceptions mostly influence health behaviour",
+            "D) It highlights the importance of self-efficacy in behaviour change"
+        ],
+        "correct_answer": "C) It proposes that personal beliefs or perceptions mostly influence health behaviour",
+        "page_reference": "Page 28",
+        "rationale": "The Health Belief Model proposes that personal beliefs or perceptions mostly influence health behaviour. This model has been used since the 1950s to explain and predict behaviour in adopting disease prevention strategies or complying with early disease detection screening.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00071",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Transtheoretical Model (TTM), how long must a person maintain a new health behaviour before entering the Maintenance stage?",
+        "options": [
+            "A) 1 month",
+            "B) 3 months",
+            "C) 6 months",
+            "D) 12 months"
+        ],
+        "correct_answer": "C) 6 months",
+        "page_reference": "Page 30",
+        "rationale": "According to the Transtheoretical Model (TTM), the Maintenance stage is reached when a patient has sustained the health behaviour change for at least 6 months without a relapse.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00072",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is NOT one of the four core skills of Motivational Interviewing (MI)?",
+        "options": [
+            "A) Open-ended questions",
+            "B) Affirmations",
+            "C) Reflections",
+            "D) Prescriptions"
+        ],
+        "correct_answer": "D) Prescriptions",
+        "page_reference": "Page 38",
+        "rationale": "The four core skills of Motivational Interviewing (MI), also known as OARS, are: Open-ended questions, Affirmations, Reflections, and Summaries. Prescriptions are not part of the core MI skills.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00073",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is a key principle of Social Cognitive Theory?",
+        "options": [
+            "A) Stages of change",
+            "B) Reciprocal determinism",
+            "C) Health belief model",
+            "D) Decisional balance"
+        ],
+        "correct_answer": "B) Reciprocal determinism",
+        "page_reference": "Page 29",
+        "rationale": "Reciprocal determinism is a key principle of Social Cognitive Theory. It states that the person, the behaviour, and the environment all influence each other in a dynamic and reciprocal fashion.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00074",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the context of Cognitive Behavioural Therapy (CBT), what is the ABCDE method used for?",
+        "options": [
+            "A) Assessing readiness to change",
+            "B) Developing action plans",
+            "C) Identifying and reframing nonproductive thinking",
+            "D) Measuring self-efficacy"
+        ],
+        "correct_answer": "C) Identifying and reframing nonproductive thinking",
+        "page_reference": "Page 41",
+        "rationale": "The ABCDE method, developed by Dr. Albert Ellis, is used in Cognitive Behavioural Therapy to help patients identify and reframe nonproductive thinking. It stands for Action, Beliefs, Consequences, Dispute, and Effect.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00075",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following best describes the concept of self-efficacy in the context of health behaviour change?",
+        "options": [
+            "A) The ability to set realistic goals",
+            "B) The confidence in one's ability to perform a behaviour successfully",
+            "C) The willingness to change a behaviour",
+            "D) The knowledge of health risks associated with a behaviour"
+        ],
+        "correct_answer": "B) The confidence in one's ability to perform a behaviour successfully",
+        "page_reference": "Page 29",
+        "rationale": "Self-efficacy is defined as the level of confidence to successfully perform a behaviour, which is influenced by one's behavioural capability and environmental facilitators or inhibitors.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00076",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary focus of positive psychology in relation to health behaviour change?",
+        "options": [
+            "A) Analysing past failures to avoid future mistakes",
+            "B) Identifying and treating psychological disorders",
+            "C) Emphasizing positive emotions, engagement, relationships, meaning, and accomplishment",
+            "D) Encouraging patients to ignore negative emotions"
+        ],
+        "correct_answer": "C) Emphasizing positive emotions, engagement, relationships, meaning, and accomplishment",
+        "page_reference": "Page 41",
+        "rationale": "Positive psychology focuses on increasing well-being by emphasizing positive emotions, engagement, positive relationships, meaning, and accomplishment, also known as PERMA.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00077",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is NOT a characteristic of a SMART goal?",
+        "options": [
+            "A) Specific",
+            "B) Measurable",
+            "C) Achievable",
+            "D) Rapid"
+        ],
+        "correct_answer": "D) Rapid",
+        "page_reference": "Page 36",
+        "rationale": "The SMART goal acronym stands for goals that are Specific, Measurable, Achievable, Relevant, and Timebound. \"Rapid\" is not part of the SMART criteria.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00078",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary purpose of using reflections in motivational interviewing?",
+        "options": [
+            "A) To provide expert advice to the patient",
+            "B) To help the patient create connections and bring awareness to what has been vocalized",
+            "C) To challenge the patient's beliefs about their behaviour",
+            "D) To diagnose underlying psychological issues"
+        ],
+        "correct_answer": "B) To help the patient create connections and bring awareness to what has been vocalized",
+        "page_reference": "Page 44",
+        "rationale": "Reflections are used in motivational interviewing to help the patient create connections, tap into emotions, and bring awareness to what has been vocalized.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00079",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Transtheoretical Model, in which stage of change is a person when they are considering making a change within the next 6 months?",
+        "options": [
+            "A) Precontemplation",
+            "B) Contemplation",
+            "C) Preparation",
+            "D) Action"
+        ],
+        "correct_answer": "B) Contemplation",
+        "page_reference": "Page 31",
+        "rationale": "In the Contemplation stage of the Transtheoretical Model, a person is considering making a change within the next 6 months.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00080",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is NOT one of the six key constructs of the Health Belief Model?",
+        "options": [
+            "A) Perceived susceptibility",
+            "B) Perceived severity",
+            "C) Perceived benefits",
+            "D) Perceived control"
+        ],
+        "correct_answer": "D) Perceived control",
+        "page_reference": "Page 28",
+        "rationale": "The six key constructs of the Health Belief Model are: Perceived susceptibility, Perceived severity, Perceived benefits, Perceived barriers, Cues to action, and Self-efficacy. Perceived control is not one of these constructs.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00081",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary goal of using the \"coach approach\" in lifestyle medicine?",
+        "options": [
+            "A) To provide expert medical advice",
+            "B) To prescribe specific treatments",
+            "C) To empower patients and foster collaborative relationships",
+            "D) To diagnose underlying health conditions"
+        ],
+        "correct_answer": "C) To empower patients and foster collaborative relationships",
+        "page_reference": "Page 33",
+        "rationale": "The \"coach approach\" in lifestyle medicine aims to use a collaborative communication style that positions patients as leaders and collaborators in the direction of their own care, empowering them and fostering collaborative relationships.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00082",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is an example of a \"mastery experience\" that can increase self-efficacy?",
+        "options": [
+            "A) Watching a video of someone successfully completing a task",
+            "B) Receiving verbal encouragement from a healthcare provider",
+            "C) Successfully completing a challenging task related to the health behaviour",
+            "D) Learning about the health benefits of a behaviour"
+        ],
+        "correct_answer": "C) Successfully completing a challenging task related to the health behaviour",
+        "page_reference": "Page 35",
+        "rationale": "Mastery experiences, which are the most effective way to build self-efficacy, occur when a person successfully completes a challenging task related to the health behaviour they are trying to change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00083",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary purpose of a relapse prevention plan?",
+        "options": [
+            "A) To prevent any lapses in behaviour change",
+            "B) To identify potential triggers and develop strategies to manage them",
+            "C) To punish individuals who relapse",
+            "D) To discourage individuals from attempting behaviour change"
+        ],
+        "correct_answer": "B) To identify potential triggers and develop strategies to manage them",
+        "page_reference": "Page 48",
+        "rationale": "The primary purpose of a relapse prevention plan is to assess potential triggers for lapses and develop strategies to manage these situations to prevent ongoing lapses or full relapse.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00084",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is NOT a component of the PERMA model in positive psychology?",
+        "options": [
+            "A) Positive emotions",
+            "B) Engagement",
+            "C) Relationships",
+            "D) Ambition"
+        ],
+        "correct_answer": "D) Ambition",
+        "page_reference": "Page 41-42",
+        "rationale": "The PERMA model in positive psychology consists of Positive emotions, Engagement, Relationships, Meaning, and Accomplishment. Ambition is not part of this model.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00085",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary difference between a \"lapse\" and a \"relapse\" in behaviour change?",
+        "options": [
+            "A) A lapse is intentional while a relapse is unintentional",
+            "B) A lapse is a short-term deviation while a relapse is a sustained return to previous behaviour",
+            "C) A lapse occurs in the action stage while a relapse occurs in the maintenance stage",
+            "D) A lapse is less serious than a relapse"
+        ],
+        "correct_answer": "B) A lapse is a short-term deviation while a relapse is a sustained return to previous behaviour",
+        "page_reference": "Page 48",
+        "rationale": "A lapse is defined as a short-term period when an action plan is not followed, while a relapse is a sustained period when an action plan is not followed.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00086",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is an example of a double-sided reflection in motivational interviewing?",
+        "options": [
+            "A) \"You want to exercise more, but you're worried about finding the time.\"",
+            "B) \"It sounds like you're feeling frustrated with your progress.\"",
+            "C) \"Can you tell me more about why exercise is important to you?\"",
+            "D) \"I understand that exercise can be challenging to fit into a busy schedule.\""
+        ],
+        "correct_answer": "A) \"You want to exercise more, but you're worried about finding the time.\"",
+        "page_reference": "Page 44",
+        "rationale": "A double-sided reflection in motivational interviewing reveals more than one perspective at the same time, often comparing a patient's verbalized readiness to change with a contrasting statement of resistance.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00087",
+        "section_id": "02"
+    },
+    {
+        "question_text": "According to the Transtheoretical Model, what is the primary focus of interventions in the Precontemplation stage?",
+        "options": [
+            "A) Developing specific action plans",
+            "B) Building self-efficacy for change",
+            "C) Raising awareness of the need for change",
+            "D) Preventing relapse"
+        ],
+        "correct_answer": "C) Raising awareness of the need for change",
+        "page_reference": "Page 31",
+        "rationale": "In the Precontemplation stage, interventions focus on raising awareness of the need for change, as individuals in this stage are not yet considering making a change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00088",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following is an example of a social determinant of health?",
+        "options": [
+            "A) Genetic predisposition to heart disease",
+            "B) Personal choice to smoke cigarettes",
+            "C) Access to affordable, nutritious food",
+            "D) Individual exercise habits"
+        ],
+        "correct_answer": "C) Access to affordable, nutritious food",
+        "page_reference": "Page 31",
+        "rationale": "Social determinants of health are the conditions in which people are born, grow, live, work, and age. Access to affordable, nutritious food is an example of a social determinant of health.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00089",
+        "section_id": "02"
+    },
+    {
+        "question_text": "What is the primary purpose of using people-first language in healthcare?",
+        "options": [
+            "A) To simplify medical terminology",
+            "B) To respect and honour patients instead of defining them by a disease or condition",
+            "C) To improve medical documentation",
+            "D) To comply with legal requirements"
+        ],
+        "correct_answer": "B) To respect and honour patients instead of defining them by a disease or condition",
+        "page_reference": "Page 34",
+        "rationale": "People-first language is used to respect and honour patients instead of defining them by a disease, condition, or disorder. It helps to ensure a safe and supportive environment in which patients are more inclined to discuss health behaviours.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00090",
+        "section_id": "02"
+    },
+    {
+        "question_text": "A 38-year-old man with type 2 diabetes has had unstable and high haemoglobin A1c (HbA1c) over several years. He recently moved to a new city and is seeing a new primary care provider. Over the past 12 weeks, his HbA1c has decreased from 7.9% to 6.7%. Which of the following physician attributes would most likely explain this improvement?",
+        "options": [
+            "A) Insightful reflections of adaptive patient behaviours",
+            "B) Highly developed capacity for empathy",
+            "C) Autonomy-supportive informational approach",
+            "D) Curious open inquiry about the reasons behind fluctuations"
+        ],
+        "correct_answer": "B) Highly developed capacity for empathy",
+        "page_reference": "Page 43",
+        "rationale": "The correct answer is B) Highly developed capacity for empathy. This is supported by the information on page 43, which states that \"Providers with high empathy scores from their patients were more likely to achieve good HbA1c control than those with low empathy scores (56% versus 40%).\" This suggests that a physician's capacity for empathy can significantly impact a patient's diabetes management, leading to improved HbA1c levels.",
+        "issue": "Incorrect number of options",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00091",
+        "section_id": "02"
+    },
+    {
+        "question_text": "Which of the following best describes the concept of \"mastery experiences\" in relation to building self-efficacy for health behaviour change?",
+        "options": [
+            "A) Observing others successfully perform a behaviour",
+            "B) Receiving verbal encouragement from a healthcare provider",
+            "C) Successfully completing a challenging task related to the health behaviour",
+            "D) Learning about the health benefits of a behaviour"
+        ],
+        "correct_answer": "C) Successfully completing a challenging task related to the health behaviour",
+        "page_reference": "Page 35",
+        "rationale": "The correct answer is C. As stated on page 35, mastery experiences, which are the most effective way to build self-efficacy, occur when a person successfully completes a challenging task related to the health behaviour they are trying to change.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00092",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the context of motivational interviewing, what is the primary purpose of using double-sided reflections?",
+        "options": [
+            "A) To challenge the patient's beliefs about their behaviour",
+            "B) To provide expert advice to the patient",
+            "C) To acknowledge both the patient's readiness to change and their resistance",
+            "D) To diagnose underlying psychological issues"
+        ],
+        "correct_answer": "C) To acknowledge both the patient's readiness to change and their resistance",
+        "page_reference": "Page 44",
+        "rationale": "The correct answer is C. As described on page 44, double-sided reflections in motivational interviewing reveal more than one perspective at the same time, often comparing a patient's verbalized readiness to change with a contrasting statement of resistance.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00093",
+        "section_id": "02"
+    },
+    {
+        "question_text": "When using the ABCDE method of behavioural change, what does the \"D\" stand for?",
+        "options": [
+            "A) Determination",
+            "B) Demonstration",
+            "C) Dispute",
+            "D) Development"
+        ],
+        "correct_answer": "C) Dispute",
+        "page_reference": "Page 41",
+        "rationale": "The correct answer is C. As explained on page 41, in the ABCDE method developed by DR Albert Ellis, \"D\" stands for Dispute, where the patient learns to dispute or challenge the beliefs that seem to be distorted or unhealthy.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00094",
+        "section_id": "02"
+    },
+    {
+        "question_text": "When a patient expresses frustration about not being able to stick to their exercise plan due to a busy work schedule, which of the following responses best demonstrates the use of cognitive behavioural techniques?",
+        "options": [
+            "A) \"You should try to wake up earlier to fit in your exercise.\"",
+            "B) \"How about we explore some ways you might see this situation differently?\"",
+            "C) \"Many people struggle with finding time to exercise. It's normal to feel frustrated.\"",
+            "D) \"Perhaps you should consider changing jobs to one with a more flexible schedule.\""
+        ],
+        "correct_answer": "B) \"How about we explore some ways you might see this situation differently?\"",
+        "page_reference": "Page 40",
+        "rationale": "The correct answer is B. As outlined on page 40, cognitive behavioural techniques involve helping patients recognize and reframe nonproductive thinking. By inviting the patient to consider different perspectives on their situation, the provider is using a key principle of cognitive behavioural therapy to address the patient's frustration and problem-solve.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00095",
+        "section_id": "02"
+    },
+    {
+        "question_text": "In the context of health behaviour change, what is the primary purpose of using the \"coach approach\" instead of the \"expert approach\"?",
+        "options": [
+            "A) To provide expert medical advice",
+            "B) To prescribe specific treatments",
+            "C) To empower patients and foster collaborative relationships",
+            "D) To diagnose underlying health conditions"
+        ],
+        "correct_answer": "C) To empower patients and foster collaborative relationships",
+        "page_reference": "Page 33",
+        "rationale": "The correct answer is C. As described on page 33, the \"coach approach\" in lifestyle medicine aims to use a collaborative communication style that positions patients as leaders and collaborators in the direction of their own care, empowering them and fostering collaborative relationships.",
+        "section": "Fundamentals of Health Behavior Change",
+        "question_type": "General",
+        "question_id": "00096",
+        "section_id": "02"
+    }
+]
