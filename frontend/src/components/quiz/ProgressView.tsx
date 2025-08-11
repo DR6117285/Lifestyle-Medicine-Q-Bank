@@ -244,3 +244,5 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
     </div>
   );
 };
+
+export default ProgressView;

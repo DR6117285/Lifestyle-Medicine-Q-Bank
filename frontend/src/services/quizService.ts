@@ -27,7 +27,18 @@ export class QuizService {
         .order('name');
 
       if (error) throw error;
-      return data || [];
+      
+      // Remove duplicates based on name and id
+      const uniqueSections = data?.reduce((acc: any[], current) => {
+        const existing = acc.find(item => item.id === current.id || item.name === current.name);
+        if (!existing) {
+          acc.push(current);
+        }
+        return acc;
+      }, []) || [];
+      
+      console.log('🔥 Fetched sections:', uniqueSections.length, 'unique sections');
+      return uniqueSections;
     } catch (error) {
       console.error('Error fetching sections:', error);
       throw new Error('Failed to fetch sections');

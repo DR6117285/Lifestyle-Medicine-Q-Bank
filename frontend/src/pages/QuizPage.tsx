@@ -51,9 +51,20 @@ export const QuizPage = () => {
         try {
           setIsLoadingSections(true);
           const sectionsData = await QuizService.getSections();
-          setSections(sectionsData);
+          console.log('🔥 Loaded sections for quiz page:', sectionsData);
+          
+          // Filter out any null, undefined, or duplicate sections
+          const validSections = sectionsData.filter((section, index, arr) => 
+            section && 
+            section.id && 
+            section.name &&
+            arr.findIndex(s => s.id === section.id) === index // Remove duplicates by id
+          );
+          
+          setSections(validSections);
         } catch (error) {
-          console.error('Failed to load sections:', error);
+          console.error('🔥 Failed to load sections:', error);
+          setSections([]); // Set empty array on error
         } finally {
           setIsLoadingSections(false);
         }
@@ -65,6 +76,8 @@ export const QuizPage = () => {
 
   // Start quiz
   const handleStartQuiz = async () => {
+    console.log('🔥 Start Quiz button clicked', { user: !!user, selectedMode, selectedSection });
+    
     if (!user) {
       alert('Please log in to start a quiz.');
       return;
@@ -83,11 +96,13 @@ export const QuizPage = () => {
     };
 
     try {
+      console.log('🔥 Initializing quiz with settings:', settings);
       await initializeQuiz(user.id, settings);
+      console.log('🔥 Quiz initialized successfully, moving to quiz step');
       setCurrentStep('quiz');
     } catch (error) {
-      console.error('Failed to start quiz:', error);
-      alert('Failed to start quiz. Please try again.');
+      console.error('🔥 Failed to start quiz:', error);
+      alert(`Failed to start quiz: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -465,7 +480,7 @@ export const QuizPage = () => {
               (selectedMode === 'section' && !selectedSection) ||
               !user
             }
-            className="btn-medical text-lg px-12 py-6 h-auto rounded-2xl font-bold shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="bg-primary text-white px-12 py-6 h-auto rounded-2xl font-bold shadow-2xl hover:shadow-primary/25 hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-lg"
           >
             {isLoading ? (
               <div className="flex items-center space-x-3">

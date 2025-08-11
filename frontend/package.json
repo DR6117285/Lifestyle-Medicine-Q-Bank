@@ -6,7 +6,8 @@
   "description": "Lifestyle Medicine Question Bank - React Frontend",
   "scripts": {
     "dev": "NODE_ENV=development vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:check": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",

@@ -4,7 +4,13 @@
   "description": "Import scripts for Lifestyle Medicine Question Bank",
   "type": "module",
   "scripts": {
-    "import": "node import-questions.js"
+    "import": "node import-questions.js",
+    "import:batch": "node batch-import-questions.js",
+    "cleanup": "node cleanup-database.js",
+    "refresh": "node complete-refresh.js",
+    "validate": "node validate-integrity.js",
+    "rollback": "node rollback-import.js",
+    "test": "node test-import.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",

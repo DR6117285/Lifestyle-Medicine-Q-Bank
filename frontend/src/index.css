@@ -1,9 +1,155 @@
 /* Import Inter Variable font for modern typography */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+/* Import sidebar fix styles */
+@import './styles/sidebar-fix.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Accessibility Improvements */
+@layer base {
+  /* Focus visible improvements */
+  .focus-visible *:focus {
+    @apply outline-none ring-2 ring-medical-500 ring-offset-2 ring-offset-background;
+  }
+
+  /* High contrast mode */
+  .high-contrast {
+    filter: contrast(1.5);
+  }
+
+  .high-contrast * {
+    @apply border-black text-black;
+  }
+
+  .high-contrast .bg-background {
+    @apply bg-white;
+  }
+
+  .high-contrast .bg-muted {
+    @apply bg-gray-200;
+  }
+
+  /* Large text mode */
+  .large-text {
+    font-size: 120%;
+  }
+
+  .large-text h1 {
+    font-size: 150%;
+  }
+
+  .large-text h2 {
+    font-size: 140%;
+  }
+
+  .large-text h3 {
+    font-size: 130%;
+  }
+
+  /* Reduced motion */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Screen reader optimizations */
+  .screen-reader-optimized {
+    line-height: 1.6;
+  }
+
+  .screen-reader-optimized h1,
+  .screen-reader-optimized h2,
+  .screen-reader-optimized h3,
+  .screen-reader-optimized h4,
+  .screen-reader-optimized h5,
+  .screen-reader-optimized h6 {
+    margin-bottom: 0.5em;
+  }
+
+  .screen-reader-optimized p {
+    margin-bottom: 1em;
+  }
+
+  /* Skip links */
+  .skip-link {
+    @apply absolute -top-full left-6 z-50 bg-background px-4 py-2 text-foreground;
+    @apply transition-all duration-300 focus:top-6;
+  }
+
+  /* Keyboard navigation helpers */
+  .kbd {
+    @apply inline-flex h-5 min-w-5 items-center justify-center rounded border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  button,
+  input,
+  select,
+  textarea,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improved spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Dark mode preferences */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Color contrast preferences */
+@media (prefers-contrast: high) {
+  :root {
+    --border: hsl(240 5% 26%);
+    --input: hsl(240 5% 26%);
+    --ring: hsl(240 5% 90%);
+  }
+}
 
 @layer base {
   :root {
@@ -107,9 +253,20 @@
     font-optical-sizing: auto;
   }
 
-  /* Improved focus styles for accessibility */
+  /* Enhanced focus styles for accessibility - WCAG 2.2 AA compliant */
   *:focus-visible {
-    @apply outline-none ring-2 ring-primary/70 ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  /* Ensure focus is never removed from interactive elements */
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  a:focus {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
   }
 
   /* Smooth transitions for interactive elements */
@@ -509,4 +666,135 @@ div[class*="bg-gray"],
 div[class*="bg-yellow"] {
   background-color: #f8fafc !important;
   background: #f8fafc !important;
+}
+
+/* SIDEBAR SPECIFIC YELLOW BACKGROUND REMOVAL */
+aside,
+aside *,
+[role="navigation"],
+[role="navigation"] *,
+.sidebar,
+.sidebar *,
+nav,
+nav * {
+  background-color: white !important;
+  background-image: none !important;
+}
+
+/* Forcefully remove any yellow-ish colors */
+*[style*="rgb(255, 255, 0)"],
+*[style*="rgb(255, 255, 224)"],
+*[style*="rgb(255, 248, 220)"],
+*[style*="rgb(254, 243, 199)"],
+*[style*="#ffff00"],
+*[style*="#fffaf0"],
+*[style*="#fef3c7"],
+*[style*="yellow"],
+div[style*="background-color: rgb(255"],
+div[style*="background: rgb(255"] {
+  background-color: white !important;
+  background-image: none !important;
+  background: white !important;
+}
+
+/* Professional Medical Sidebar Styling */
+.sidebar-medical {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.1), 0 8px 10px -6px rgba(14, 165, 233, 0.1) !important;
+}
+
+/* Navigation item styling */
+.nav-item-medical {
+  background: white !important;
+  border: 1px solid transparent !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.nav-item-medical:hover {
+  background: rgba(248, 250, 252, 0.8) !important;
+  border-color: rgba(14, 165, 233, 0.1) !important;
+  transform: translateX(2px) !important;
+}
+
+.nav-item-medical.active {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(20, 184, 166, 0.08) 100%) !important;
+  border-color: rgba(14, 165, 233, 0.2) !important;
+  color: rgb(14, 165, 233) !important;
+  box-shadow: inset 3px 0 0 rgb(14, 165, 233) !important;
+}
+
+/* User info section styling */
+.user-info-medical {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+  border-top: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Logo section styling */
+.logo-section-medical {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* NUCLEAR OPTION - REMOVE ALL YELLOWS */
+* {
+  background-image: none !important;
+}
+
+*[style*="background-color: yellow"],
+*[style*="background-color: #ffff00"],
+*[style*="background-color: rgb(255, 255, 0)"],
+*[class*="bg-yellow"],
+*[class*="yellow"],
+*[data-color="yellow"],
+.bg-yellow-50,
+.bg-yellow-100,
+.bg-yellow-200,
+.bg-yellow-300,
+.bg-yellow-400,
+.bg-yellow-500 {
+  background-color: white !important;
+  background-image: none !important;
+  background: white !important;
+}
+
+/* Sidebar and navigation specific overrides */
+aside, 
+aside div,
+aside nav,
+aside ul,
+aside li,
+aside a,
+aside button,
+aside span,
+aside p,
+aside h1, aside h2, aside h3, aside h4, aside h5, aside h6 {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Main sidebar container should be white */
+aside.sidebar,
+aside[class*="sidebar"],
+aside:first-child {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  background-image: none !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+/* Professional shadows for the sidebar */
+aside {
+  box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.1), 
+              0 8px 10px -6px rgba(14, 165, 233, 0.1), 
+              0 0 0 1px rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Ensure text gradient works properly */
+.text-gradient {
+  background: linear-gradient(135deg, rgb(14, 165, 233) 0%, rgb(20, 184, 166) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
 }

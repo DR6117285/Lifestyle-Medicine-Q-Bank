@@ -247,3 +247,5 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
     </div>
   );
 };
+
+export default ExamComplete;

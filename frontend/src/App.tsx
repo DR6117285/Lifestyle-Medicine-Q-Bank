@@ -2,15 +2,22 @@ import React, { useEffect, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
 import { checkSupabaseConnection } from '@/utils/supabaseClient';
+import { ToastProvider } from '@/components/ui/Toast';
+import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { OfflineBanner } from '@/components/ui/ConnectionStatus';
+import { useOnlineStatus } from '@/hooks/useOfflineSupport';
+import { useIsMobile } from '@/components/layout/MobileLayout';
 
 // Import components with error boundaries
 const Login = React.lazy(() => import('@/pages/Login').then(module => ({ default: module.Login })));
-const Dashboard = React.lazy(() => import('@/pages/Dashboard').then(module => ({ default: module.Dashboard })));
+const EnhancedDashboard = React.lazy(() => import('@/pages/EnhancedDashboard').then(module => ({ default: module.EnhancedDashboard })));
 const LandingPage = React.lazy(() => import('@/pages/LandingPage').then(module => ({ default: module.LandingPage })));
 const QuizPage = React.lazy(() => import('@/pages/QuizPage').then(module => ({ default: module.QuizPage })));
 const Statistics = React.lazy(() => import('@/pages/Statistics').then(module => ({ default: module.Statistics })));
 const AdminPanel = React.lazy(() => import('@/pages/AdminPanel').then(module => ({ default: module.AdminPanel })));
 const Layout = React.lazy(() => import('@/components/layout/Layout').then(module => ({ default: module.Layout })));
+const MobileLayout = React.lazy(() => import('@/components/layout/MobileLayout').then(module => ({ default: module.MobileLayout })));
 
 // Import new quiz components
 const ProgressView = React.lazy(() => import('@/components/quiz/ProgressView'));
@@ -40,50 +47,7 @@ const ProtectedRoute = ({ children, adminOnly = false }: { children: React.React
   return <>{children}</>;
 };
 
-// Error boundary component
-class ErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  { hasError: boolean; error?: Error }
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 React Error Boundary caught an error:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-red-50">
-          <div className="bg-white p-8 rounded-lg shadow-md max-w-lg">
-            <h1 className="text-2xl font-bold text-red-900 mb-4">Something went wrong</h1>
-            <p className="text-red-700 mb-4">
-              The app encountered an error. Please check the browser console for details.
-            </p>
-            <p className="text-sm text-gray-600 mb-4">
-              Error: {this.state.error?.message}
-            </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-            >
-              Reload Page
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
+// Note: ErrorBoundary is now imported from components/ui/ErrorBoundary.tsx
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -98,9 +62,14 @@ const LoadingFallback = () => (
 export default function App() {
   console.log('🔥 App: Component rendering');
   
+  // ALL HOOKS MUST BE CALLED AT THE TOP - BEFORE ANY EARLY RETURNS
   const { initialize, isLoading, isAuthenticated, error } = useAuthStore();
   const [supabaseStatus, setSupabaseStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+  const [showOfflineBanner, setShowOfflineBanner] = useState(false);
+  const isOnline = useOnlineStatus();
+  const isMobile = useIsMobile();
 
+  // Initialize Supabase connection and auth
   useEffect(() => {
     console.log('🔥 App: Starting initialization');
     
@@ -120,6 +89,15 @@ export default function App() {
       setSupabaseStatus('disconnected');
     });
   }, [initialize]);
+
+  // Handle offline banner visibility
+  useEffect(() => {
+    if (!isOnline && isAuthenticated) {
+      setShowOfflineBanner(true);
+    } else {
+      setShowOfflineBanner(false);
+    }
+  }, [isOnline, isAuthenticated]);
 
   console.log('🔥 App: Current state -', { isLoading, isAuthenticated, error: !!error, supabaseStatus });
 
@@ -166,99 +144,112 @@ export default function App() {
     return <LoadingFallback />;
   }
 
+  const AppLayout = isMobile ? MobileLayout : Layout;
+
   return (
     <ErrorBoundary>
-      <Router>
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
+      <AccessibilityProvider>
+        <ToastProvider>
+          <Router>
+            <OfflineBanner 
+              show={showOfflineBanner} 
+              onDismiss={() => setShowOfflineBanner(false)} 
+            />
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             
             {/* Protected Routes with Layout */}
             <Route path="/" element={
               <ProtectedRoute>
-                <Layout>
-                  <Dashboard />
-                </Layout>
+                <AppLayout>
+                  <EnhancedDashboard />
+                </AppLayout>
               </ProtectedRoute>
             } />
 
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Layout>
-                  <Dashboard />
-                </Layout>
+                <AppLayout>
+                  <EnhancedDashboard />
+                </AppLayout>
               </ProtectedRoute>
             } />
 
             <Route path="/landing" element={
               <ProtectedRoute>
-                <Layout>
+                <AppLayout>
                   <LandingPage />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
             
             <Route path="/quiz" element={
               <ProtectedRoute>
-                <Layout>
+                <AppLayout>
                   <QuizPage />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
 
             <Route path="/progress" element={
               <ProtectedRoute>
-                <Layout>
-                  <ProgressView />
-                </Layout>
+                <AppLayout>
+                  <ProgressView 
+                    onReturn={() => window.location.href = '/quiz'}
+                    onReturnHome={() => window.location.href = '/'}
+                  />
+                </AppLayout>
               </ProtectedRoute>
             } />
 
             <Route path="/exam" element={
               <ProtectedRoute>
-                <Layout>
+                <AppLayout>
                   <ExamInterface 
                     onComplete={() => window.location.href = '/exam/complete'} 
                     onExit={() => window.location.href = '/'} 
                   />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
 
             <Route path="/exam/complete" element={
               <ProtectedRoute>
-                <Layout>
+                <AppLayout>
                   <ExamComplete 
                     onReturnHome={() => window.location.href = '/'}
-                    onStartNewExam={() => window.location.href = '/exam'}
+                    onNewSession={() => window.location.href = '/exam'}
                     onReviewAnswers={() => window.location.href = '/review'}
                   />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
             
             <Route path="/statistics" element={
               <ProtectedRoute>
-                <Layout>
+                <AppLayout>
                   <Statistics />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
             
             <Route path="/admin" element={
               <ProtectedRoute adminOnly={true}>
-                <Layout>
+                <AppLayout>
                   <AdminPanel />
-                </Layout>
+                </AppLayout>
               </ProtectedRoute>
             } />
             
             {/* Catch all route */}
             <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </Router>
+            </Routes>
+            </Suspense>
+          </Router>
+        </ToastProvider>
+      </AccessibilityProvider>
     </ErrorBoundary>
   );
 }

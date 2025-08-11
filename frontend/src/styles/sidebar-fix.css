@@ -1,0 +1,112 @@
+/* 
+ * MEDICAL QUIZ APPLICATION - SIDEBAR FIX
+ * Comprehensive solution to remove yellow backgrounds and ensure professional medical theme
+ */
+
+/* EMERGENCY YELLOW BACKGROUND REMOVAL */
+*,
+*::before,
+*::after {
+  background-image: none !important;
+}
+
+/* Target all possible yellow variations */
+*[style*="yellow"],
+*[style*="rgb(255, 255, 0)"],
+*[style*="rgb(255, 255, 224)"],
+*[style*="rgb(255, 248, 220)"],
+*[style*="rgb(254, 243, 199)"],
+*[style*="#ffff00"],
+*[style*="#fffaf0"],
+*[style*="#fef3c7"],
+*[class*="bg-yellow"],
+*[class*="yellow"],
+*[data-color="yellow"],
+div[style*="background-color: rgb(255"],
+div[style*="background: rgb(255"] {
+  background-color: white !important;
+  background-image: none !important;
+  background: white !important;
+}
+
+/* SIDEBAR SPECIFIC STYLING */
+aside {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 
+    0 4px 20px -2px rgba(14, 165, 233, 0.1), 
+    0 8px 10px -6px rgba(14, 165, 233, 0.1), 
+    0 0 0 1px rgba(226, 232, 240, 0.8) !important;
+}
+
+/* All sidebar children should have transparent backgrounds */
+aside *,
+aside div,
+aside nav,
+aside ul,
+aside li,
+aside a,
+aside button,
+aside span,
+aside p,
+aside h1, aside h2, aside h3, aside h4, aside h5, aside h6 {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Navigation items professional styling */
+aside a[class*="nav-item"],
+aside .nav-item {
+  background: white !important;
+  border: 1px solid transparent !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+aside a[class*="nav-item"]:hover,
+aside .nav-item:hover {
+  background: rgba(248, 250, 252, 0.8) !important;
+  border-color: rgba(14, 165, 233, 0.1) !important;
+  transform: translateX(2px) !important;
+}
+
+aside a[class*="active"],
+aside .active {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(20, 184, 166, 0.08) 100%) !important;
+  border-color: rgba(14, 165, 233, 0.2) !important;
+  color: rgb(14, 165, 233) !important;
+  box-shadow: inset 3px 0 0 rgb(14, 165, 233) !important;
+}
+
+/* Logo and branding section */
+aside > div > div:first-child {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* User info section at bottom */
+aside > div > div:last-child {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+  border-top: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Text gradient for LMQB logo */
+.text-gradient {
+  background: linear-gradient(135deg, rgb(14, 165, 233) 0%, rgb(20, 184, 166) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
+}
+
+/* Professional medical colors */
+:root {
+  --medical-primary: rgb(14, 165, 233);
+  --medical-secondary: rgb(20, 184, 166);
+  --medical-background: rgb(248, 250, 252);
+  --medical-card: rgb(255, 255, 255);
+  --medical-border: rgba(226, 232, 240, 0.8);
+  --medical-text: rgb(15, 23, 42);
+  --medical-text-muted: rgb(100, 116, 139);
+}

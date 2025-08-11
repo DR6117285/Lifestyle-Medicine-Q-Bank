@@ -3,7 +3,21 @@ import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'spa-fallback',
+      configureServer(server) {
+        server.middlewares.use('/assets', (req, res, next) => next());
+        server.middlewares.use((req, res, next) => {
+          if (req.url && !req.url.includes('.') && req.headers.accept?.includes('text/html')) {
+            req.url = '/index.html';
+          }
+          next();
+        });
+      }
+    }
+  ],
   root: '.',
   publicDir: 'public',
   resolve: {
