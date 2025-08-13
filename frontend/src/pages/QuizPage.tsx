@@ -22,7 +22,7 @@ export const QuizPage = () => {
   // Quiz setup state
   const [currentStep, setCurrentStep] = useState<QuizStep>('setup');
   const [selectedMode, setSelectedMode] = useState<QuizMode>('random');
-  const [selectedSection, setSelectedSection] = useState<number | null>(null);
+  const [selectedSections, setSelectedSections] = useState<number[]>([]);
   const [timeLimit, setTimeLimit] = useState(30);
   const [questionCount, setQuestionCount] = useState(20);
   const [sections, setSections] = useState<Section[]>([]);
@@ -76,21 +76,21 @@ export const QuizPage = () => {
 
   // Start quiz
   const handleStartQuiz = async () => {
-    console.log('🔥 Start Quiz button clicked', { user: !!user, selectedMode, selectedSection });
+    console.log('🔥 Start Quiz button clicked', { user: !!user, selectedMode, selectedSections });
     
     if (!user) {
       alert('Please log in to start a quiz.');
       return;
     }
 
-    if (selectedMode === 'section' && !selectedSection) {
-      alert('Please select a section to continue.');
+    if (selectedMode === 'section' && selectedSections.length === 0) {
+      alert('Please select at least one section to continue.');
       return;
     }
 
     const settings: QuizSettings = {
       mode: selectedMode,
-      sectionId: selectedSection || undefined,
+      sectionIds: selectedSections.length > 0 ? selectedSections : undefined,
       questionCount,
       timeLimit: selectedMode === 'timed' ? timeLimit : undefined
     };
@@ -186,7 +186,7 @@ export const QuizPage = () => {
             <Play className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-5xl font-bold text-gradient mb-4">Practice Quiz</h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-800 font-semibold max-w-2xl mx-auto leading-relaxed">
             Choose your practice mode and start improving your knowledge with our comprehensive medical training system
           </p>
         </div>
@@ -219,12 +219,12 @@ export const QuizPage = () => {
                 )}
               </div>
               <CardTitle className="text-xl font-bold text-slate-900 mb-2">Random Practice</CardTitle>
-              <CardDescription className="text-slate-600 text-base">
+              <CardDescription className="text-slate-700 font-medium text-base">
                 Mixed questions from all sections
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-slate-600 leading-relaxed mb-4">
+              <p className="text-slate-700 font-medium leading-relaxed mb-4">
                 Great for general knowledge testing and discovering weak areas across all medical topics
               </p>
               <div className="flex items-center text-sm text-primary font-medium">
@@ -260,12 +260,12 @@ export const QuizPage = () => {
                 )}
               </div>
               <CardTitle className="text-xl font-bold text-slate-900 mb-2">Section Practice</CardTitle>
-              <CardDescription className="text-slate-600 text-base">
+              <CardDescription className="text-slate-700 font-medium text-base">
                 Focus on specific medical topics
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-slate-600 leading-relaxed mb-4">
+              <p className="text-slate-700 font-medium leading-relaxed mb-4">
                 Drill down on specific areas where you need improvement and master individual topics
               </p>
               <div className="flex items-center text-sm text-accent font-medium">
@@ -301,12 +301,12 @@ export const QuizPage = () => {
                 )}
               </div>
               <CardTitle className="text-xl font-bold text-slate-900 mb-2">Timed Quiz</CardTitle>
-              <CardDescription className="text-slate-600 text-base">
+              <CardDescription className="text-slate-700 font-medium text-base">
                 Simulate real exam conditions
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-slate-600 leading-relaxed mb-4">
+              <p className="text-slate-700 font-medium leading-relaxed mb-4">
                 Practice under time pressure to prepare for real exams and improve your speed
               </p>
               <div className="flex items-center text-sm text-green-600 font-medium">
@@ -329,7 +329,7 @@ export const QuizPage = () => {
               </div>
               <div>
                 <CardTitle className="text-2xl font-bold text-slate-900">Quiz Configuration</CardTitle>
-                <CardDescription className="text-slate-600 text-base">
+                <CardDescription className="text-slate-700 font-medium text-base">
                   Customize your practice session for optimal learning
                 </CardDescription>
               </div>
@@ -339,11 +339,33 @@ export const QuizPage = () => {
             {/* Section Selection (only for section mode) */}
             {selectedMode === 'section' && (
               <div className="space-y-4">
-                <div className="flex items-center space-x-2 mb-6">
-                  <BookOpen className="w-5 h-5 text-accent" />
-                  <label className="text-lg font-semibold text-slate-900">
-                    Choose Your Medical Section
-                  </label>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-2">
+                    <BookOpen className="w-5 h-5 text-accent" />
+                    <label className="text-lg font-semibold text-slate-900">
+                      Choose Your Medical Sections
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSelectedSections(sections.map(s => s.id))}
+                      className="text-xs"
+                      disabled={selectedSections.length === sections.length}
+                    >
+                      Select All
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSelectedSections([])}
+                      className="text-xs"
+                      disabled={selectedSections.length === 0}
+                    >
+                      Clear All
+                    </Button>
+                  </div>
                 </div>
                 {isLoadingSections ? (
                   <div className="flex justify-center py-12">
@@ -354,33 +376,50 @@ export const QuizPage = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {sections.map((section) => (
-                      <div
-                        key={section.id}
-                        className={`group p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
-                          selectedSection === section.id
-                            ? 'border-accent bg-gradient-to-br from-teal-50 to-teal-100/50 shadow-lg ring-1 ring-accent/20'
-                            : 'border-slate-200 hover:border-accent/50 hover:shadow-md bg-white/50 backdrop-blur-sm'
-                        }`}
-                        onClick={() => setSelectedSection(section.id)}
-                      >
-                        <div className="flex items-start justify-between mb-3">
-                          <h3 className="font-bold text-slate-900 text-lg leading-tight">{section.name}</h3>
-                          {selectedSection === section.id && (
-                            <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
-                              <div className="w-2 h-2 rounded-full bg-white"></div>
+                    {sections.map((section) => {
+                      const isSelected = selectedSections.includes(section.id);
+                      const handleToggleSection = () => {
+                        setSelectedSections(prev => 
+                          isSelected 
+                            ? prev.filter(id => id !== section.id)
+                            : [...prev, section.id]
+                        );
+                      };
+
+                      return (
+                        <div
+                          key={section.id}
+                          className={`group p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+                            isSelected
+                              ? 'border-accent bg-gradient-to-br from-teal-50 to-teal-100/50 shadow-lg ring-1 ring-accent/20'
+                              : 'border-slate-200 hover:border-accent/50 hover:shadow-md bg-white/50 backdrop-blur-sm'
+                          }`}
+                          onClick={handleToggleSection}
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <h3 className="font-bold text-slate-900 text-lg leading-tight pr-4">{section.name}</h3>
+                            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
+                              isSelected 
+                                ? 'bg-accent border-accent' 
+                                : 'border-slate-300 group-hover:border-accent/50'
+                            }`}>
+                              {isSelected && (
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              )}
                             </div>
-                          )}
+                          </div>
+                          <p className="text-slate-700 font-medium leading-relaxed text-sm">
+                            {section.description || 'Comprehensive medical knowledge section covering essential topics'}
+                          </p>
+                          <div className="flex items-center mt-3 text-xs text-slate-700 font-semibold opacity-80 group-hover:opacity-100 transition-opacity">
+                            <ArrowRight className="w-3 h-3 mr-1" />
+                            Click to {isSelected ? 'deselect' : 'select'} this section
+                          </div>
                         </div>
-                        <p className="text-slate-600 leading-relaxed text-sm">
-                          {section.description || 'Comprehensive medical knowledge section covering essential topics'}
-                        </p>
-                        <div className="flex items-center mt-3 text-xs text-accent font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-                          <ArrowRight className="w-3 h-3 mr-1" />
-                          Click to select this section
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -477,7 +516,7 @@ export const QuizPage = () => {
             onClick={handleStartQuiz}
             disabled={
               isLoading || 
-              (selectedMode === 'section' && !selectedSection) ||
+              (selectedMode === 'section' && selectedSections.length === 0) ||
               !user
             }
             className="bg-primary text-white px-12 py-6 h-auto rounded-2xl font-bold shadow-2xl hover:shadow-primary/25 hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-lg"
@@ -497,12 +536,21 @@ export const QuizPage = () => {
 
           {/* Helper Messages */}
           <div className="text-center space-y-2">
-            {selectedMode === 'section' && !selectedSection && (
-              <p className="text-amber-600 font-medium flex items-center justify-center space-x-2">
+            {selectedMode === 'section' && selectedSections.length === 0 && (
+              <p className="text-slate-600 font-medium flex items-center justify-center space-x-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L4.316 15.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
-                <span>Please select a medical section to continue</span>
+                <span>Please select at least one medical section to continue</span>
+              </p>
+            )}
+
+            {selectedMode === 'section' && selectedSections.length > 0 && (
+              <p className="text-slate-600 font-medium flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-green-700">{selectedSections.length} section{selectedSections.length > 1 ? 's' : ''} selected</span>
               </p>
             )}
 

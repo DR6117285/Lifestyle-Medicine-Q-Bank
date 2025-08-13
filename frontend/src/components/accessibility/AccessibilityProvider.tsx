@@ -1,18 +1,34 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
+/**
+ * Configuration interface for accessibility settings
+ */
 interface AccessibilitySettings {
+  /** Reduce or disable animations and transitions */
   reduceMotion: boolean;
+  /** Enable high contrast mode for better visibility */
   highContrast: boolean;
+  /** Increase font sizes throughout the application */
   largeText: boolean;
+  /** Show focus indicators for keyboard navigation */
   focusVisible: boolean;
+  /** Optimize content and behavior for screen readers */
   screenReaderOptimized: boolean;
+  /** Enable enhanced keyboard navigation features */
   keyboardNavigation: boolean;
 }
 
+/**
+ * Context value interface for accessibility functionality
+ */
 interface AccessibilityContextValue {
+  /** Current accessibility settings */
   settings: AccessibilitySettings;
+  /** Function to update a specific accessibility setting */
   updateSetting: (key: keyof AccessibilitySettings, value: boolean) => void;
+  /** Function to announce messages to screen readers */
   announceToScreenReader: (message: string, priority?: 'polite' | 'assertive') => void;
+  /** Function to reset all settings to defaults */
   resetSettings: () => void;
 }
 

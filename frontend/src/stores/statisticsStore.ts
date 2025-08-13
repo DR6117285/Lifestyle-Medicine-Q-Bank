@@ -45,6 +45,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
         
         // Check if we should use cached data
         if (!forceRefresh && state.statistics && state.isDataFresh()) {
+          console.log('[STATS] Using cached statistics data');
           return;
         }
 
@@ -55,7 +56,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
             error: null 
           });
 
-          console.log('Fetching statistics for user:', userId, 'with filters:', state.filters);
+          console.log('[STATS] Fetching statistics for user:', userId, 'with filters:', state.filters);
 
           const response = await StatisticsService.getUserStatistics(userId, state.filters);
 
@@ -68,10 +69,10 @@ export const useStatisticsStore = create<StatisticsStore>()(
               error: null
             });
 
-            console.log('Statistics fetched successfully:', response.data);
+            console.log('[STATS] Statistics fetched successfully:', response.data);
           } else {
             const errorMessage = response.error || 'Failed to fetch statistics';
-            console.error('Statistics fetch failed:', errorMessage);
+            console.error('[STATS] Statistics fetch failed:', errorMessage);
             
             set({
               error: errorMessage,
@@ -81,7 +82,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
           }
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Unexpected error occurred';
-          console.error('Statistics fetch error:', error);
+          console.error('[STATS] Statistics fetch error:', error);
           
           set({
             error: errorMessage,
@@ -93,11 +94,14 @@ export const useStatisticsStore = create<StatisticsStore>()(
 
       refreshStatistics: async (userId: string) => {
         const state = get();
+        const startTime = Date.now();
         
         try {
+          console.log('[STATS] Starting statistics refresh for user:', userId);
           set({ isRefreshing: true, error: null });
 
           // Refresh the materialized view first
+          console.log('[STATS] Refreshing materialized view...');
           await StatisticsService.refreshStatistics();
           
           // Wait a moment for the view to refresh
@@ -107,6 +111,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
           const response = await StatisticsService.getUserStatistics(userId, state.filters);
 
           if (response.success && response.data) {
+            const duration = Date.now() - startTime;
             set({
               statistics: response.data,
               lastFetch: Date.now(),
@@ -114,10 +119,10 @@ export const useStatisticsStore = create<StatisticsStore>()(
               error: null
             });
 
-            console.log('Statistics refreshed successfully');
+            console.log(`[STATS] Statistics refreshed successfully in ${duration}ms`);
           } else {
             const errorMessage = response.error || 'Failed to refresh statistics';
-            console.error('Statistics refresh failed:', errorMessage);
+            console.error('[STATS] Statistics refresh failed:', errorMessage);
             
             set({
               error: errorMessage,
@@ -126,7 +131,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
           }
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Failed to refresh statistics';
-          console.error('Statistics refresh error:', error);
+          console.error('[STATS] Statistics refresh error:', error);
           
           set({
             error: errorMessage,
@@ -149,7 +154,7 @@ export const useStatisticsStore = create<StatisticsStore>()(
           statistics: null
         });
 
-        console.log('Statistics filters updated:', updatedFilters);
+        console.log('[STATS] Statistics filters updated:', updatedFilters);
       },
 
       clearError: () => {
@@ -162,11 +167,11 @@ export const useStatisticsStore = create<StatisticsStore>()(
           lastFetch: null,
           error: null
         });
-        console.log('Statistics cache cleared');
+        console.log('[STATS] Statistics cache cleared');
       },
 
       handleQuizCompletion: async (userId: string) => {
-        console.log('Handling quiz completion, refreshing statistics...');
+        console.log('[STATS] Handling quiz completion, refreshing statistics...');
         
         // Invalidate cache immediately
         set({ lastFetch: null });

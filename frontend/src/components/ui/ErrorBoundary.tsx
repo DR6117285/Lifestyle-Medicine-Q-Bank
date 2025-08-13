@@ -81,7 +81,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <CardContent className="space-y-4">
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <details className="text-xs">
-                  <summary className="cursor-pointer text-muted-foreground mb-2">
+                  <summary className="cursor-pointer text-slate-600 dark:text-slate-300 font-medium mb-2">
                     Error Details (Development)
                   </summary>
                   <pre className="bg-muted p-3 rounded text-xs overflow-auto">

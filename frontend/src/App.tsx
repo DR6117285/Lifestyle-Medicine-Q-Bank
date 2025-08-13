@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { OfflineBanner } from '@/components/ui/ConnectionStatus';
 import { useOnlineStatus } from '@/hooks/useOfflineSupport';
 import { useIsMobile } from '@/components/layout/MobileLayout';
+import { ProtectedRoute, PublicRoute } from '@/components/auth/ProtectedRoute';
 
 // Import components with error boundaries
 const Login = React.lazy(() => import('@/pages/Login').then(module => ({ default: module.Login })));
@@ -20,41 +21,19 @@ const Layout = React.lazy(() => import('@/components/layout/Layout').then(module
 const MobileLayout = React.lazy(() => import('@/components/layout/MobileLayout').then(module => ({ default: module.MobileLayout })));
 
 // Import new quiz components
-const ProgressView = React.lazy(() => import('@/components/quiz/ProgressView'));
-const ExamInterface = React.lazy(() => import('@/components/quiz/ExamInterface'));
-const ExamComplete = React.lazy(() => import('@/components/quiz/ExamComplete'));
+const ProgressView = React.lazy(() => import('@/components/quiz/ProgressView').then(module => ({ default: module.default })));
+const ExamInterface = React.lazy(() => import('@/components/quiz/ExamInterface').then(module => ({ default: module.default })));
+const ExamComplete = React.lazy(() => import('@/components/quiz/ExamComplete').then(module => ({ default: module.default })));
 
-// Simple ProtectedRoute component
-const ProtectedRoute = ({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) => {
-  const { user, isAuthenticated, isLoading } = useAuthStore();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (adminOnly && user?.role !== 'admin') {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
-};
 
 // Note: ErrorBoundary is now imported from components/ui/ErrorBoundary.tsx
 
 // Loading fallback
 const LoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+  <div className="min-h-screen flex items-center justify-center bg-background">
     <div className="text-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-      <p className="mt-4 text-gray-600">Loading...</p>
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+      <p className="mt-4 text-muted-foreground">Loading...</p>
     </div>
   </div>
 );
@@ -78,9 +57,16 @@ export default function App() {
       console.log('🔥 App: Supabase connection check result:', isConnected);
       setSupabaseStatus(isConnected ? 'connected' : 'disconnected');
       if (isConnected) {
-        initialize().catch(err => {
-          console.error('🔥 App: Failed to initialize:', err);
-        });
+        // Initialize auth if not already authenticated, not loading, and not already initializing
+        const authState = useAuthStore.getState();
+        if (!isAuthenticated && !isLoading && !authState._isInitializing) {
+          console.log('🔥 App: Starting auth initialization');
+          initialize().catch(err => {
+            console.error('🔥 App: Failed to initialize auth:', err);
+          });
+        } else {
+          console.log('🔥 App: Auth already initialized, loading, or initializing');
+        }
       } else {
         console.error('🔥 App: Supabase is not connected. Please start the backend.');
       }
@@ -88,7 +74,7 @@ export default function App() {
       console.error('🔥 App: Error checking Supabase connection:', err);
       setSupabaseStatus('disconnected');
     });
-  }, [initialize]);
+  }, [initialize, isAuthenticated, isLoading]);
 
   // Handle offline banner visibility
   useEffect(() => {
@@ -116,22 +102,22 @@ export default function App() {
 
   if (supabaseStatus === 'disconnected') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-red-50">
-        <div className="bg-white p-8 rounded-lg shadow-md max-w-lg text-center">
-          <h1 className="text-2xl font-bold text-red-900 mb-4">Backend Connection Failed</h1>
-          <p className="text-red-700 mb-4">
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="bg-card p-8 rounded-lg shadow-medical max-w-lg text-center border border-destructive/20">
+          <h1 className="text-2xl font-bold text-destructive mb-4">Backend Connection Failed</h1>
+          <p className="text-destructive/80 mb-4">
             Cannot connect to Supabase backend. Please ensure the backend is running.
           </p>
-          <div className="text-sm text-gray-600 mb-4">
-            <p className="mb-2"><strong>To start the backend:</strong></p>
-            <div className="bg-gray-100 p-3 rounded font-mono text-left">
+          <div className="text-sm text-muted-foreground mb-4">
+            <p className="mb-2 text-foreground"><strong>To start the backend:</strong></p>
+            <div className="bg-muted p-3 rounded font-mono text-left text-foreground">
               cd backend/docker<br/>
               ./start-supabase.sh
             </div>
           </div>
           <button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="btn-medical"
           >
             Retry Connection
           </button>
@@ -158,11 +144,15 @@ export default function App() {
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
             {/* Public Routes */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
             
             {/* Protected Routes with Layout */}
             <Route path="/" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <EnhancedDashboard />
                 </AppLayout>
@@ -170,7 +160,7 @@ export default function App() {
             } />
 
             <Route path="/dashboard" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <EnhancedDashboard />
                 </AppLayout>
@@ -178,7 +168,7 @@ export default function App() {
             } />
 
             <Route path="/landing" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <LandingPage />
                 </AppLayout>
@@ -186,7 +176,7 @@ export default function App() {
             } />
             
             <Route path="/quiz" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <QuizPage />
                 </AppLayout>
@@ -194,7 +184,7 @@ export default function App() {
             } />
 
             <Route path="/progress" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <ProgressView 
                     onReturn={() => window.location.href = '/quiz'}
@@ -205,7 +195,7 @@ export default function App() {
             } />
 
             <Route path="/exam" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <ExamInterface 
                     onComplete={() => window.location.href = '/exam/complete'} 
@@ -216,7 +206,7 @@ export default function App() {
             } />
 
             <Route path="/exam/complete" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <ExamComplete 
                     onReturnHome={() => window.location.href = '/'}
@@ -228,7 +218,7 @@ export default function App() {
             } />
             
             <Route path="/statistics" element={
-              <ProtectedRoute>
+              <ProtectedRoute requireAuth={true}>
                 <AppLayout>
                   <Statistics />
                 </AppLayout>
@@ -236,7 +226,7 @@ export default function App() {
             } />
             
             <Route path="/admin" element={
-              <ProtectedRoute adminOnly={true}>
+              <ProtectedRoute requireAuth={true} requiredRole="admin">
                 <AppLayout>
                   <AdminPanel />
                 </AppLayout>

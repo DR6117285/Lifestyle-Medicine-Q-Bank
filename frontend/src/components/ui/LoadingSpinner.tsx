@@ -19,7 +19,7 @@ const sizeClasses = {
 
 const variantClasses = {
   default: 'text-primary',
-  medical: 'text-medical-600',
+  medical: 'text-slate-600',
   success: 'text-success-600'
 };
 
@@ -44,7 +44,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         )} 
       />
       {text && (
-        <span className="text-sm text-muted-foreground animate-pulse">
+        <span className="text-sm text-slate-600 dark:text-slate-300 font-medium animate-pulse">
           {text}
         </span>
       )}

@@ -173,10 +173,10 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
   };
 
   const getTimeRemainingColor = () => {
-    if (!timeRemaining) return 'text-slate-600';
-    if (timeRemaining < 300) return 'text-red-600'; // Less than 5 minutes
-    if (timeRemaining < 900) return 'text-yellow-600'; // Less than 15 minutes
-    return 'text-green-600';
+    if (!timeRemaining) return 'text-slate-600 dark:text-slate-300';
+    if (timeRemaining < 300) return 'text-destructive'; // Less than 5 minutes
+    if (timeRemaining < 900) return 'text-orange-600'; // Less than 15 minutes
+    return 'text-success';
   };
 
   if (isLoading || !isInitialized) {
@@ -186,7 +186,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
           <CardContent className="p-8 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <h2 className="text-xl font-semibold mb-2">Preparing Your Exam</h2>
-            <p className="text-muted-foreground">
+            <p className="text-slate-600 dark:text-slate-300 font-medium">
               Setting up your comprehensive lifestyle medicine exam...
             </p>
           </CardContent>
@@ -198,11 +198,11 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Card className="w-full max-w-lg border-red-200">
+        <Card className="w-full max-w-lg border-destructive/20 bg-destructive/5">
           <CardContent className="p-8 text-center">
-            <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold mb-2 text-red-900">Exam Setup Failed</h2>
-            <p className="text-red-700 mb-4">{error}</p>
+            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2 text-destructive">Exam Setup Failed</h2>
+            <p className="text-destructive/80 mb-4">{error}</p>
             <div className="flex gap-3 justify-center">
               <Button onClick={clearError} variant="outline">
                 Try Again
@@ -223,9 +223,9 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-lg">
           <CardContent className="p-8 text-center">
-            <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <BookOpen className="h-12 w-12 text-slate-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">No Questions Available</h2>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-slate-600 dark:text-slate-300 font-medium mb-4">
               There are no exam questions available at this time.
             </p>
             <Button onClick={onExit}>
@@ -275,7 +275,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
             </div>
             
             <div className="flex items-center gap-6">
-              <div className="text-sm text-muted-foreground" aria-live="polite">
+              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium" aria-live="polite">
                 Question {progress.current} of {progress.total}
               </div>
               
@@ -290,7 +290,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                 </div>
               )}
               
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">
                 Skipped: {skippedQuestions.size}
               </div>
             </div>
@@ -348,9 +348,9 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                     <label
                       key={option.option_key}
                       className={`p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 block ${
-                        isSelected && !showRationale ? 'border-primary bg-primary/5' :
-                        showRationale && isCorrectOption ? 'border-green-500 bg-green-50' :
-                        showRationale && isWrongSelection ? 'border-red-500 bg-red-50' :
+                        isSelected && !showRationale ? 'border-primary bg-primary/10' :
+                        showRationale && isCorrectOption ? 'border-success bg-success/10' :
+                        showRationale && isWrongSelection ? 'border-destructive bg-destructive/10' :
                         'border-border hover:border-primary/50 hover:bg-muted/50'
                       } ${showRationale ? 'cursor-default' : ''}`}
                       htmlFor={`option-${option.option_key}`}
@@ -369,9 +369,9 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                       <div className="flex items-start gap-3">
                         <div 
                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold ${
-                            isSelected && !showRationale ? 'border-primary bg-primary text-white' :
-                            showRationale && isCorrectOption ? 'border-green-500 bg-green-500 text-white' :
-                            showRationale && isWrongSelection ? 'border-red-500 bg-red-500 text-white' :
+                            isSelected && !showRationale ? 'border-primary bg-primary text-primary-foreground' :
+                            showRationale && isCorrectOption ? 'border-success bg-success text-success-foreground' :
+                            showRationale && isWrongSelection ? 'border-destructive bg-destructive text-destructive-foreground' :
                             'border-muted-foreground'
                           }`}
                           aria-hidden="true"
@@ -383,10 +383,10 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                         </div>
                         
                         {showRationale && isCorrectOption && (
-                          <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
+                          <CheckCircle className="h-5 w-5 text-success shrink-0" />
                         )}
                         {showRationale && isWrongSelection && (
-                          <AlertCircle className="h-5 w-5 text-red-500 shrink-0" />
+                          <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
                         )}
                       </div>
                     </label>
@@ -453,12 +453,12 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
               <CardTitle className="text-lg flex items-center gap-2">
                 {currentQuestion.isCorrect ? (
                   <>
-                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <CheckCircle className="h-5 w-5 text-success" />
                     Correct!
                   </>
                 ) : (
                   <>
-                    <AlertCircle className="h-5 w-5 text-red-600" />
+                    <AlertCircle className="h-5 w-5 text-destructive" />
                     Incorrect
                   </>
                 )}
@@ -478,7 +478,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                   </div>
                 )}
                 
-                <div className="flex gap-4 text-sm text-muted-foreground">
+                <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-300 font-medium">
                   {currentQuestion.section_id && (
                     <div>
                       <BookOpen className="h-4 w-4 inline mr-1" />
@@ -510,7 +510,7 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
           </Button>
           
           <div className="text-center">
-            <div className="text-sm text-muted-foreground mb-2">
+            <div className="text-sm text-slate-600 dark:text-slate-300 font-medium mb-2">
               Progress: {Math.round(progress.accuracy || 0)}% accuracy
             </div>
             <Badge variant="outline">
@@ -548,3 +548,5 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
     </div>
   );
 };
+
+export default ExamInterface;

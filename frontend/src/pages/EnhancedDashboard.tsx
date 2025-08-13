@@ -65,7 +65,7 @@ export const EnhancedDashboard: React.FC = () => {
     userStats, 
     recentSessions, 
     isLoading: statsLoading, 
-    fetchUserStatistics 
+    fetchStatistics 
   } = useStatisticsStore();
   
   const { success, info } = useToastHelpers();
@@ -241,9 +241,9 @@ export const EnhancedDashboard: React.FC = () => {
   // Load statistics on component mount
   useEffect(() => {
     if (user?.id && !statsLoading) {
-      measure(() => fetchUserStatistics(user.id));
+      measure(() => fetchStatistics(user.id));
     }
-  }, [user?.id, fetchUserStatistics, statsLoading, measure]);
+  }, [user?.id, fetchStatistics, statsLoading, measure]);
 
   const formatRelativeTime = (timestamp: Date): string => {
     const now = new Date();
@@ -266,19 +266,19 @@ export const EnhancedDashboard: React.FC = () => {
       {/* Welcome Header */}
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4" role="banner">
         <div>
-          <h1 className="text-3xl font-bold text-medical-900">
+          <h1 className="text-3xl font-bold text-slate-800">
             Welcome back, {user?.displayName || 'Student'}!
           </h1>
-          <p className="text-slate-700 mt-1 font-medium">
+          <p className="text-slate-800 mt-1 font-semibold">
             Continue your lifestyle medicine journey
           </p>
         </div>
         
         <div className="flex items-center gap-3">
-          <Badge variant="outline" className="bg-medical-50 text-medical-700 border-medical-200">
+          <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">
             {enhancedStats.rank} Level
           </Badge>
-          <Badge variant="outline" className="bg-success-50 text-success-700 border-success-200">
+          <Badge variant="outline" className="bg-green-100 text-green-800 border-green-300">
             {enhancedStats.streak} Day Streak
           </Badge>
         </div>
@@ -321,10 +321,10 @@ export const EnhancedDashboard: React.FC = () => {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-medical-600" />
+              <TrendingUp className="h-5 w-5 text-slate-600" />
               Learning Progress
             </CardTitle>
-            <CardDescription className="text-slate-700 font-medium">
+            <CardDescription className="text-slate-800 font-semibold">
               Your overall progress across all categories
             </CardDescription>
           </CardHeader>
@@ -340,13 +340,13 @@ export const EnhancedDashboard: React.FC = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-medium text-success-900 mb-2 flex items-center gap-2">
+                  <h4 className="font-medium text-green-900 mb-2 flex items-center gap-2">
                     <CheckCircle className="h-4 w-4" />
                     Strongest Areas
                   </h4>
                   <div className="space-y-1">
                     {enhancedStats.strongestAreas.map((area, index) => (
-                      <Badge key={index} variant="secondary" className="bg-success-50 text-success-700 border-success-200">
+                      <Badge key={index} variant="secondary" className="bg-green-100 text-green-800 border-green-300">
                         {area}
                       </Badge>
                     ))}
@@ -354,13 +354,13 @@ export const EnhancedDashboard: React.FC = () => {
                 </div>
                 
                 <div>
-                  <h4 className="font-medium text-warning-900 mb-2 flex items-center gap-2">
+                  <h4 className="font-medium text-slate-700 mb-2 flex items-center gap-2">
                     <AlertCircle className="h-4 w-4" />
                     Focus Areas
                   </h4>
                   <div className="space-y-1">
                     {enhancedStats.improvementAreas.map((area, index) => (
-                      <Badge key={index} variant="outline" className="border-warning-300 text-warning-700">
+                      <Badge key={index} variant="outline" className="border-slate-300 text-slate-700">
                         {area}
                       </Badge>
                     ))}
@@ -375,10 +375,10 @@ export const EnhancedDashboard: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-medical-600" />
+              <Calendar className="h-5 w-5 text-slate-600" />
               Weekly Goal
             </CardTitle>
-            <CardDescription className="text-slate-700 font-medium">Study time this week</CardDescription>
+            <CardDescription className="text-slate-800 font-semibold">Study time this week</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center">
             <MemoizedProgressRing 
@@ -387,10 +387,10 @@ export const EnhancedDashboard: React.FC = () => {
               showPercentage={true}
             />
             <div className="text-center mt-4">
-              <p className="text-2xl font-bold text-medical-900">
+              <p className="text-2xl font-bold text-slate-800">
                 {enhancedStats.weeklyProgress}%
               </p>
-              <p className="text-sm text-slate-700 font-medium">
+              <p className="text-sm text-slate-800 font-semibold">
                 {Math.round(enhancedStats.weeklyGoal * (enhancedStats.weeklyProgress / 100))} / {enhancedStats.weeklyGoal} hours
               </p>
             </div>
@@ -402,7 +402,7 @@ export const EnhancedDashboard: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-medical-600" />
+            <Zap className="h-5 w-5 text-slate-600" />
             Quick Actions
           </CardTitle>
           <CardDescription>
@@ -438,7 +438,7 @@ export const EnhancedDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="flex items-center gap-2">
-                  <Trophy className="h-5 w-5 text-medical-600" />
+                  <Trophy className="h-5 w-5 text-slate-600" />
                   Study Goals
                 </CardTitle>
                 <CardDescription>
@@ -487,7 +487,7 @@ export const EnhancedDashboard: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-medical-600" />
+                <Activity className="h-5 w-5 text-slate-600" />
                 Recent Activity
               </CardTitle>
               <CardDescription>
@@ -527,7 +527,7 @@ export const EnhancedDashboard: React.FC = () => {
             {filteredActivity.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 <Activity className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>No activity found matching your criteria</p>
+                <p className="text-slate-700 font-medium">No activity found matching your criteria</p>
               </div>
             ) : (
               filteredActivity.map((activity) => (
@@ -537,7 +537,7 @@ export const EnhancedDashboard: React.FC = () => {
                 >
                   <div className={cn(
                     "p-2 rounded-lg",
-                    activity.type === 'quiz' && "bg-medical-100 text-medical-600",
+                    activity.type === 'quiz' && "bg-slate-100 text-slate-600",
                     activity.type === 'achievement' && "bg-success-100 text-success-600",
                     activity.type === 'streak' && "bg-warning-100 text-warning-600"
                   )}>
@@ -549,11 +549,11 @@ export const EnhancedDashboard: React.FC = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <h4 className="font-medium truncate">{activity.title}</h4>
-                      <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">
+                      <span className="text-xs text-slate-700 font-medium whitespace-nowrap ml-2">
                         {formatRelativeTime(activity.timestamp)}
                       </span>
                     </div>
-                    <p className="text-sm text-muted-foreground">{activity.description}</p>
+                    <p className="text-sm text-slate-700 font-medium">{activity.description}</p>
                     <div className="flex items-center gap-2 mt-2">
                       {activity.category && (
                         <Badge variant="secondary" className="text-xs">
@@ -565,10 +565,10 @@ export const EnhancedDashboard: React.FC = () => {
                           variant="outline" 
                           className={cn(
                             "text-xs",
-                            activity.score >= 90 ? "border-success-300 text-success-700" :
-                            activity.score >= 80 ? "border-medical-300 text-medical-700" :
-                            activity.score >= 70 ? "border-warning-300 text-warning-700" :
-                            "border-error-300 text-error-700"
+                            activity.score >= 90 ? "border-green-400 text-green-800" :
+                            activity.score >= 80 ? "border-blue-400 text-blue-800" :
+                            activity.score >= 70 ? "border-slate-300 text-slate-700" :
+                            "border-red-400 text-red-800"
                           )}
                         >
                           {activity.score}%

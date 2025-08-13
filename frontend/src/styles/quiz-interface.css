@@ -38,7 +38,7 @@
   align-items: center;
   gap: 20px;
   font-size: 0.95rem;
-  color: #64748b;
+  color: #1e293b;
 }
 
 .timer-display {
@@ -46,15 +46,15 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #fef3c7;
-  color: #92400e;
+  background: #f1f5f9;
+  color: #1e293b;
   border-radius: 8px;
   font-weight: 600;
 }
 
 .timer-display.warning {
-  background: #fecaca;
-  color: #b91c1c;
+  background: #fee2e2;
+  color: #7f1d1d;
   animation: pulse 2s infinite;
 }
 
@@ -71,7 +71,7 @@
   gap: 12px; /* Increased from 8px for better spacing */
   padding: 14px 28px; /* Increased padding for consistency */
   background: #f1f5f9;
-  color: #475569;
+  color: #1e293b;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   text-decoration: none;
@@ -117,7 +117,7 @@
 
 .question-progress {
   font-size: 0.9rem;
-  color: #64748b;
+  color: #1e293b;
   background: #f8fafc;
   padding: 8px 16px;
   border-radius: 8px;
@@ -225,7 +225,7 @@
   flex: 1;
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #334155;
+  color: #1e293b;
   font-weight: 500;
 }
 
@@ -301,7 +301,7 @@
 }
 
 .feedback-content {
-  color: #475569;
+  color: #1e293b;
   line-height: 1.7;
 }
 
@@ -336,7 +336,7 @@
   padding: 14px 28px; /* Increased padding for more professional look */
   border: 2px solid #e2e8f0;
   background: white;
-  color: #475569;
+  color: #1e293b;
   border-radius: 12px; /* Slightly more rounded for modern feel */
   font-weight: 600;
   font-size: 0.95rem;
@@ -385,7 +385,7 @@
 
 .progress-text {
   font-size: 1.1rem;
-  color: #64748b;
+  color: #1e293b;
   margin: 0 0 16px 0;
   line-height: 1.6;
 }
@@ -437,7 +437,7 @@
 
 .btn-secondary {
   background: white;
-  color: #475569;
+  color: #1e293b;
   border-color: #e2e8f0;
 }
 
@@ -459,7 +459,7 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  color: #64748b;
+  color: #1e293b;
 }
 
 .loading-spinner {
@@ -662,12 +662,12 @@
 
 .breadcrumb-item.pending {
   background: #f8fafc;
-  color: #64748b;
+  color: #1e293b;
   border: 1px solid #e2e8f0;
 }
 
 .breadcrumb-arrow {
-  color: #cbd5e1;
+  color: #1e293b;
   margin: 0 8px;
   font-size: 1.2rem;
 }
@@ -679,14 +679,14 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #fef3c7, #fed7aa);
-  color: #92400e;
-  border: 2px solid #f59e0b;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #0f172a;
+  border: 2px solid #334155;
   border-radius: 12px;
   font-weight: 700;
   font-size: 0.9rem;
   margin-right: 16px;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   animation: retryPulse 3s infinite;
 }
 
@@ -697,7 +697,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  background: linear-gradient(135deg, #334155, #0f172a);
   border-radius: 14px;
   z-index: -1;
   opacity: 0.3;
@@ -706,9 +706,9 @@
 
 /* Retry Progress Indicators */
 .retry-progress-context {
-  background: linear-gradient(135deg, #fef3c7, #fed7aa);
-  border: 2px solid #f59e0b;
-  border-left: 6px solid #f59e0b;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border: 2px solid #334155;
+  border-left: 6px solid #334155;
   border-radius: 12px;
   padding: 16px 20px;
   margin: 20px 0;
@@ -723,7 +723,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  background: linear-gradient(90deg, #334155, #0f172a);
   animation: retryProgressBar 3s ease-in-out infinite;
 }
 
@@ -739,19 +739,19 @@
   padding: 16px;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(51, 65, 85, 0.3);
 }
 
 .retry-stat-value {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #92400e;
+  color: #0f172a;
   margin: 0;
 }
 
 .retry-stat-label {
   font-size: 0.8rem;
-  color: #78716c;
+  color: #1e293b;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -773,7 +773,7 @@
   align-items: flex-start;
   padding: 20px;
   margin: 12px 0;
-  background: linear-gradient(135deg, #fef2f2, #fef3c7);
+  background: linear-gradient(135deg, #fef2f2, #f8fafc);
   border: 2px solid #fecaca;
   border-left: 6px solid #ef4444;
   border-radius: 12px;
@@ -791,7 +791,7 @@
   min-width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #fecaca, #fed7aa);
+  background: linear-gradient(135deg, #fecaca, #f1f5f9);
   border: 3px solid #ef4444;
   display: flex;
   align-items: center;
@@ -860,9 +860,9 @@
 }
 
 .difficulty-medium {
-  background: #fef3c7;
-  color: #92400e;
-  border: 1px solid #f59e0b;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #64748b;
 }
 
 .difficulty-hard {
@@ -905,7 +905,7 @@
 
 /* Enhanced Button Styling for Retry Flow */
 .btn-retry {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  background: linear-gradient(135deg, #334155, #dc2626);
   color: white;
   border: none;
   position: relative;
@@ -924,9 +924,9 @@
 }
 
 .btn-retry:hover {
-  background: linear-gradient(135deg, #d97706, #dc2626);
+  background: linear-gradient(135deg, #0f172a, #b91c1c);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
 }
 
 /* Animations */

@@ -5,8 +5,11 @@ import { AUTH_CONSTANTS, ERROR_MESSAGES, VALIDATION_PATTERNS } from '../../utils
 import type { SignUpData } from '../../types/auth';
 
 interface SignupFormProps {
+  /** Callback function called when signup is successful */
   onSuccess?: () => void;
+  /** Callback function to switch to login form */
   onSwitchToLogin?: () => void;
+  /** Additional CSS classes to apply to the form container */
   className?: string;
 }
 
@@ -95,7 +98,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({
     return !Object.values(newErrors).some(error => error !== undefined);
   };
 
-  const getPasswordStrength = (password: string): { strength: number; label: string; color: string } => {
+  const getPasswordStrength = (password: string): { 
+    strength: number; 
+    label: string; 
+    colorClass: string;
+    progressClass: string;
+  } => {
     let strength = 0;
     
     if (password.length >= 8) strength++;
@@ -105,12 +113,28 @@ export const SignupForm: React.FC<SignupFormProps> = ({
     if (/[^a-zA-Z\d]/.test(password)) strength++;
     
     const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
-    const colors = ['red', 'red', 'yellow', 'blue', 'green'];
+    const colorClasses = [
+      'text-red-600', 
+      'text-red-500', 
+      'text-gray-600', 
+      'text-blue-600', 
+      'text-green-600'
+    ];
+    const progressClasses = [
+      'bg-red-500', 
+      'bg-red-400', 
+      'bg-gray-400', 
+      'bg-blue-500', 
+      'bg-green-500'
+    ];
+    
+    const index = Math.min(strength, 4);
     
     return {
       strength,
-      label: labels[Math.min(strength, 4)],
-      color: colors[Math.min(strength, 4)],
+      label: labels[index],
+      colorClass: colorClasses[index],
+      progressClass: progressClasses[index],
     };
   };
 
@@ -314,13 +338,13 @@ export const SignupForm: React.FC<SignupFormProps> = ({
               <div className="mt-2">
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-xs text-gray-500">Password strength:</span>
-                  <span className={`text-xs font-medium text-${passwordStrength.color}-600`}>
+                  <span className={`text-xs font-medium ${passwordStrength.colorClass}`}>
                     {passwordStrength.label}
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className={`h-2 rounded-full transition-all duration-300 bg-${passwordStrength.color}-500`}
+                    className={`h-2 rounded-full transition-all duration-300 ${passwordStrength.progressClass}`}
                     style={{ width: `${(passwordStrength.strength / 5) * 100}%` }}
                   />
                 </div>

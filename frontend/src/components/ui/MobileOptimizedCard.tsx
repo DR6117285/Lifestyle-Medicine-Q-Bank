@@ -122,7 +122,7 @@ export const MobileButton: React.FC<MobileButtonProps> = ({
     default: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80",
     outline: "border border-input hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
     ghost: "hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
-    medical: "bg-medical-600 text-white hover:bg-medical-700 active:bg-medical-800"
+    medical: "bg-slate-600 text-white hover:bg-slate-700 active:bg-slate-800"
   };
 
   const sizes = {
@@ -181,12 +181,12 @@ export const MobileProgress: React.FC<MobileProgressProps> = ({
         sizes[size]
       )}>
         <div
-          className="h-full bg-medical-600 transition-all duration-300 ease-out"
+          className="h-full bg-slate-600 transition-all duration-300 ease-out"
           style={{ width: `${percentage}%` }}
         />
       </div>
       {showPercentage && (
-        <div className="text-xs text-muted-foreground text-right">
+        <div className="text-xs text-slate-600 dark:text-slate-300 font-medium text-right">
           {Math.round(percentage)}%
         </div>
       )}
@@ -227,12 +227,12 @@ export const SwipeableQuestionNav: React.FC<SwipeableQuestionNavProps> = ({
       {/* Swipe indicators */}
       <div className="absolute top-4 left-4 right-4 flex justify-between pointer-events-none">
         {canGoPrevious && (
-          <div className="text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
+          <div className="text-xs text-slate-600 dark:text-slate-300 font-medium bg-background/80 px-2 py-1 rounded">
             ← Swipe for previous
           </div>
         )}
         {canGoNext && (
-          <div className="text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
+          <div className="text-xs text-slate-600 dark:text-slate-300 font-medium bg-background/80 px-2 py-1 rounded">
             Swipe for next →
           </div>
         )}

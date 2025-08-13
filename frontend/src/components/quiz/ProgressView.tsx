@@ -92,7 +92,7 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
               <div style={{ fontSize: '3rem', fontWeight: '800', color: '#22c55e', margin: 0 }}>
                 {accuracy}%
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>
+              <div style={{ fontSize: '0.9rem', color: '#475569', fontWeight: '600', marginTop: '8px' }}>
                 {correctAnswers} correct out of {answeredQuestions}
               </div>
             </div>
@@ -113,13 +113,13 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
             </div>
           </div>
 
-          <div className="feedback-section" style={{ border: '2px solid #f59e0b', borderLeft: '6px solid #f59e0b' }}>
-            <div className="feedback-result" style={{ background: '#fef3c7', color: '#92400e', border: '2px solid #f59e0b' }}>
+          <div className="feedback-section" style={{ border: '2px solid #475569', borderLeft: '6px solid #475569' }}>
+            <div className="feedback-result" style={{ background: '#f1f5f9', color: '#475569', border: '2px solid #475569' }}>
               <Clock className="w-5 h-5" />
               Average Time
             </div>
             <div style={{ textAlign: 'center', padding: '20px 0' }}>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#f59e0b', margin: 0 }}>
+              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#475569', margin: 0 }}>
                 {averageTime.toFixed(1)}s
               </div>
               <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>
@@ -152,7 +152,7 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
                       <span style={{ 
                         fontSize: '1rem',
                         fontWeight: '600',
-                        color: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#f59e0b' : '#ef4444',
+                        color: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#475569' : '#ef4444',
                         marginLeft: '12px'
                       }}>
                         {stats.percentage.toFixed(1)}%
@@ -171,13 +171,13 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
                     <div style={{ 
                       height: '100%', 
                       width: `${stats.percentage}%`,
-                      background: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#f59e0b' : '#ef4444',
+                      background: stats.percentage >= 80 ? '#22c55e' : stats.percentage >= 70 ? '#475569' : '#ef4444',
                       borderRadius: '4px',
                       transition: 'width 0.5s ease'
                     }}></div>
                   </div>
                   
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#64748b' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#475569', fontWeight: '600' }}>
                     <span>
                       <strong>Questions:</strong> {stats.correct}/{stats.total} correct
                     </span>

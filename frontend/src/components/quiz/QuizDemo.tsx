@@ -50,11 +50,11 @@ export const QuizDemo: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-yellow-200">
+        <Card className="border-gray-200">
           <CardHeader className="pb-3">
             <div className="flex items-center space-x-2">
-              <AlertTriangle className="h-6 w-6 text-yellow-500" />
-              <CardTitle className="text-lg text-yellow-700">Next Steps</CardTitle>
+              <AlertTriangle className="h-6 w-6 text-gray-500" />
+              <CardTitle className="text-lg text-gray-700">Next Steps</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="text-sm space-y-2">

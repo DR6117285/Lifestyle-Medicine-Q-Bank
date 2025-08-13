@@ -125,8 +125,8 @@ export const RetryView: React.FC<RetryViewProps> = ({
           <h2 className="question-number">Review Before Retry</h2>
         </div>
         
-        <div className="feedback-section" style={{ border: '2px solid #f59e0b', borderLeft: '6px solid #f59e0b', marginBottom: '30px' }}>
-          <div className="feedback-result" style={{ background: '#fef3c7', color: '#92400e', border: '2px solid #f59e0b' }}>
+        <div className="feedback-section" style={{ border: '2px solid #64748b', borderLeft: '6px solid #64748b', marginBottom: '30px' }}>
+          <div className="feedback-result" style={{ background: '#f1f5f9', color: '#475569', border: '2px solid #64748b' }}>
             <AlertCircle className="w-5 h-5" />
             Ready to Retry
           </div>

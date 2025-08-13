@@ -69,10 +69,12 @@ export const useQuizStore = create<QuizStore>()(
       // Initialize quiz with settings
       initializeQuiz: async (userId: string, settings: QuizSettings) => {
         try {
+          console.log('[QUIZ] Initializing quiz for user:', userId, 'with settings:', settings);
           set({ isLoading: true, error: null });
 
           // Create quiz session
           const session = await QuizService.createQuizSession(userId, settings);
+          console.log('[QUIZ] Quiz session created:', session.id);
           
           // Fetch questions
           const questions = await QuizService.fetchQuestions(settings);
@@ -81,10 +83,16 @@ export const useQuizStore = create<QuizStore>()(
             throw new Error('No questions found for the selected criteria');
           }
 
+          console.log(`[QUIZ] Fetched ${questions.length} questions`);
+
           // Initialize timer if timed mode
           const timeRemaining = settings.mode === 'timed' && settings.timeLimit 
             ? settings.timeLimit * 60 
             : undefined;
+
+          if (timeRemaining) {
+            console.log(`[QUIZ] Timer initialized for ${settings.timeLimit} minutes (${timeRemaining}s)`);
+          }
 
           set({
             currentSession: session,
@@ -107,7 +115,7 @@ export const useQuizStore = create<QuizStore>()(
           }
 
         } catch (error) {
-          console.error('Error initializing quiz:', error);
+          console.error('[QUIZ] Error initializing quiz:', error);
           set({
             isLoading: false,
             error: error instanceof Error ? error.message : 'Failed to initialize quiz'
@@ -181,7 +189,7 @@ export const useQuizStore = create<QuizStore>()(
           });
 
         } catch (error) {
-          console.error('Error submitting answer:', error);
+          console.error('[QUIZ] Error submitting answer:', error);
           set({
             error: error instanceof Error ? error.message : 'Failed to submit answer'
           });
@@ -196,6 +204,7 @@ export const useQuizStore = create<QuizStore>()(
           const nextQuestion = questions[newIndex];
           const isAnswered = answers.has(nextQuestion.id);
           
+          console.log(`[QUIZ] Moving to next question: ${newIndex + 1}/${questions.length}`);
           set({
             currentQuestionIndex: newIndex,
             showRationale: isAnswered
@@ -211,6 +220,7 @@ export const useQuizStore = create<QuizStore>()(
           const previousQuestion = questions[newIndex];
           const isAnswered = answers.has(previousQuestion.id);
           
+          console.log(`[QUIZ] Moving to previous question: ${newIndex + 1}/${questions.length}`);
           set({
             currentQuestionIndex: newIndex,
             showRationale: isAnswered
@@ -234,6 +244,8 @@ export const useQuizStore = create<QuizStore>()(
 
       // Pause timer
       pauseTimer: () => {
+        const { timeRemaining } = get();
+        console.log(`[QUIZ] Timer paused with ${timeRemaining}s remaining`);
         if (timerInterval) {
           clearInterval(timerInterval);
           timerInterval = null;
@@ -243,22 +255,28 @@ export const useQuizStore = create<QuizStore>()(
 
       // Resume timer
       resumeTimer: () => {
+        const { timeRemaining } = get();
+        console.log(`[QUIZ] Timer resumed with ${timeRemaining}s remaining`);
         get().startTimer();
       },
 
       // Complete quiz and calculate results
       completeQuiz: async () => {
         try {
-          const { currentSession } = get();
+          const { currentSession, questions, answers } = get();
           if (!currentSession) {
             throw new Error('No active quiz session');
           }
+
+          console.log('[QUIZ] Completing quiz session:', currentSession.id);
+          console.log(`[QUIZ] Questions answered: ${answers.size}/${questions.length}`);
 
           // Stop timer
           get().stopTimer();
 
           // Calculate results
           const result = await QuizService.completeQuizSession(currentSession.id);
+          console.log('[QUIZ] Quiz completed with result:', result);
 
           set({
             quizCompleted: true,
@@ -278,7 +296,7 @@ export const useQuizStore = create<QuizStore>()(
           return result;
 
         } catch (error) {
-          console.error('Error completing quiz:', error);
+          console.error('[QUIZ] Error completing quiz:', error);
           const errorMessage = error instanceof Error ? error.message : 'Failed to complete quiz';
           set({ error: errorMessage });
           throw new Error(errorMessage);
@@ -287,6 +305,7 @@ export const useQuizStore = create<QuizStore>()(
 
       // Reset quiz to initial state
       resetQuiz: () => {
+        console.log('[QUIZ] Resetting quiz state');
         if (timerInterval) {
           clearInterval(timerInterval);
           timerInterval = null;
@@ -304,7 +323,8 @@ export const useQuizStore = create<QuizStore>()(
           error: null,
           showRationale: false,
           quizCompleted: false,
-          result: null
+          result: null,
+          isRetryMode: false
         });
       },
 
@@ -423,8 +443,11 @@ export const useQuizStore = create<QuizStore>()(
         );
 
         if (incorrectQuestions.length === 0) {
+          console.log('[QUIZ] No incorrect questions to retry');
           return; // No incorrect questions to retry
         }
+
+        console.log(`[QUIZ] Starting retry session with ${incorrectQuestions.length} incorrect questions`);
 
         // Reset questions for retry (clear previous answers but keep original state)
         const resetQuestions = incorrectQuestions.map(question => ({

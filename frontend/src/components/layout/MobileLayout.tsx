@@ -69,17 +69,17 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
                 <Menu className="h-5 w-5" />
               )}
             </button>
-            <h1 className="text-lg font-semibold text-medical-900">
+            <h1 className="text-lg font-semibold text-slate-800">
               LMQB
             </h1>
           </div>
           
           <div className="flex items-center gap-2">
-            <div className="text-sm text-muted-foreground hidden sm:block">
+            <div className="text-sm text-slate-700 dark:text-slate-300 hidden sm:block font-medium">
               {user?.displayName}
             </div>
-            <div className="h-8 w-8 rounded-full bg-medical-100 flex items-center justify-center">
-              <span className="text-xs font-medium text-medical-800">
+            <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center">
+              <span className="text-xs font-medium text-slate-700">
                 {user?.displayName?.[0]?.toUpperCase() || 'U'}
               </span>
             </div>
@@ -98,12 +98,12 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
             {/* Sidebar Header */}
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg bg-medical-600 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-lg bg-slate-600 flex items-center justify-center">
                   <BookOpen className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="font-semibold text-medical-900">LMQB</h2>
-                  <p className="text-xs text-muted-foreground">Lifestyle Medicine</p>
+                  <h2 className="font-semibold text-slate-800">LMQB</h2>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Lifestyle Medicine</p>
                 </div>
               </div>
               <button
@@ -124,8 +124,8 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
                       className={cn(
                         "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors touch-manipulation",
                         location.pathname === item.href
-                          ? "bg-medical-100 text-medical-900"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          ? "bg-slate-100 text-slate-800"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-muted hover:text-slate-900 dark:hover:text-slate-100"
                       )}
                     >
                       <item.icon className="h-5 w-5" />
@@ -139,7 +139,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
               <div className="mt-8 pt-8 border-t">
                 <button
                   onClick={() => logout()}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-error-600 hover:bg-error-50 w-full text-left touch-manipulation"
+                  className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 w-full text-left touch-manipulation"
                 >
                   <Settings className="h-5 w-5" />
                   Logout
@@ -167,8 +167,8 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
               className={cn(
                 "flex flex-col items-center gap-1 p-3 rounded-lg transition-colors touch-manipulation min-w-[64px]",
                 location.pathname === item.href
-                  ? "text-medical-600"
-                  : "text-muted-foreground"
+                  ? "text-slate-600"
+                  : "text-slate-600 dark:text-slate-400"
               )}
             >
               <item.icon className="h-5 w-5" />

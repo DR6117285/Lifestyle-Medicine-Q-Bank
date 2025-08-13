@@ -11,16 +11,36 @@ import type {
   StatisticsApiResponse
 } from '../types/statistics';
 
+/**
+ * StatisticsService - Advanced analytics and insights service
+ * 
+ * This service provides comprehensive user analytics including:
+ * - Overall performance metrics and trends
+ * - Section-level performance breakdown
+ * - Recent activity tracking
+ * - Progress over time analysis
+ * - Intelligent study recommendations
+ * - Comparative statistics against other users
+ * - Study streak tracking and gamification
+ * 
+ * Features optimized database queries, caching strategies, and error resilience.
+ */
+
 export class StatisticsService {
   /**
-   * Fetch comprehensive statistics for a user
+   * Fetch comprehensive statistics for a user with all components
+   * @param userId User identifier
+   * @param filters Optional filters for date range, sections, and limits
+   * @returns Promise<StatisticsApiResponse> Complete statistics overview or error response
    */
   static async getUserStatistics(
     userId: string,
     filters?: StatisticsFilters
   ): Promise<StatisticsApiResponse> {
     try {
-      // Parallel fetch of all statistics components
+      console.log(`INFO: Fetching comprehensive statistics for user: ${userId}`, filters ? `with filters: ${JSON.stringify(filters)}` : '');
+      
+      // Parallel fetch of all statistics components for performance
       const [
         overallStats,
         sectionStats,
@@ -35,6 +55,7 @@ export class StatisticsService {
         this.getComparativeStatistics(userId)
       ]);
 
+      // Generate personalized recommendations based on performance data
       const recommendations = this.generateRecommendations(
         overallStats,
         sectionStats
@@ -50,12 +71,14 @@ export class StatisticsService {
         lastUpdated: new Date().toISOString()
       };
 
+      console.log(`INFO: Statistics fetched successfully - Overall accuracy: ${overallStats.accuracy_percentage}%, Sections: ${sectionStats.length}, Sessions: ${recentSessions.length}`);
+      
       return {
         success: true,
         data: statistics
       };
     } catch (error) {
-      console.error('Error fetching user statistics:', error);
+      console.error('ERROR: Failed to fetch comprehensive user statistics -', error instanceof Error ? error.message : 'Unknown error');
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to fetch statistics'
@@ -64,7 +87,10 @@ export class StatisticsService {
   }
 
   /**
-   * Get overall user statistics from materialized view
+   * Get overall user statistics from materialized view with fallback calculation
+   * @param userId User identifier
+   * @returns Promise<UserStatistics> Overall performance statistics
+   * @private
    */
   private static async getOverallStatistics(userId: string): Promise<UserStatistics> {
     try {
@@ -88,7 +114,7 @@ export class StatisticsService {
       // Fallback to calculated statistics if materialized view is empty
       return await this.calculateOverallStatistics(userId);
     } catch (error) {
-      console.error('Error fetching overall statistics:', error);
+      console.error('ERROR: Failed to fetch overall statistics -', error instanceof Error ? error.message : 'Unknown error');
       return this.getEmptyOverallStats(userId);
     }
   }
@@ -162,7 +188,7 @@ export class StatisticsService {
         study_days: studyDays
       };
     } catch (error) {
-      console.error('Error calculating overall statistics:', error);
+      console.error('ERROR: Failed to calculate overall statistics -', error instanceof Error ? error.message : 'Unknown error');
       return this.getEmptyOverallStats(userId);
     }
   }
@@ -185,7 +211,7 @@ export class StatisticsService {
         total_sessions: sessionCountData
       };
     } catch (error) {
-      console.error('Error fetching additional stats:', error);
+      console.error('ERROR: Failed to fetch additional statistics -', error instanceof Error ? error.message : 'Unknown error');
       return {
         current_streak: 0,
         best_streak: 0,
@@ -196,13 +222,19 @@ export class StatisticsService {
   }
 
   /**
-   * Get section-level statistics
+   * Get section-level performance statistics with filtering support
+   * @param userId User identifier
+   * @param filters Optional filters for date range and sections
+   * @returns Promise<SectionStatistics[]> Array of section performance data
+   * @private
    */
   private static async getSectionStatistics(
     userId: string,
     filters?: StatisticsFilters
   ): Promise<SectionStatistics[]> {
     try {
+      console.log(`INFO: Fetching section statistics for user: ${userId}`);
+      
       let query = supabase
         .from('quiz_attempts')
         .select(`
@@ -305,9 +337,11 @@ export class StatisticsService {
       }
 
       // Sort by accuracy (lowest first to highlight areas needing work)
-      return sectionStats.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage);
+      const sortedStats = sectionStats.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage);
+      console.log(`INFO: Section statistics calculated - ${sortedStats.length} sections analyzed`);
+      return sortedStats;
     } catch (error) {
-      console.error('Error fetching section statistics:', error);
+      console.error('ERROR: Failed to fetch section statistics -', error instanceof Error ? error.message : 'Unknown error');
       return [];
     }
   }
@@ -320,6 +354,8 @@ export class StatisticsService {
     limit: number = 10
   ): Promise<RecentSession[]> {
     try {
+      console.log(`INFO: Fetching recent sessions for user: ${userId} (limit: ${limit})`);
+      
       const { data, error } = await supabase
         .from('quiz_sessions')
         .select(`
@@ -367,8 +403,11 @@ export class StatisticsService {
           performance_level: performanceLevel
         };
       });
+      
+      console.log(`INFO: Recent sessions processed - ${recentSessions.length} sessions retrieved`);
+      return recentSessions;
     } catch (error) {
-      console.error('Error fetching recent sessions:', error);
+      console.error('ERROR: Failed to fetch recent sessions -', error instanceof Error ? error.message : 'Unknown error');
       return [];
     }
   }
@@ -455,7 +494,7 @@ export class StatisticsService {
 
       return progressData.sort((a, b) => a.date.localeCompare(b.date));
     } catch (error) {
-      console.error('Error fetching progress data:', error);
+      console.error('ERROR: Failed to fetch progress data -', error instanceof Error ? error.message : 'Unknown error');
       return [];
     }
   }
@@ -501,7 +540,7 @@ export class StatisticsService {
         total_users: avgStats.length
       };
     } catch (error) {
-      console.error('Error fetching comparative statistics:', error);
+      console.error('ERROR: Failed to fetch comparative statistics -', error instanceof Error ? error.message : 'Unknown error');
       return undefined;
     }
   }
@@ -653,7 +692,7 @@ export class StatisticsService {
 
       return { current: currentStreak, best: bestStreak };
     } catch (error) {
-      console.error('Error calculating streak:', error);
+      console.error('ERROR: Failed to calculate streak -', error instanceof Error ? error.message : 'Unknown error');
       return { current: 0, best: 0 };
     }
   }
@@ -731,16 +770,23 @@ export class StatisticsService {
   }
 
   /**
-   * Refresh materialized view (called after quiz completion)
+   * Refresh materialized view after quiz completion (background operation)
+   * @returns Promise<void> - Does not throw errors to avoid disrupting user flow
    */
   static async refreshStatistics(): Promise<void> {
     try {
+      console.log('INFO: Refreshing statistics materialized view');
+      
       const { error } = await supabase.rpc('refresh_user_statistics');
+      
       if (error) {
-        console.error('Error refreshing statistics:', error);
+        console.error('Database error refreshing statistics:', error.message);
+        return;
       }
+      
+      console.log('INFO: Statistics materialized view refreshed successfully');
     } catch (error) {
-      console.error('Error calling refresh function:', error);
+      console.error('ERROR: Failed to refresh statistics -', error instanceof Error ? error.message : 'Unknown error');
     }
   }
 }

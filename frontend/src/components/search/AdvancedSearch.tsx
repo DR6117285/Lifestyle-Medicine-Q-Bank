@@ -147,9 +147,9 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy': return 'border-success-300 text-success-700 bg-success-50';
-      case 'medium': return 'border-warning-300 text-warning-700 bg-warning-50';
+      case 'medium': return 'border-slate-300 text-slate-700 bg-slate-50';
       case 'hard': return 'border-error-300 text-error-700 bg-error-50';
-      default: return 'border-muted-foreground';
+      default: return 'border-slate-300 text-slate-700';
     }
   };
 
@@ -157,7 +157,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
     <div className={cn("space-y-4", className)}>
       {/* Main Search Bar */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 h-4 w-4" />
         <Input
           placeholder="Search questions, topics, or keywords..."
           value={localQuery}
@@ -204,7 +204,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
               variant="ghost"
               size="sm"
               onClick={clearAllFilters}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 font-medium"
             >
               Clear All
             </Button>
@@ -213,13 +213,13 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
         {resultCount > 0 && (
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-slate-600 dark:text-slate-300 font-medium">
               {isLoading ? 'Searching...' : `${resultCount} results`}
             </span>
 
             {/* Sort Controls */}
             <div className="flex items-center gap-2">
-              <Label className="text-sm text-muted-foreground">Sort:</Label>
+              <Label className="text-sm text-slate-600 dark:text-slate-300 font-medium">Sort:</Label>
               <select
                 value={`${filters.sortBy}-${filters.sortOrder}`}
                 onChange={(e) => {
@@ -350,9 +350,10 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                     variant={filters.difficulties.includes(difficulty) ? "default" : "outline"}
                     onClick={() => toggleDifficulty(difficulty)}
                     className={cn(
-                      "capitalize",
+                    "capitalize",
+                    !filters.difficulties.includes(difficulty) && "hover:border-slate-300",
                       filters.difficulties.includes(difficulty) && getDifficultyColor(difficulty)
-                    )}
+                      )}
                   >
                     {difficulty}
                   </Button>

@@ -5,8 +5,11 @@ import { AUTH_CONSTANTS, ERROR_MESSAGES, VALIDATION_PATTERNS } from '../../utils
 import type { LoginCredentials } from '../../types/auth';
 
 interface LoginFormProps {
+  /** Callback function called when login is successful */
   onSuccess?: () => void;
+  /** Callback function to switch to signup form */
   onSwitchToSignup?: () => void;
+  /** Additional CSS classes to apply to the form container */
   className?: string;
 }
 
@@ -33,23 +36,32 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const validateField = (name: string, value: string): string | undefined => {
-    switch (name) {
-      case 'email':
-        if (!value.trim()) return ERROR_MESSAGES.EMAIL_REQUIRED;
-        if (!VALIDATION_PATTERNS.EMAIL.test(value.trim())) {
-          return ERROR_MESSAGES.INVALID_EMAIL;
+    try {
+      switch (name) {
+        case 'email': {
+          const trimmedEmail = value.trim();
+          if (!trimmedEmail) return ERROR_MESSAGES.EMAIL_REQUIRED;
+          if (!VALIDATION_PATTERNS.EMAIL.test(trimmedEmail)) {
+            return ERROR_MESSAGES.INVALID_EMAIL;
+          }
+          break;
         }
-        break;
-      case 'password':
-        if (!value) return ERROR_MESSAGES.PASSWORD_REQUIRED;
-        if (value.length < AUTH_CONSTANTS.MIN_PASSWORD_LENGTH) {
-          return ERROR_MESSAGES.PASSWORD_TOO_SHORT;
+        case 'password': {
+          if (!value) return ERROR_MESSAGES.PASSWORD_REQUIRED;
+          if (value.length < AUTH_CONSTANTS.MIN_PASSWORD_LENGTH) {
+            return ERROR_MESSAGES.PASSWORD_TOO_SHORT;
+          }
+          break;
         }
-        break;
-      default:
-        break;
+        default:
+          // Unknown field - no validation
+          break;
+      }
+      return undefined;
+    } catch (error) {
+      console.error('Validation error:', error);
+      return 'Validation failed. Please check your input.';
     }
-    return undefined;
   };
 
   const validateForm = (): boolean => {

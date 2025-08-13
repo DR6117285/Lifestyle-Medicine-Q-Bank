@@ -14,6 +14,8 @@ interface AuthStore extends AuthState {
   initialize: () => Promise<void>;
   clearError: () => void;
   error: string | null;
+  // Internal state
+  _isInitializing: boolean;
 }
 
 const transformSupabaseUser = (supabaseUser: SupabaseUser, profile?: any): User => ({
@@ -32,26 +34,39 @@ export const useAuthStore = create<AuthStore>()(
       isLoading: true,
       isAuthenticated: false,
       error: null,
+      _isInitializing: false,
 
       initialize: async () => {
+        // Prevent multiple simultaneous initializations
+        const state = get();
+        if (state._isInitializing) {
+          console.log('[AUTH] Initialization already in progress, skipping');
+          return;
+        }
+
         try {
-          console.log('🔥 Auth: Starting initialization');
+          set({ _isInitializing: true });
+          console.log('[AUTH] Starting initialization');
+          console.debug('[AUTH] Environment:', { 
+            hasSupabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+            hasSupabaseKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY 
+          });
           set({ isLoading: true, error: null });
           
           // Get current session
-          console.log('🔥 Auth: Getting session from Supabase');
+          console.log('[AUTH] Getting session from Supabase');
           const { data: { session }, error } = await supabase.auth.getSession();
           
           if (error) {
-            console.error('🔥 Auth: Error getting session:', error);
+            console.error('[AUTH] Error getting session:', error);
             set({ user: null, isAuthenticated: false, isLoading: false, error: error.message });
             return;
           }
 
-          console.log('🔥 Auth: Session result:', !!session?.user);
+          console.log('[AUTH] Session result:', !!session?.user, 'Session valid:', !!session?.access_token);
           
-          if (session?.user) {
-            console.log('🔥 Auth: User found, fetching profile');
+          if (session?.user && session?.access_token) {
+            console.log('[AUTH] Valid user session found, fetching profile');
             // Fetch user profile from our database
             const { data: profile, error: profileError } = await supabase
               .from('user_profiles')
@@ -60,25 +75,26 @@ export const useAuthStore = create<AuthStore>()(
               .single();
 
             if (profileError && profileError.code !== 'PGRST116') {
-              console.error('🔥 Auth: Error fetching user profile:', profileError);
+              console.error('[AUTH] Error fetching user profile:', profileError);
               // Don't fail completely if profile fetch fails
-              console.log('🔥 Auth: Continuing without profile data');
+              console.log('[AUTH] Continuing without profile data');
             }
 
             const user = transformSupabaseUser(session.user, profile);
-            console.log('🔥 Auth: User authenticated successfully');
-            set({ user, isAuthenticated: true, isLoading: false, error: null });
+            console.log('[AUTH] User authenticated successfully');
+            set({ user, isAuthenticated: true, isLoading: false, error: null, _isInitializing: false });
           } else {
-            console.log('🔥 Auth: No user session found');
-            set({ user: null, isAuthenticated: false, isLoading: false, error: null });
+            console.log('[AUTH] No user session found');
+            set({ user: null, isAuthenticated: false, isLoading: false, error: null, _isInitializing: false });
           }
 
           // Listen to auth changes
-          console.log('🔥 Auth: Setting up auth state listener');
+          console.log('[AUTH] Setting up auth state listener');
           supabase.auth.onAuthStateChange(async (event, session) => {
-            console.log('🔥 Auth: State change detected:', event);
+            console.log('[AUTH] State change detected:', event, 'Session exists:', !!session);
             
             if (event === 'SIGNED_IN' && session?.user) {
+              console.log('[AUTH] User signed in, fetching profile');
               // Fetch user profile
               const { data: profile, error: profileError } = await supabase
                 .from('user_profiles')
@@ -87,25 +103,31 @@ export const useAuthStore = create<AuthStore>()(
                 .single();
 
               if (profileError && profileError.code !== 'PGRST116') {
-                console.error('🔥 Auth: Error fetching user profile on sign in:', profileError);
+                console.error('[AUTH] Error fetching user profile on sign in:', profileError);
               }
 
               const user = transformSupabaseUser(session.user, profile);
               set({ user, isAuthenticated: true, isLoading: false, error: null });
             } else if (event === 'SIGNED_OUT') {
+              console.log('[AUTH] User signed out, clearing state');
               set({ user: null, isAuthenticated: false, isLoading: false, error: null });
             } else if (event === 'TOKEN_REFRESHED' && session?.user) {
+              console.log('[AUTH] Token refreshed, updating user data');
               // Update user data on token refresh
               await get().refreshUser();
+            } else if (event === 'INITIAL_SESSION' && !session) {
+              console.log('[AUTH] Initial session check: no session found');
+              set({ user: null, isAuthenticated: false, isLoading: false, error: null });
             }
           });
         } catch (error) {
-          console.error('🔥 Auth: Fatal error during initialization:', error);
+          console.error('[AUTH] Fatal error during initialization:', error);
           set({ 
             user: null, 
             isAuthenticated: false, 
             isLoading: false, 
-            error: error instanceof Error ? error.message : 'Failed to initialize authentication' 
+            error: error instanceof Error ? error.message : 'Failed to initialize authentication',
+            _isInitializing: false
           });
         }
       },
@@ -120,7 +142,7 @@ export const useAuthStore = create<AuthStore>()(
           });
 
           if (error) {
-            console.error('Login error:', error);
+            console.error('[AUTH] Login error:', error);
             set({ isLoading: false, error: error.message });
             return { success: false, error: error.message };
           }
@@ -134,7 +156,7 @@ export const useAuthStore = create<AuthStore>()(
               .single();
 
             if (profileError && profileError.code !== 'PGRST116') {
-              console.error('Error fetching user profile:', profileError);
+              console.error('[AUTH] Error fetching user profile:', profileError);
               set({ error: 'Failed to fetch user profile' });
             }
 
@@ -147,7 +169,7 @@ export const useAuthStore = create<AuthStore>()(
           return { success: false, error: 'No user returned from login' };
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Login failed';
-          console.error('Login error:', error);
+          console.error('[AUTH] Login error:', error);
           set({ isLoading: false, error: errorMessage });
           return { success: false, error: errorMessage };
         }
@@ -169,7 +191,7 @@ export const useAuthStore = create<AuthStore>()(
           });
 
           if (error) {
-            console.error('Signup error:', error);
+            console.error('[AUTH] Signup error:', error);
             set({ isLoading: false, error: error.message });
             return { success: false, error: error.message };
           }
@@ -197,7 +219,7 @@ export const useAuthStore = create<AuthStore>()(
           return { success: false, error: 'Signup completed but no user returned' };
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Signup failed';
-          console.error('Signup error:', error);
+          console.error('[AUTH] Signup error:', error);
           set({ isLoading: false, error: errorMessage });
           return { success: false, error: errorMessage };
         }
@@ -209,13 +231,13 @@ export const useAuthStore = create<AuthStore>()(
           const { error } = await supabase.auth.signOut();
           
           if (error) {
-            console.error('Logout error:', error);
+            console.error('[AUTH] Logout error:', error);
             set({ error: error.message, isLoading: false });
           } else {
             set({ user: null, isAuthenticated: false, isLoading: false, error: null });
           }
         } catch (error) {
-          console.error('Logout error:', error);
+          console.error('[AUTH] Logout error:', error);
           set({ 
             error: error instanceof Error ? error.message : 'Logout failed',
             isLoading: false 
@@ -242,7 +264,7 @@ export const useAuthStore = create<AuthStore>()(
             .eq('id', user.id);
 
           if (profileError) {
-            console.error('Profile update error:', profileError);
+            console.error('[AUTH] Profile update error:', profileError);
             set({ isLoading: false, error: profileError.message });
             return { success: false, error: profileError.message };
           }
@@ -254,7 +276,7 @@ export const useAuthStore = create<AuthStore>()(
           return { success: true };
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Profile update failed';
-          console.error('Profile update error:', error);
+          console.error('[AUTH] Profile update error:', error);
           set({ isLoading: false, error: errorMessage });
           return { success: false, error: errorMessage };
         }
@@ -265,7 +287,7 @@ export const useAuthStore = create<AuthStore>()(
           const { data: { user: supabaseUser }, error } = await supabase.auth.getUser();
           
           if (error || !supabaseUser) {
-            console.error('Error refreshing user:', error);
+            console.error('[AUTH] Error refreshing user:', error);
             set({ user: null, isAuthenticated: false, error: error?.message || 'Failed to refresh user' });
             return;
           }
@@ -278,14 +300,14 @@ export const useAuthStore = create<AuthStore>()(
             .single();
 
           if (profileError && profileError.code !== 'PGRST116') {
-            console.error('Error fetching user profile:', profileError);
+            console.error('[AUTH] Error fetching user profile:', profileError);
             set({ error: 'Failed to fetch user profile' });
           }
 
           const user = transformSupabaseUser(supabaseUser, profile);
           set({ user, isAuthenticated: true, error: null });
         } catch (error) {
-          console.error('Error refreshing user:', error);
+          console.error('[AUTH] Error refreshing user:', error);
           set({ 
             error: error instanceof Error ? error.message : 'Failed to refresh user' 
           });
@@ -302,9 +324,20 @@ export const useAuthStore = create<AuthStore>()(
         isAuthenticated: state.isAuthenticated,
       }),
       onRehydrateStorage: () => (state) => {
-        // Initialize auth after rehydration
-        if (state) {
-          state.initialize();
+        // Initialize auth after rehydration only if needed
+        if (state && !state._isInitializing && !state.isAuthenticated) {
+          console.log('[AUTH] Rehydrating auth state, scheduling initialization');
+          // Use setTimeout to ensure rehydration is complete before initialization
+          setTimeout(() => {
+            // Double check state hasn't changed during setTimeout
+            if (!state._isInitializing) {
+              state.initialize();
+            }
+          }, 100);
+        } else if (state && state.isAuthenticated) {
+          console.log('[AUTH] Rehydrating with existing auth state, skipping initialization');
+          // Set loading to false for rehydrated authenticated state
+          state.isLoading = false;
         }
       },
     }

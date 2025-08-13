@@ -266,21 +266,21 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl text-center">
-              <Award className="h-8 w-8 mx-auto mb-4 text-medical-600" />
+              <Award className="h-8 w-8 mx-auto mb-4 text-slate-600" />
               Lifestyle Medicine Board Exam
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-2 gap-4 text-center">
               <div className="p-4 border rounded-lg">
-                <Clock className="h-6 w-6 mx-auto mb-2 text-medical-600" />
+                <Clock className="h-6 w-6 mx-auto mb-2 text-slate-600" />
                 <div className="font-semibold">{examConfig.timeLimit} Minutes</div>
-                <div className="text-sm text-muted-foreground">Time Limit</div>
+                <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">Time Limit</div>
               </div>
               <div className="p-4 border rounded-lg">
-                <BookOpen className="h-6 w-6 mx-auto mb-2 text-medical-600" />
+                <BookOpen className="h-6 w-6 mx-auto mb-2 text-slate-600" />
                 <div className="font-semibold">{questions.length} Questions</div>
-                <div className="text-sm text-muted-foreground">Total Questions</div>
+                <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">Total Questions</div>
               </div>
             </div>
 
@@ -290,11 +290,11 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
                 <span>Auto-save enabled - your progress is saved every {examConfig.autoSaveInterval} seconds</span>
               </div>
               <div className="flex items-center gap-2">
-                <Flag className="h-4 w-4 text-warning-600" />
+                <Flag className="h-4 w-4 text-orange-600" />
                 <span>You can flag questions for review</span>
               </div>
               <div className="flex items-center gap-2">
-                <Eye className="h-4 w-4 text-medical-600" />
+                <Eye className="h-4 w-4 text-slate-600" />
                 <span>Review your answers before submitting</span>
               </div>
             </div>
@@ -332,7 +332,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
               />
               
               {examState.lastSaved && (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 font-medium">
                   <Save className="h-4 w-4" />
                   <span>Saved {formatRelativeTime(examState.lastSaved)}</span>
                 </div>
@@ -363,7 +363,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
                 <span>{Math.round(progress.percentage)}% Complete</span>
               </div>
               <Progress value={progress.percentage} className="h-2" />
-              <div className="flex justify-between text-xs text-muted-foreground">
+              <div className="flex justify-between text-xs text-slate-600 dark:text-slate-300 font-medium">
                 <span>Answered: {progress.current - (getUnansweredCount())}</span>
                 <span>Flagged: {getFlaggedCount()}</span>
               </div>
@@ -388,7 +388,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
                 className={cn(
                   "flex-shrink-0 ml-4",
                   examState.flaggedQuestions.has(currentQuestion.id) && 
-                  "bg-warning-100 text-warning-700"
+                  "bg-orange-100 text-orange-700"
                 )}
               >
                 <Flag className="h-4 w-4" />
@@ -403,7 +403,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
             {currentQuestion.difficulty && (
               <Badge variant="outline" className={
                 currentQuestion.difficulty === 'easy' ? 'border-success-300 text-success-700' :
-                currentQuestion.difficulty === 'medium' ? 'border-warning-300 text-warning-700' :
+                currentQuestion.difficulty === 'medium' ? 'border-orange-300 text-orange-700' :
                 'border-error-300 text-error-700'
               }>
                 {currentQuestion.difficulty}
@@ -421,15 +421,15 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
                 className={cn(
                   "flex items-center space-x-3 p-4 rounded-lg border-2 cursor-pointer transition-all duration-200",
                   selectedAnswer === option 
-                    ? "border-medical-500 bg-medical-50" 
-                    : "border-border hover:border-medical-300 hover:bg-muted/50"
+                    ? "border-slate-500 bg-slate-50" 
+                    : "border-border hover:border-slate-300 hover:bg-muted/50"
                 )}
                 onClick={() => handleAnswerSelect(option)}
               >
                 <div className={cn(
                   "flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-medium",
                   selectedAnswer === option 
-                    ? "border-medical-500 bg-medical-500 text-white" 
+                    ? "border-slate-500 bg-slate-500 text-white" 
                     : "border-muted-foreground"
                 )}>
                   {String.fromCharCode(65 + index)}
@@ -467,7 +467,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
               Previous
             </Button>
 
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">
               Question {currentQuestionIndex + 1} of {questions.length}
             </div>
 
@@ -506,12 +506,12 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
                   className={cn(
                     "relative h-12 w-12 p-0",
                     status.isAnswered && "bg-success-100 border-success-300 text-success-700",
-                    status.isFlagged && "ring-2 ring-warning-400"
+                    status.isFlagged && "ring-2 ring-orange-400"
                   )}
                 >
                   {index + 1}
                   {status.isFlagged && (
-                    <Flag className="absolute -top-1 -right-1 h-3 w-3 text-warning-600" />
+                    <Flag className="absolute -top-1 -right-1 h-3 w-3 text-orange-600" />
                   )}
                 </Button>
               );
@@ -523,19 +523,19 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
               <div className="text-2xl font-bold text-success-600">
                 {questions.length - getUnansweredCount()}
               </div>
-              <div className="text-sm text-muted-foreground">Answered</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">Answered</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-warning-600">
+              <div className="text-2xl font-bold text-orange-600">
                 {getUnansweredCount()}
               </div>
-              <div className="text-sm text-muted-foreground">Remaining</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">Remaining</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-medical-600">
+              <div className="text-2xl font-bold text-slate-600">
                 {getFlaggedCount()}
               </div>
-              <div className="text-sm text-muted-foreground">Flagged</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">Flagged</div>
             </div>
           </div>
 
@@ -545,7 +545,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
             </Button>
             <Button 
               onClick={handleSubmitExam}
-              className="bg-medical-600 hover:bg-medical-700"
+              className="bg-slate-600 hover:bg-slate-700"
             >
               Submit Exam
             </Button>
@@ -558,7 +558,7 @@ export const EnhancedExamInterface: React.FC<EnhancedExamInterfaceProps> = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-warning-600" />
+              <AlertTriangle className="h-5 w-5 text-orange-600" />
               Exit Exam?
             </DialogTitle>
             <DialogDescription>

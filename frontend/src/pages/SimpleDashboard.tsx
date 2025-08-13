@@ -24,7 +24,7 @@ export const SimpleDashboard: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-slate-800 font-semibold">
                 Welcome, {user?.displayName || user?.email}
               </span>
               <button
@@ -45,30 +45,30 @@ export const SimpleDashboard: React.FC = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               🎉 Success! React App is Working
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-slate-800 font-semibold mb-8">
               The blank screen issue has been resolved. Authentication is working properly.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">✅ Authentication</h3>
-                <p className="text-gray-600">User login and session management working</p>
+                <p className="text-slate-700 font-medium">User login and session management working</p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">✅ React Rendering</h3>
-                <p className="text-gray-600">Components rendering without errors</p>
+                <p className="text-slate-700 font-medium">Components rendering without errors</p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">✅ Routing</h3>
-                <p className="text-gray-600">React Router navigation functioning</p>
+                <p className="text-slate-700 font-medium">React Router navigation functioning</p>
               </div>
             </div>
 
             <div className="mt-8 bg-blue-50 p-6 rounded-lg">
               <h3 className="text-lg font-semibold text-blue-900 mb-2">Next Steps</h3>
-              <p className="text-blue-800">
+              <p className="text-blue-900 font-semibold">
                 The core app is now working. You can restore the full Dashboard, Layout, and other components.
               </p>
             </div>

@@ -26,7 +26,7 @@ export const AdminPanel = () => {
     { metric: 'Database Health', status: 'Good', value: '99.9%', color: 'text-green-600' },
     { metric: 'Response Time', status: 'Excellent', value: '145ms', color: 'text-green-600' },
     { metric: 'Active Sessions', status: 'Normal', value: '3', color: 'text-blue-600' },
-    { metric: 'Storage Used', status: 'Low', value: '2.3GB', color: 'text-yellow-600' }
+    { metric: 'Storage Used', status: 'Low', value: '2.3GB', color: 'text-slate-600' }
   ];
 
   return (
@@ -35,7 +35,7 @@ export const AdminPanel = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-slate-800 mt-2 font-semibold">
             Manage users, questions, and monitor system performance
           </p>
         </div>
@@ -54,7 +54,7 @@ export const AdminPanel = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{adminStats.totalUsers}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-700 font-medium">
               {adminStats.activeUsers} active this week
             </p>
           </CardContent>
@@ -67,7 +67,7 @@ export const AdminPanel = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{adminStats.totalQuestions}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-700 font-medium">
               Across 9 sections
             </p>
           </CardContent>
@@ -80,7 +80,7 @@ export const AdminPanel = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{adminStats.totalSessions}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-700 font-medium">
               {adminStats.questionsThisWeek} this week
             </p>
           </CardContent>
@@ -93,7 +93,7 @@ export const AdminPanel = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{adminStats.avgAccuracy}%</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-700 font-medium">
               Platform average
             </p>
           </CardContent>
@@ -104,7 +104,7 @@ export const AdminPanel = () => {
       <Card>
         <CardHeader>
           <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-slate-700 font-medium">
             Common administrative tasks
           </CardDescription>
         </CardHeader>
@@ -142,7 +142,7 @@ export const AdminPanel = () => {
         <Card>
           <CardHeader>
             <CardTitle>Recent User Activity</CardTitle>
-            <CardDescription>
+            <CardDescription className="text-slate-700 font-medium">
               Latest actions from platform users
             </CardDescription>
           </CardHeader>
@@ -152,13 +152,13 @@ export const AdminPanel = () => {
                 <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex-1">
                     <p className="font-medium text-sm">{activity.user}</p>
-                    <p className="text-sm text-gray-600">{activity.action}</p>
+                    <p className="text-sm text-slate-700 font-medium">{activity.action}</p>
                   </div>
                   <div className="text-right">
                     {activity.score !== '-' && (
                       <p className="font-medium text-sm text-green-600">{activity.score}</p>
                     )}
-                    <p className="text-xs text-gray-500">{activity.time}</p>
+                    <p className="text-xs text-slate-700 font-medium">{activity.time}</p>
                   </div>
                 </div>
               ))}
@@ -169,7 +169,7 @@ export const AdminPanel = () => {
         <Card>
           <CardHeader>
             <CardTitle>System Health</CardTitle>
-            <CardDescription>
+            <CardDescription className="text-slate-700 font-medium">
               Current status of platform components
             </CardDescription>
           </CardHeader>
@@ -181,7 +181,7 @@ export const AdminPanel = () => {
                     <Database className="h-4 w-4 text-gray-500" />
                     <div>
                       <p className="font-medium text-sm">{item.metric}</p>
-                      <p className="text-sm text-gray-600">{item.status}</p>
+                      <p className="text-sm text-slate-700 font-medium">{item.status}</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -198,7 +198,7 @@ export const AdminPanel = () => {
       <Card>
         <CardHeader>
           <CardTitle>User Performance Overview</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-slate-700 font-medium">
             Summary of user engagement and performance metrics
           </CardDescription>
         </CardHeader>
@@ -206,15 +206,15 @@ export const AdminPanel = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center p-6 bg-blue-50 rounded-lg">
               <div className="text-3xl font-bold text-blue-600">85%</div>
-              <p className="text-sm text-blue-800 mt-1">Users Active This Week</p>
+              <p className="text-sm text-blue-900 font-semibold mt-1">Users Active This Week</p>
             </div>
             <div className="text-center p-6 bg-green-50 rounded-lg">
               <div className="text-3xl font-bold text-green-600">12.5</div>
-              <p className="text-sm text-green-800 mt-1">Avg Questions Per Session</p>
+              <p className="text-sm text-green-900 font-semibold mt-1">Avg Questions Per Session</p>
             </div>
             <div className="text-center p-6 bg-purple-50 rounded-lg">
               <div className="text-3xl font-bold text-purple-600">4.2</div>
-              <p className="text-sm text-purple-800 mt-1">Sessions Per User Per Week</p>
+              <p className="text-sm text-purple-900 font-semibold mt-1">Sessions Per User Per Week</p>
             </div>
           </div>
         </CardContent>

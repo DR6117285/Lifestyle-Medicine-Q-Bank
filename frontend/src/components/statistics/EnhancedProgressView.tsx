@@ -76,11 +76,11 @@ export const EnhancedProgressView: React.FC<ProgressViewProps> = ({
             <div className="stat-value" style={{ color: 'var(--primary-color)' }}>
               {overallPercentage.toFixed(1)}%
             </div>
-            <div className="stat-detail" style={{ color: 'var(--text-muted)' }}>
+            <div className="stat-detail" style={{ color: '#475569', fontWeight: '600' }}>
               {totalCorrect} correct out of {totalQuestions}
             </div>
-            <div className="mt-2 text-sm font-medium" style={{ 
-              color: overallPercentage >= 70 ? 'var(--primary-color)' : 'var(--error-color)' 
+            <div className="mt-2 text-sm font-bold" style={{ 
+              color: overallPercentage >= 70 ? '#0f766e' : '#ef4444' 
             }}>
               {getPerformanceText(overallPercentage)}
             </div>
@@ -91,7 +91,7 @@ export const EnhancedProgressView: React.FC<ProgressViewProps> = ({
             <div className="stat-value" style={{ color: 'var(--secondary-color)' }}>
               {totalQuestions}
             </div>
-            <div className="stat-detail" style={{ color: 'var(--text-muted)' }}>
+            <div className="stat-detail" style={{ color: '#475569', fontWeight: '600' }}>
               Questions attempted
             </div>
           </div>
@@ -101,7 +101,7 @@ export const EnhancedProgressView: React.FC<ProgressViewProps> = ({
             <div className="stat-value" style={{ color: 'var(--accent-color)' }}>
               {averageTime.toFixed(1)}s
             </div>
-            <div className="stat-detail" style={{ color: 'var(--text-muted)' }}>
+            <div className="stat-detail" style={{ color: '#475569', fontWeight: '600' }}>
               seconds per question
             </div>
           </div>
@@ -114,8 +114,8 @@ export const EnhancedProgressView: React.FC<ProgressViewProps> = ({
           {sectionProgress.map((section, index) => (
             <div key={section.name} className="section-box">
               <h4 className="flex justify-between items-center mb-3">
-                <span style={{ color: 'var(--primary-color)' }}>{section.name}</span>
-                <span className="section-percentage font-bold" style={{ color: 'var(--secondary-color)' }}>
+                <span style={{ color: '#0f766e', fontWeight: '700' }}>{section.name}</span>
+                <span className="section-percentage font-bold" style={{ color: '#0ea5e9' }}>
                   {section.percentage.toFixed(1)}%
                 </span>
               </h4>
@@ -153,7 +153,8 @@ export const EnhancedProgressView: React.FC<ProgressViewProps> = ({
                 <div className="detail-item">
                   <span className="detail-label">Performance:</span>
                   <span className="detail-value" style={{
-                    color: section.percentage >= 70 ? 'var(--primary-color)' : 'var(--error-color)'
+                    color: section.percentage >= 70 ? '#0f766e' : '#ef4444',
+                    fontWeight: '700'
                   }}>
                     {getPerformanceText(section.percentage)}
                   </span>

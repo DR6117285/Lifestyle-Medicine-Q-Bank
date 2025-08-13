@@ -45,8 +45,8 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
   const getPerformanceLevel = (accuracy: number) => {
     if (accuracy >= 90) return { level: 'Excellent', color: '#22c55e', icon: Trophy };
     if (accuracy >= 80) return { level: 'Very Good', color: '#22c55e', icon: Award };
-    if (accuracy >= 70) return { level: 'Good', color: '#f59e0b', icon: Star };
-    if (accuracy >= 60) return { level: 'Fair', color: '#f59e0b', icon: Target };
+    if (accuracy >= 70) return { level: 'Good', color: '#0f766e', icon: Star };
+    if (accuracy >= 60) return { level: 'Fair', color: '#0f766e', icon: Target };
     return { level: 'Needs Improvement', color: '#ef4444', icon: BookOpen };
   };
 
@@ -124,7 +124,7 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
               <div style={{ fontSize: '2rem', fontWeight: '700', color: '#0ea5e9' }}>
                 {answeredQuestions}
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+              <div style={{ fontSize: '0.9rem', color: '#475569', fontWeight: '600' }}>
                 Total Questions
               </div>
             </div>
@@ -132,7 +132,7 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
               <div style={{ fontSize: '2rem', fontWeight: '700', color: '#22c55e' }}>
                 {correctAnswers}
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+              <div style={{ fontSize: '0.9rem', color: '#475569', fontWeight: '600' }}>
                 Correct Answers
               </div>
             </div>
@@ -140,15 +140,15 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
               <div style={{ fontSize: '2rem', fontWeight: '700', color: '#ef4444' }}>
                 {incorrectAnswers}
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+              <div style={{ fontSize: '0.9rem', color: '#475569', fontWeight: '600' }}>
                 Incorrect
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#f59e0b' }}>
+              <div style={{ fontSize: '2rem', fontWeight: '700', color: '#64748b' }}>
                 --
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b' }}>
+              <div style={{ fontSize: '0.9rem', color: '#475569', fontWeight: '600' }}>
                 Time Spent
               </div>
             </div>
@@ -200,12 +200,12 @@ export const ExamComplete: React.FC<ExamCompleteProps> = ({
             </p>
           )}
           {accuracy >= 70 && accuracy < 80 && (
-            <p style={{ color: '#f59e0b', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+            <p style={{ color: '#475569', fontWeight: '700', fontSize: '1.1rem', margin: 0 }}>
               📚 Good work! Continue studying to improve your performance! 📚
             </p>
           )}
           {accuracy >= 60 && accuracy < 70 && (
-            <p style={{ color: '#f59e0b', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
+            <p style={{ color: '#64748b', fontWeight: '600', fontSize: '1.1rem', margin: 0 }}>
               💪 Keep practicing! You're making progress - don't give up! 💪
             </p>
           )}

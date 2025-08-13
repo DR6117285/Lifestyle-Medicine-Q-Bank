@@ -2,8 +2,11 @@ import React from 'react';
 import { BookOpen, Users, Trophy, Shield } from 'lucide-react';
 
 interface AuthLayoutProps {
+  /** The authentication form content to display */
   children: React.ReactNode;
+  /** Main title for the authentication page */
   title?: string;
+  /** Subtitle text displayed below the main title */
   subtitle?: string;
 }
 

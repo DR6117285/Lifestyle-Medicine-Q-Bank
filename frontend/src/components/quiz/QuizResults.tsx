@@ -20,7 +20,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
   const getPerformanceLevel = (accuracy: number) => {
     if (accuracy >= 90) return { level: 'Excellent', color: 'text-green-600', bgColor: 'bg-green-50' };
     if (accuracy >= 80) return { level: 'Good', color: 'text-blue-600', bgColor: 'bg-blue-50' };
-    if (accuracy >= 70) return { level: 'Fair', color: 'text-yellow-600', bgColor: 'bg-yellow-50' };
+    if (accuracy >= 70) return { level: 'Fair', color: 'text-slate-600', bgColor: 'bg-slate-50' };
     return { level: 'Needs Improvement', color: 'text-red-600', bgColor: 'bg-red-50' };
   };
 
@@ -112,7 +112,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
                       </div>
                       <div className={`text-sm font-medium ${
                         category.accuracy >= 70 ? 'text-green-600' : 
-                        category.accuracy >= 50 ? 'text-yellow-600' : 'text-red-600'
+                        category.accuracy >= 50 ? 'text-slate-600' : 'text-red-600'
                       }`}>
                         {category.accuracy.toFixed(1)}%
                       </div>
@@ -124,7 +124,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
                     <div
                       className={`h-2 rounded-full transition-all duration-300 ${
                         category.accuracy >= 70 ? 'bg-green-500' : 
-                        category.accuracy >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                        category.accuracy >= 50 ? 'bg-slate-500' : 'bg-red-500'
                       }`}
                       style={{ width: `${category.accuracy}%` }}
                     ></div>

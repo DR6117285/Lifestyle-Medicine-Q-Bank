@@ -150,60 +150,60 @@ export const LandingPage = () => {
       'from-red-500 to-red-600',
       'from-indigo-500 to-indigo-600',
       'from-pink-500 to-pink-600',
-      'from-yellow-500 to-yellow-600',
+      'from-slate-500 to-slate-600',
       'from-cyan-500 to-cyan-600'
     ];
     return colors[index % colors.length];
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted">
       {/* Hero Section */}
       <div className="relative pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-20 h-20 gradient-medical rounded-2xl flex items-center justify-center shadow-medical-lg">
                 <Stethoscope className="h-10 w-10 text-white" />
               </div>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
               Lifestyle Medicine
-              <span className="block bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              <span className="block text-gradient">
                 Question Bank
               </span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-800 font-semibold mb-8 max-w-3xl mx-auto leading-relaxed">
               Master the science and art of lifestyle medicine with our comprehensive question bank designed for healthcare professionals and students.
             </p>
             
             {/* Key Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
-                <div className="text-3xl font-bold text-medical-600 mb-2">
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medical border border-border/50">
+                <div className="stats-value mb-2">
                   {isLoadingStats ? (
-                    <div className="animate-pulse bg-gray-300 rounded w-16 h-9 mx-auto"></div>
+                    <div className="animate-pulse bg-muted rounded w-16 h-9 mx-auto"></div>
                   ) : (
                     totalQuestions
                   )}
                 </div>
-                <div className="text-gray-600 font-medium">Total Questions</div>
+                <div className="stats-label">Total Questions</div>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medical border border-border/50">
+                <div className="text-3xl font-bold text-primary mb-2">
                   {isLoadingStats ? (
-                    <div className="animate-pulse bg-gray-300 rounded w-12 h-9 mx-auto"></div>
+                    <div className="animate-pulse bg-muted rounded w-12 h-9 mx-auto"></div>
                   ) : (
                     realSections.length || staticSections.length
                   )}
                 </div>
-                <div className="text-gray-600 font-medium">Core Sections</div>
+                <div className="stats-label">Core Sections</div>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
-                <div className="text-3xl font-bold text-purple-600 mb-2">3</div>
-                <div className="text-gray-600 font-medium">Question Types</div>
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-medical border border-border/50">
+                <div className="text-3xl font-bold text-accent mb-2">3</div>
+                <div className="stats-label">Question Types</div>
               </div>
             </div>
 
@@ -211,7 +211,7 @@ export const LandingPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => navigate('/quiz')}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                className="btn-medical group"
               >
                 <div className="flex items-center justify-center space-x-2">
                   <Play className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
@@ -221,7 +221,7 @@ export const LandingPage = () => {
               
               <button
                 onClick={() => navigate('/exam')}
-                className="group px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:shadow-xl border border-blue-200 hover:border-blue-300 transform hover:-translate-y-0.5 transition-all duration-200"
+                className="btn-medical-outline group"
               >
                 <div className="flex items-center justify-center space-x-2">
                   <Award className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />

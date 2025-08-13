@@ -33,7 +33,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       default: "bg-primary",
       medical: "bg-gradient-to-r from-primary to-accent",
       success: "bg-success-500",
-      warning: "bg-warning-500",
+      warning: "bg-orange-500",
       error: "bg-destructive",
     }
 

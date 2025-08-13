@@ -73,10 +73,10 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
     
     switch (connectionQuality) {
       case 'excellent': return 'bg-success-100 text-success-700 border-success-300';
-      case 'good': return 'bg-medical-100 text-medical-700 border-medical-300';
-      case 'poor': return 'bg-warning-100 text-warning-700 border-warning-300';
+      case 'good': return 'bg-slate-100 text-slate-700 border-slate-300';
+      case 'poor': return 'bg-orange-100 text-orange-700 border-orange-300';
       case 'very-poor': return 'bg-error-100 text-error-700 border-error-300';
-      default: return 'bg-muted text-muted-foreground border-muted';
+      default: return 'bg-muted text-slate-600 dark:text-slate-300 font-medium border-muted';
     }
   };
 
@@ -143,7 +143,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
                 <h3 className="font-medium">
                   {isOnline ? 'Connected' : 'Offline'}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">
                   {isOnline ? 'All features available' : 'Working offline'}
                 </p>
               </div>
@@ -162,7 +162,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           {isOnline && (
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-muted-foreground">Speed:</span>
+                <span className="text-slate-600 dark:text-slate-300 font-medium">Speed:</span>
                 <div className="font-medium">
                   {connectionInfo.downlink > 0 
                     ? `${connectionInfo.downlink} Mbps`
@@ -171,7 +171,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground">Latency:</span>
+                <span className="text-slate-600 dark:text-slate-300 font-medium">Latency:</span>
                 <div className="font-medium">
                   {connectionInfo.rtt > 0 ? `${connectionInfo.rtt}ms` : 'N/A'}
                 </div>
@@ -184,7 +184,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
             <div className="p-3 bg-muted/50 rounded-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin text-medical-600" />
+                  <Loader2 className="h-4 w-4 animate-spin text-slate-600" />
                   <span className="text-sm font-medium">
                     {queueLength} action{queueLength !== 1 ? 's' : ''} queued
                   </span>
@@ -195,7 +195,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
                   </Button>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-xs text-slate-600 dark:text-slate-300 font-medium mt-1">
                 {isOnline 
                   ? 'Syncing with server...' 
                   : 'Will sync when connection is restored'
@@ -206,14 +206,14 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
 
           {/* Last Online Time */}
           {!isOnline && lastOnlineTime && (
-            <div className="text-xs text-muted-foreground">
+            <div className="text-xs text-slate-600 dark:text-slate-300 font-medium">
               Last online: {formatLastOnline()}
             </div>
           )}
 
           {/* Data Saver Mode */}
           {connectionInfo.saveData && (
-            <div className="flex items-center gap-2 p-2 bg-warning-50 border border-warning-200 rounded text-warning-800">
+            <div className="flex items-center gap-2 p-2 bg-orange-50 border border-orange-200 rounded text-orange-800">
               <AlertTriangle className="h-4 w-4" />
               <span className="text-xs">Data saver mode enabled</span>
             </div>
@@ -221,7 +221,7 @@ export const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
 
           {/* Connection Tips */}
           {connectionQuality === 'poor' || connectionQuality === 'very-poor' ? (
-            <div className="text-xs text-muted-foreground p-2 bg-muted/50 rounded">
+            <div className="text-xs text-slate-600 dark:text-slate-300 font-medium p-2 bg-muted/50 rounded">
               💡 Tip: Poor connection detected. Some features may load slowly.
             </div>
           ) : null}
@@ -267,17 +267,17 @@ export const OfflineBanner: React.FC<OfflineBannerProps> = ({
 
   return (
     <div className={cn(
-      "w-full bg-warning-100 border-warning-300 border-b px-4 py-3",
+      "w-full bg-orange-100 border-orange-300 border-b px-4 py-3",
       className
     )}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <WifiOff className="h-5 w-5 text-warning-700" />
+          <WifiOff className="h-5 w-5 text-orange-700" />
           <div>
-            <p className="font-medium text-warning-900">
+            <p className="font-medium text-orange-900">
               You're currently offline
             </p>
-            <p className="text-sm text-warning-700">
+            <p className="text-sm text-orange-700">
               Your progress is being saved locally and will sync when reconnected.
             </p>
           </div>
@@ -287,7 +287,7 @@ export const OfflineBanner: React.FC<OfflineBannerProps> = ({
             variant="ghost" 
             size="sm" 
             onClick={onDismiss}
-            className="text-warning-700 hover:text-warning-900"
+            className="text-orange-700 hover:text-orange-900"
           >
             <XCircle className="h-4 w-4" />
           </Button>

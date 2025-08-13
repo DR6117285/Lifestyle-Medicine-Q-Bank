@@ -5,10 +5,15 @@ import { useAuth } from '../../hooks/useAuth';
 import { ROUTES } from '../../utils/constants';
 
 interface ProtectedRouteProps {
+  /** The component(s) to render when access is granted */
   children: React.ReactNode;
+  /** Whether authentication is required (default: true) */
   requireAuth?: boolean;
+  /** Specific role required to access the route */
   requiredRole?: 'learner' | 'admin';
+  /** Where to redirect if access is denied (default: login page) */
   redirectTo?: string;
+  /** Custom loading component to show during authentication check */
   fallback?: React.ReactNode;
 }
 
@@ -28,13 +33,16 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   redirectTo,
   fallback,
 }) => {
-  const { user, isAuthenticated, isLoading, initialize, hasRole } = useAuth();
+  const { user, isAuthenticated, isLoading, initialize, hasRole, _isInitializing } = useAuth();
   const location = useLocation();
 
-  // Initialize auth on mount
+  // Initialize auth on mount - but only if not already authenticated or initializing
   useEffect(() => {
-    initialize();
-  }, [initialize]);
+    if (!isAuthenticated && !isLoading && !_isInitializing) {
+      console.log('[PROTECTED_ROUTE] Initializing auth from protected route');
+      initialize();
+    }
+  }, [initialize, isAuthenticated, isLoading, _isInitializing]);
 
   // Show loading state
   if (isLoading) {
@@ -43,10 +51,19 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     }
 
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div 
+        className="min-h-screen flex items-center justify-center bg-gray-50"
+        role="status"
+        aria-label="Loading authentication status"
+      >
         <div className="flex flex-col items-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-          <p className="text-gray-600 text-sm">Loading...</p>
+          <Loader2 
+            className="h-8 w-8 animate-spin text-blue-600" 
+            aria-hidden="true"
+          />
+          <p className="text-gray-600 text-sm font-medium">
+            Verifying access...
+          </p>
         </div>
       </div>
     );

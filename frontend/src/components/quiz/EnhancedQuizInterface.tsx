@@ -211,7 +211,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <BookOpen className="h-5 w-5 text-medical-600" />
+                <BookOpen className="h-5 w-5 text-slate-600" />
                 <span className="font-medium">
                   Question {progress.current} of {progress.total}
                 </span>
@@ -220,7 +220,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 <div className="flex items-center space-x-2">
                   <Clock className={cn(
                     "h-5 w-5",
-                    timeRemaining < 300 ? "text-error-600" : "text-medical-600"
+                    timeRemaining < 300 ? "text-error-600" : "text-slate-600"
                   )} />
                   <span className={cn(
                     "font-mono font-medium",
@@ -260,7 +260,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
           
           <div className="space-y-2">
             <Progress value={progress.percentage} className="h-2" />
-            <div className="flex justify-between text-sm text-muted-foreground">
+            <div className="flex justify-between text-sm text-slate-600 dark:text-slate-300 font-medium">
               <span>Progress: {Math.round(progress.percentage)}%</span>
               <span>Accuracy: {Math.round(progress.accuracy)}%</span>
             </div>
@@ -270,7 +270,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
 
       {/* Keyboard Shortcuts Panel */}
       {showKeyboardShortcuts && (
-        <Card className="border-medical-200">
+        <Card className="border-slate-200">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <Keyboard className="h-5 w-5" />
@@ -304,15 +304,15 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                   onClick={() => handleQuestionNavigation(index)}
                   className={cn(
                     "relative h-12 w-12 p-0",
-                    isCurrent && "ring-2 ring-medical-500",
+                    isCurrent && "ring-2 ring-slate-500",
                     isAnswered && isCorrect === true && "bg-success-100 border-success-300 text-success-700",
                     isAnswered && isCorrect === false && "bg-error-100 border-error-300 text-error-700",
-                    isFlagged && "ring-2 ring-warning-400"
+                    isFlagged && "ring-2 ring-orange-400"
                   )}
                 >
                   {index + 1}
                   {isFlagged && (
-                    <Flag className="absolute -top-1 -right-1 h-3 w-3 text-warning-600" />
+                    <Flag className="absolute -top-1 -right-1 h-3 w-3 text-orange-600" />
                   )}
                   {isAnswered && (
                     <div className="absolute -bottom-1 -right-1">
@@ -336,7 +336,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 <span>Incorrect</span>
               </div>
               <div className="flex items-center gap-2">
-                <Flag className="w-3 h-3 text-warning-600" />
+                <Flag className="w-3 h-3 text-slate-600" />
                 <span>Flagged</span>
               </div>
             </div>
@@ -356,7 +356,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
               variant="outline"
               onClick={() => toggleFlag(currentQuestion.id)}
               className={cn(
-                flaggedQuestions.has(currentQuestion.id) && "bg-warning-100 border-warning-300 text-warning-700"
+                flaggedQuestions.has(currentQuestion.id) && "bg-slate-100 border-slate-300 text-slate-700"
               )}
             >
               <Flag className="h-4 w-4" />
@@ -374,7 +374,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 variant="outline"
                 className={cn(
                   currentQuestion.difficulty === 'easy' && "border-success-300 text-success-700",
-                  currentQuestion.difficulty === 'medium' && "border-warning-300 text-warning-700",
+                  currentQuestion.difficulty === 'medium' && "border-slate-300 text-slate-700",
                   currentQuestion.difficulty === 'hard' && "border-error-300 text-error-700"
                 )}
               >
@@ -393,8 +393,8 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 className={cn(
                   "flex items-center space-x-3 p-4 rounded-lg border-2 cursor-pointer transition-all duration-200",
                   selectedOption === option 
-                    ? "border-medical-500 bg-medical-50" 
-                    : "border-border hover:border-medical-300 hover:bg-muted/50",
+                    ? "border-slate-500 bg-slate-50" 
+                    : "border-border hover:border-slate-300 hover:bg-muted/50",
                   showRationale && selectedOption === option && currentQuestion.isCorrect === false 
                     ? "border-error-500 bg-error-50"
                     : "",
@@ -407,7 +407,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 <div className={cn(
                   "flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-medium",
                   selectedOption === option 
-                    ? "border-medical-500 bg-medical-500 text-white" 
+                    ? "border-slate-500 bg-slate-500 text-white" 
                     : "border-muted-foreground"
                 )}>
                   {index + 1}
@@ -432,7 +432,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
           {/* Confidence Level (only show before submission) */}
           {!showRationale && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-muted-foreground">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 How confident are you in your answer?
               </label>
               <div className="flex gap-2">
@@ -453,12 +453,12 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
 
           {/* Rationale (shown after submission) */}
           {showRationale && currentQuestion.rationale && (
-            <div className="mt-6 p-4 rounded-lg bg-muted/50 border-l-4 border-medical-500">
+            <div className="mt-6 p-4 rounded-lg bg-muted/50 border-l-4 border-slate-500">
               <div className="flex items-start space-x-2">
-                <Lightbulb className="h-5 w-5 text-medical-600 mt-0.5 flex-shrink-0" />
+                <Lightbulb className="h-5 w-5 text-slate-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium text-medical-900 mb-2">Explanation</h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <h4 className="font-medium text-slate-800 mb-2">Explanation</h4>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                     {currentQuestion.rationale}
                   </p>
                 </div>
@@ -483,7 +483,7 @@ export const EnhancedQuizInterface: React.FC<EnhancedQuizInterfaceProps> = ({
                 <Button
                   onClick={handleSubmitAnswer}
                   disabled={!selectedOption}
-                  className="gap-2 bg-medical-600 hover:bg-medical-700"
+                  className="gap-2 bg-slate-600 hover:bg-slate-700"
                 >
                   Submit Answer
                 </Button>

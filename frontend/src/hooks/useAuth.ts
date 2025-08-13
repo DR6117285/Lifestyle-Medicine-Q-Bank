@@ -18,6 +18,7 @@ export const useAuth = () => {
     refreshUser,
     initialize,
     clearError,
+    _isInitializing,
   } = useAuthStore();
 
   /**
@@ -155,6 +156,7 @@ export const useAuth = () => {
     isLoading,
     isAuthenticated,
     error,
+    _isInitializing,
     
     // Actions
     login: handleLogin,

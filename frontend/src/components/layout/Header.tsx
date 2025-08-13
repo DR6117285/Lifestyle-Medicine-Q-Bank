@@ -45,7 +45,7 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
               <h1 className="text-xl font-bold text-gradient tracking-tight">
                 Lifestyle Medicine Q-Bank
               </h1>
-              <p className="text-xs text-muted-foreground hidden sm:block">
+              <p className="text-xs text-slate-600 dark:text-slate-300 hidden sm:block font-medium">
                 Medical Education Platform
               </p>
             </div>
@@ -67,7 +67,7 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
                 <p className="text-sm font-semibold text-foreground">
                   {user.displayName || user.email?.split('@')[0]}
                 </p>
-                <div className="text-xs text-muted-foreground capitalize flex items-center space-x-1">
+                <div className="text-xs text-slate-600 dark:text-slate-300 capitalize flex items-center space-x-1 font-medium">
                   <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
                   <span>{user.role}</span>
                 </div>
@@ -80,23 +80,23 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
                   <p className="text-sm font-semibold text-foreground">
                     {user.displayName || user.email}
                   </p>
-                  <p className="text-xs text-muted-foreground">{user.email}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">{user.email}</p>
                   <div className="flex items-center space-x-1 mt-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-success-500"></div>
-                    <span className="text-xs text-muted-foreground capitalize">
+                    <span className="text-xs text-slate-600 dark:text-slate-300 capitalize font-medium">
                       {user.role}
                     </span>
                   </div>
                 </div>
                 
                 <div className="py-1">
-                  <button className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors flex items-center space-x-3">
-                    <User className="h-4 w-4 text-muted-foreground" />
+                  <button className="w-full text-left px-4 py-3 text-sm text-slate-800 dark:text-slate-200 hover:bg-muted transition-colors flex items-center space-x-3">
+                    <User className="h-4 w-4 text-slate-600 dark:text-slate-400" />
                     <span>Profile</span>
                   </button>
                   
-                  <button className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors flex items-center space-x-3">
-                    <Settings className="h-4 w-4 text-muted-foreground" />
+                  <button className="w-full text-left px-4 py-3 text-sm text-slate-800 dark:text-slate-200 hover:bg-muted transition-colors flex items-center space-x-3">
+                    <Settings className="h-4 w-4 text-slate-600 dark:text-slate-400" />
                     <span>Settings</span>
                   </button>
                 </div>

@@ -295,21 +295,21 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ onComplete, onExit
       {/* Question Card */}
       <div className={`question-card ${isRetryMode ? 'retry-mode' : ''}`} style={{
         ...(isRetryMode && {
-          background: 'linear-gradient(135deg, #fef3c7, #fed7aa)',
-          border: '2px solid #f59e0b',
-          borderLeft: '6px solid #f59e0b'
+          background: 'linear-gradient(135deg, #f1f5f9, #e2e8f0)',
+          border: '2px solid #64748b',
+          borderLeft: '6px solid #64748b'
         })
       }}>
         <div className="question-header">
           <h2 className="question-number" style={{
-            ...(isRetryMode && { color: '#92400e' })
+            ...(isRetryMode && { color: '#475569' })
           }}>
             {isRetryMode ? 'Retry' : 'Question'} {progress.current}
           </h2>
           <div className="question-progress" style={{
             ...(isRetryMode && { 
               background: 'rgba(255, 255, 255, 0.8)', 
-              border: '1px solid #f59e0b' 
+              border: '1px solid #64748b' 
             })
           }}>
             {progress.current} of {progress.total}
@@ -321,7 +321,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ onComplete, onExit
         {isRetryMode && (
           <div style={{
             background: 'rgba(255, 255, 255, 0.9)',
-            border: '1px solid #f59e0b',
+            border: '1px solid #64748b',
             borderRadius: '8px',
             padding: '12px 16px',
             margin: '16px 0',
@@ -329,11 +329,11 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ onComplete, onExit
             alignItems: 'center',
             gap: '12px'
           }}>
-            <AlertCircle className="w-5 h-5" style={{ color: '#f59e0b' }} />
+            <AlertCircle className="w-5 h-5" style={{ color: '#64748b' }} />
             <div style={{ flex: 1 }}>
               <p style={{ 
                 margin: 0, 
-                color: '#92400e', 
+                color: '#475569', 
                 fontSize: '0.95rem',
                 fontWeight: '600'
               }}>

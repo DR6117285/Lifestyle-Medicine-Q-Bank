@@ -7,18 +7,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md",
+        default: "bg-primary text-primary-foreground shadow-medical hover:bg-primary/90 hover:shadow-medical-lg",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:shadow-md",
+          "bg-destructive text-destructive-foreground shadow-medical hover:bg-destructive/90 hover:shadow-medical-lg",
         outline:
-          "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground shadow-sm hover:shadow-md",
+          "border-2 border-primary bg-card text-primary hover:bg-primary hover:text-primary-foreground shadow-medical hover:shadow-medical-lg",
         secondary:
-          "bg-accent text-accent-foreground shadow-sm hover:bg-accent/90 hover:shadow-md",
-        ghost: "text-primary hover:bg-primary/10 hover:text-primary",
+          "bg-accent text-accent-foreground shadow-medical hover:bg-accent/90 hover:shadow-medical-lg",
+        ghost: "text-primary hover:bg-primary/10 hover:text-primary hover:shadow-medical",
         link: "text-primary underline-offset-4 hover:underline p-0 h-auto",
-        medical: "bg-gradient-to-r from-primary to-accent text-white shadow-md hover:shadow-lg hover:from-primary/90 hover:to-accent/90",
-        success: "bg-success-500 text-white shadow-sm hover:bg-success-600 hover:shadow-md",
-        warning: "bg-warning-500 text-white shadow-sm hover:bg-warning-600 hover:shadow-md",
+        medical: "bg-gradient-to-r from-primary to-accent text-white shadow-medical-lg hover:shadow-medical-lg hover:from-primary/90 hover:to-accent/90",
+        success: "bg-success text-success-foreground shadow-medical hover:bg-success/90 hover:shadow-medical-lg",
+        warning: "bg-orange-500 text-white shadow-medical hover:bg-orange-600 hover:shadow-medical-lg",
+        info: "bg-info text-info-foreground shadow-medical hover:bg-info/90 hover:shadow-medical-lg",
       },
       size: {
         default: "h-11 px-6 py-3",

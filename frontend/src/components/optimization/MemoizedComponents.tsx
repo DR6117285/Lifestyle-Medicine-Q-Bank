@@ -37,9 +37,9 @@ export const MemoizedQuestionCard = memo<QuestionCardProps>(({
   const difficultyColor = useMemo(() => {
     switch (question.difficulty) {
       case 'easy': return 'border-success-300 text-success-700';
-      case 'medium': return 'border-warning-300 text-warning-700';
+      case 'medium': return 'border-slate-300 text-slate-700';
       case 'hard': return 'border-error-300 text-error-700';
-      default: return 'border-muted-foreground';
+      default: return 'border-slate-300 text-slate-700';
     }
   }, [question.difficulty]);
 
@@ -86,7 +86,7 @@ interface StatisticsCardProps {
   value: string | number;
   change?: number;
   icon: React.ElementType;
-  variant?: 'default' | 'success' | 'warning' | 'error';
+  variant?: 'default' | 'success' | 'orange' | 'error';
   className?: string;
 }
 
@@ -102,18 +102,18 @@ export const MemoizedStatisticsCard = memo<StatisticsCardProps>(({
     switch (variant) {
       case 'success':
         return 'border-success-200 bg-success-50 text-success-900';
-      case 'warning':
-        return 'border-warning-200 bg-warning-50 text-warning-900';
+      case 'orange':
+        return 'border-slate-200 bg-slate-50 text-slate-700';
       case 'error':
         return 'border-error-200 bg-error-50 text-error-900';
       default:
-        return 'border-medical-200 bg-medical-50 text-medical-900';
+        return 'border-slate-200 bg-slate-50 text-slate-800';
     }
   }, [variant]);
 
   const changeColor = useMemo(() => {
     if (change === undefined) return '';
-    return change > 0 ? 'text-success-600' : change < 0 ? 'text-error-600' : 'text-muted-foreground';
+    return change > 0 ? 'text-success-600' : change < 0 ? 'text-error-600' : 'text-slate-600';
   }, [change]);
 
   return (
@@ -182,7 +182,7 @@ export const MemoizedProgressRing = memo<ProgressRingProps>(({
           fill="transparent"
           stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="text-muted opacity-20"
+          className="text-slate-400 opacity-40"
         />
         {/* Progress circle */}
         <circle
@@ -195,13 +195,13 @@ export const MemoizedProgressRing = memo<ProgressRingProps>(({
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
-          className="text-medical-600 transition-all duration-300 ease-out"
+          className="text-slate-600 transition-all duration-300 ease-out"
         />
       </svg>
       
       {showPercentage && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-medical-900">
+          <span className="text-2xl font-bold text-slate-800">
             {Math.round(progress)}%
           </span>
         </div>
@@ -244,16 +244,16 @@ export const MemoizedTimerDisplay = memo<TimerDisplayProps>(({
   return (
     <div className={cn(
       "flex items-center gap-3 p-3 rounded-lg border",
-      isUrgent ? "border-error-300 bg-error-50" : "border-medical-300 bg-medical-50",
+      isUrgent ? "border-error-300 bg-error-50" : "border-slate-300 bg-slate-50",
       className
     )}>
       <Clock className={cn(
         "h-5 w-5",
-        isUrgent ? "text-error-600" : "text-medical-600"
+        isUrgent ? "text-error-600" : "text-slate-600"
       )} />
       <span className={cn(
         "font-mono text-lg font-semibold",
-        isUrgent ? "text-error-900" : "text-medical-900"
+        isUrgent ? "text-error-900" : "text-slate-800"
       )}>
         {formattedTime}
       </span>
@@ -293,11 +293,11 @@ export const MemoizedQuickAction = memo<QuickActionProps>(({
   const variantStyles = useMemo(() => {
     switch (variant) {
       case 'primary':
-        return 'border-medical-300 bg-medical-50 hover:bg-medical-100 text-medical-900';
+        return 'border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-800';
       case 'secondary':
         return 'border-teal-300 bg-teal-50 hover:bg-teal-100 text-teal-900';
       default:
-        return 'border-border hover:bg-muted/50';
+        return 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-900';
     }
   }, [variant]);
 
@@ -314,15 +314,15 @@ export const MemoizedQuickAction = memo<QuickActionProps>(({
         <div className="flex items-start gap-4">
           <div className={cn(
             "p-3 rounded-lg",
-            variant === 'primary' ? "bg-medical-600 text-white" :
+            variant === 'primary' ? "bg-slate-600 text-white" :
             variant === 'secondary' ? "bg-teal-600 text-white" :
-            "bg-muted text-muted-foreground"
+            "bg-slate-200 text-slate-700"
           )}>
             <Icon className="h-6 w-6" />
           </div>
           <div>
             <h3 className="font-semibold mb-1">{title}</h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-sm text-slate-700">{description}</p>
           </div>
         </div>
       </CardContent>
