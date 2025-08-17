@@ -49,20 +49,48 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
   // Initialize exam on component mount
   useEffect(() => {
     const initializeExam = async () => {
-      if (!user || isInitialized || currentSession) return;
+      console.log('🔥 ExamInterface useEffect triggered:', {
+        hasUser: !!user,
+        userId: user?.id,
+        isInitialized,
+        hasCurrentSession: !!currentSession,
+        shouldInitialize: !!(user && !isInitialized && !currentSession)
+      });
+      
+      if (!user) {
+        console.warn('🔥 No user found, cannot initialize exam');
+        return;
+      }
+      
+      if (isInitialized) {
+        console.log('🔥 Exam already initialized, skipping');
+        return;
+      }
+      
+      if (currentSession) {
+        console.log('🔥 Current session exists, skipping initialization');
+        return;
+      }
       
       try {
         const examSettings: QuizSettings = {
           mode: 'timed',
-          questionCount: 50,
-          timeLimit: 75 // 75 minutes for full exam
+          questionCount: 150,
+          timeLimit: 240 // 240 minutes for full LMQB exam (4 hours)
         };
         
         console.log('🔥 Initializing exam with settings:', examSettings);
+        console.log('🔥 User details:', { id: user.id, email: user.email });
+        
         await initializeQuiz(user.id, examSettings);
         setIsInitialized(true);
+        console.log('🔥 Exam initialization completed successfully');
       } catch (error) {
         console.error('🔥 Failed to initialize exam:', error);
+        console.error('🔥 Error details:', {
+          message: error instanceof Error ? error.message : 'Unknown error',
+          stack: error instanceof Error ? error.stack : undefined
+        });
       }
     };
 
@@ -203,6 +231,14 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
             <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2 text-destructive">Exam Setup Failed</h2>
             <p className="text-destructive/80 mb-4">{error}</p>
+            {error.includes('database contains no questions') || error.includes('Please contact your administrator') ? (
+              <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  <strong>Note:</strong> The exam database appears to be empty. 
+                  You can try the regular quiz mode instead, which may have questions available.
+                </p>
+              </div>
+            ) : null}
             <div className="flex gap-3 justify-center">
               <Button onClick={clearError} variant="outline">
                 Try Again
@@ -226,8 +262,14 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
             <BookOpen className="h-12 w-12 text-slate-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">No Questions Available</h2>
             <p className="text-slate-600 dark:text-slate-300 font-medium mb-4">
-              There are no exam questions available at this time.
+              The exam database is currently empty. Please contact your administrator to load the question bank.
             </p>
+            <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Try Regular Quiz Mode Instead</strong><br />
+                Regular quiz mode may have questions available while the timed exam is being set up.
+              </p>
+            </div>
             <Button onClick={onExit}>
               <Home className="h-4 w-4 mr-2" />
               Return to Dashboard
@@ -260,65 +302,83 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
         Skip to main question
       </a>
       
-      {/* Exam Header */}
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b" role="banner">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" onClick={onExit}>
+      {/* Exam Header - Compact and Styled */}
+      <header className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b-2 border-[#00B2A9]/20" role="banner">
+        <div className="container mx-auto px-4 py-3">
+          {/* Top Row */}
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-3">
+              <Button 
+                variant="ghost" 
+                onClick={onExit}
+                className="text-[#F5A624] hover:bg-[#F5A624]/10 hover:text-[#e09416] font-medium"
+              >
                 <Home className="h-4 w-4 mr-2" />
-                Exit Exam
+                Return to Home
               </Button>
-              <Badge variant="outline" className="text-sm">
+              <Badge 
+                variant="outline" 
+                className="text-sm border-[#00B2A9] text-[#00B2A9] bg-[#00B2A9]/5"
+              >
                 Official LMQB Exam
               </Badge>
             </div>
             
-            <div className="flex items-center gap-6">
-              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium" aria-live="polite">
+            {timeRemaining !== undefined && (
+              <div 
+                className={`flex items-center gap-2 font-mono text-xl font-bold px-3 py-1 rounded-lg ${getTimeRemainingColor()}`}
+                role="timer"
+                aria-label={`Time remaining: ${formatTime(timeRemaining)}`}
+              >
+                <Clock className="h-5 w-5" aria-hidden="true" />
+                <span aria-live="off">{formatTime(timeRemaining)}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Bottom Row - Progress Info */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6 text-sm">
+              <div className="font-medium text-[#00B2A9]" aria-live="polite">
                 Question {progress.current} of {progress.total}
               </div>
               
-              {timeRemaining !== undefined && (
-                <div 
-                  className={`flex items-center gap-2 font-mono text-lg font-bold ${getTimeRemainingColor()}`}
-                  role="timer"
-                  aria-label={`Time remaining: ${formatTime(timeRemaining)}`}
-                >
-                  <Clock className="h-5 w-5" aria-hidden="true" />
-                  <span aria-live="off">{formatTime(timeRemaining)}</span>
+              <div className="text-slate-600 dark:text-slate-300">
+                Progress: {Math.round(progress.percentage)}%
+              </div>
+              
+              {skippedQuestions.size > 0 && (
+                <div className="text-[#F5A624] font-medium">
+                  Skipped: {skippedQuestions.size}
                 </div>
               )}
-              
-              <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">
-                Skipped: {skippedQuestions.size}
-              </div>
             </div>
-          </div>
-          
-          {/* Progress Bar */}
-          <div className="mt-3">
-            <Progress 
-              value={progress.percentage} 
-              className="h-2"
-              aria-label={`Exam progress: ${Math.round(progress.percentage)}% complete`}
-            />
+            
+            {/* Compact Progress Bar */}
+            <div className="flex-1 max-w-xs ml-6">
+              <Progress 
+                value={progress.percentage} 
+                className="h-2 bg-slate-200"
+                aria-label={`Exam progress: ${Math.round(progress.percentage)}% complete`}
+              />
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl" id="main-content">
-        {/* Question Card */}
-        <Card className="mb-6" id="main-question" role="group" aria-labelledby="question-title">
-          <CardHeader>
+        {/* Question Card - ACLM Styled */}
+        <Card className="mb-6 shadow-lg border-l-4 border-l-[#00B2A9]" id="main-question" role="group" aria-labelledby="question-title">
+          <CardHeader className="bg-[#f8f9fa] border-b border-slate-200">
             <div className="flex items-start justify-between">
-              <CardTitle className="text-xl leading-relaxed" id="question-title">
-                <span className="sr-only">Question {progress.current} of {progress.total}: </span>
+              <CardTitle className="text-xl leading-relaxed text-[#333333]" id="question-title">
+                <span className="text-[#00B2A9] font-bold mr-3">Question {progress.current}</span>
+                <span className="sr-only">of {progress.total}: </span>
                 {currentQuestion.question_text}
               </CardTitle>
               {skippedQuestions.has(currentQuestion.id) && (
-                <Badge variant="secondary" className="ml-4 shrink-0">
+                <Badge variant="secondary" className="ml-4 shrink-0 bg-[#F5A624] text-white">
                   Previously Skipped
                 </Badge>
               )}
@@ -396,11 +456,11 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
 
               {/* Action Buttons */}
               {!showRationale ? (
-                <div className="flex gap-3 justify-center">
+                <div className="flex gap-3 justify-center mb-6">
                   <Button 
                     type="submit" 
                     disabled={!selectedOption || isSubmitting}
-                    className="px-6"
+                    className="px-6 bg-[#00B2A9] hover:bg-[#009992]"
                   >
                     {isSubmitting ? (
                       <>
@@ -420,14 +480,18 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                     variant="outline"
                     onClick={handleSkipQuestion}
                     disabled={!canGoNext()}
+                    className="border-[#0075C9] text-[#0075C9] hover:bg-[#0075C9] hover:text-white"
                   >
                     <SkipForward className="h-4 w-4 mr-2" />
                     Skip Question
                   </Button>
                 </div>
               ) : (
-                <div className="flex gap-3 justify-center">
-                  <Button onClick={handleNext}>
+                <div className="flex gap-3 justify-center mb-6">
+                  <Button 
+                    onClick={handleNext}
+                    className="bg-[#00B2A9] hover:bg-[#009992]"
+                  >
                     {canGoNext() ? (
                       <>
                         Next Question
@@ -442,6 +506,58 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
                   </Button>
                 </div>
               )}
+
+              {/* Navigation Controls - Now inside the main card */}
+              <div className="border-t pt-4 flex items-center justify-between">
+                <Button 
+                  variant="outline" 
+                  onClick={handlePrevious}
+                  disabled={!canGoPrevious()}
+                  className="border-[#0075C9] text-[#0075C9] hover:bg-[#0075C9] hover:text-white"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Previous
+                </Button>
+                
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <div className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-1">
+                      Progress: {Math.round(progress.accuracy || 0)}% accuracy
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {progress.correct} correct of {progress.current - 1} answered
+                    </Badge>
+                  </div>
+                  
+                  {skippedQuestions.size > 0 && (
+                    <Badge variant="secondary" className="bg-[#F5A624] text-white">
+                      <Eye className="h-4 w-4 mr-1" />
+                      {skippedQuestions.size} Skipped
+                    </Badge>
+                  )}
+                </div>
+                
+                <Button 
+                  variant={canGoNext() ? "outline" : "default"}
+                  onClick={canGoNext() ? handleNext : handleCompleteExam}
+                  className={canGoNext() ? 
+                    "border-[#0075C9] text-[#0075C9] hover:bg-[#0075C9] hover:text-white" : 
+                    "bg-[#00B2A9] hover:bg-[#009992]"
+                  }
+                >
+                  {canGoNext() ? (
+                    <>
+                      Next
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </>
+                  ) : (
+                    <>
+                      Complete Exam
+                      <CheckCircle className="h-4 w-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
@@ -497,53 +613,6 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
             </CardContent>
           </Card>
         )}
-        
-        {/* Navigation */}
-        <div className="flex items-center justify-between">
-          <Button 
-            variant="outline" 
-            onClick={handlePrevious}
-            disabled={!canGoPrevious()}
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Previous
-          </Button>
-          
-          <div className="text-center">
-            <div className="text-sm text-slate-600 dark:text-slate-300 font-medium mb-2">
-              Progress: {Math.round(progress.accuracy || 0)}% accuracy
-            </div>
-            <Badge variant="outline">
-              {progress.correct} correct of {progress.current - 1} answered
-            </Badge>
-          </div>
-          
-          <div className="flex gap-3">
-            {skippedQuestions.size > 0 && (
-              <Badge variant="secondary">
-                <Eye className="h-4 w-4 mr-1" />
-                {skippedQuestions.size} Skipped
-              </Badge>
-            )}
-            
-            <Button 
-              variant={canGoNext() ? "outline" : "default"}
-              onClick={canGoNext() ? handleNext : handleCompleteExam}
-            >
-              {canGoNext() ? (
-                <>
-                  Next
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </>
-              ) : (
-                <>
-                  Complete Exam
-                  <CheckCircle className="h-4 w-4 ml-2" />
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
       </main>
     </div>
   );

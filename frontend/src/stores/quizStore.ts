@@ -69,21 +69,39 @@ export const useQuizStore = create<QuizStore>()(
       // Initialize quiz with settings
       initializeQuiz: async (userId: string, settings: QuizSettings) => {
         try {
-          console.log('[QUIZ] Initializing quiz for user:', userId, 'with settings:', settings);
+          console.log('[QUIZ] 🚀 Initializing quiz for user:', userId, 'with settings:', settings);
+          console.log('[QUIZ] 🔧 Settings details:', {
+            mode: settings.mode,
+            questionCount: settings.questionCount,
+            timeLimit: settings.timeLimit,
+            sectionIds: settings.sectionIds,
+            sectionId: settings.sectionId
+          });
+          
           set({ isLoading: true, error: null });
 
           // Create quiz session
+          console.log('[QUIZ] 📝 Creating quiz session...');
           const session = await QuizService.createQuizSession(userId, settings);
-          console.log('[QUIZ] Quiz session created:', session.id);
+          console.log('[QUIZ] ✅ Quiz session created successfully:', session.id);
           
           // Fetch questions
+          console.log('[QUIZ] 📚 Fetching questions with settings:', settings);
           const questions = await QuizService.fetchQuestions(settings);
           
+          console.log('[QUIZ] 📊 Question fetch result:', {
+            questionsReceived: questions.length,
+            expectedCount: settings.questionCount,
+            firstQuestionId: questions[0]?.id,
+            firstQuestionText: questions[0]?.question_text?.substring(0, 50) + '...'
+          });
+          
           if (questions.length === 0) {
-            throw new Error('No questions found for the selected criteria');
+            console.error('[QUIZ] ❌ No questions returned from QuizService.fetchQuestions');
+            throw new Error('No questions found for the selected criteria. The question database may be empty or inaccessible.');
           }
 
-          console.log(`[QUIZ] Fetched ${questions.length} questions`);
+          console.log(`[QUIZ] ✅ Successfully fetched ${questions.length} questions`);
 
           // Initialize timer if timed mode
           const timeRemaining = settings.mode === 'timed' && settings.timeLimit 
@@ -198,46 +216,49 @@ export const useQuizStore = create<QuizStore>()(
 
       // Navigate to next question
       nextQuestion: () => {
-        const { currentQuestionIndex, questions, answers } = get();
+        const { currentQuestionIndex, questions } = get();
         if (currentQuestionIndex < questions.length - 1) {
           const newIndex = currentQuestionIndex + 1;
           const nextQuestion = questions[newIndex];
-          const isAnswered = answers.has(nextQuestion.id);
+          // Only show rationale if the question was actually submitted (isAnswered = true)
+          const wasSubmitted = nextQuestion.isAnswered || false;
           
           console.log(`[QUIZ] Moving to next question: ${newIndex + 1}/${questions.length}`);
           set({
             currentQuestionIndex: newIndex,
-            showRationale: isAnswered
+            showRationale: wasSubmitted
           });
         }
       },
 
       // Navigate to previous question
       previousQuestion: () => {
-        const { currentQuestionIndex, questions, answers } = get();
+        const { currentQuestionIndex, questions } = get();
         if (currentQuestionIndex > 0) {
           const newIndex = currentQuestionIndex - 1;
           const previousQuestion = questions[newIndex];
-          const isAnswered = answers.has(previousQuestion.id);
+          // Only show rationale if the question was actually submitted (isAnswered = true)
+          const wasSubmitted = previousQuestion.isAnswered || false;
           
           console.log(`[QUIZ] Moving to previous question: ${newIndex + 1}/${questions.length}`);
           set({
             currentQuestionIndex: newIndex,
-            showRationale: isAnswered
+            showRationale: wasSubmitted
           });
         }
       },
 
       // Go to specific question
       goToQuestion: (index: number) => {
-        const { questions, answers } = get();
+        const { questions } = get();
         if (index >= 0 && index < questions.length) {
           const targetQuestion = questions[index];
-          const isAnswered = answers.has(targetQuestion.id);
+          // Only show rationale if the question was actually submitted (isAnswered = true)
+          const wasSubmitted = targetQuestion.isAnswered || false;
           
           set({
             currentQuestionIndex: index,
-            showRationale: isAnswered
+            showRationale: wasSubmitted
           });
         }
       },
@@ -368,12 +389,36 @@ export const useQuizStore = create<QuizStore>()(
       // Utility getters
       getCurrentQuestion: () => {
         const { questions, currentQuestionIndex, answers, attempts } = get();
+        
+        console.log('[QUIZ] 🔍 getCurrentQuestion called:', {
+          totalQuestions: questions.length,
+          currentIndex: currentQuestionIndex,
+          hasQuestions: questions.length > 0,
+          indexInBounds: currentQuestionIndex >= 0 && currentQuestionIndex < questions.length
+        });
+        
         const question = questions[currentQuestionIndex];
         
-        if (!question) return null;
+        if (!question) {
+          console.warn('[QUIZ] ⚠️ getCurrentQuestion returning null:', {
+            questionsLength: questions.length,
+            currentIndex: currentQuestionIndex,
+            reason: questions.length === 0 ? 'No questions loaded' : 'Index out of bounds'
+          });
+          return null;
+        }
 
         const selectedAnswer = answers.get(question.id);
         const attempt = attempts.find(a => a.question_id === question.id);
+
+        console.log('[QUIZ] ✅ getCurrentQuestion returning:', {
+          questionId: question.id,
+          questionText: question.question_text?.substring(0, 50) + '...',
+          hasOptions: question.options?.length > 0,
+          optionsCount: question.options?.length,
+          hasSelectedAnswer: !!selectedAnswer,
+          isAnswered: !!selectedAnswer
+        });
 
         return {
           ...question,

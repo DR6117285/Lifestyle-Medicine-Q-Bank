@@ -120,14 +120,235 @@ export class QuizService {
   }
 
   /**
-   * Fetch questions based on quiz settings with randomization
+   * Section weights for LMQB exam (150 questions)
+   */
+  private static readonly SECTION_WEIGHTS = {
+    "Introduction to Lifestyle Medicine": 4, 
+    "Fundamentals of Health Behavior Change": 10,
+    "Key Clinical Processes in Lifestyle Medicine": 8, 
+    "The Role of The Practitioners Health and Community Advocacy": 4, 
+    "Nutrition Science Assessment and Prescription Guidelines": 26, 
+    "Physical Activity Science and Prescription": 14, 
+    "Emotional and Mental Health Assessment and Interventions": 10, 
+    "Sleep Health Science and Interventions": 8, 
+    "Managing Tobacco Cessation and other Toxic Exposures": 8, 
+    "The Role of Connectedness and Positive Psychology": 8
+  };
+
+  /**
+   * Fetch questions based on quiz settings with proper section weighting for LMQB exam
    * @param settings Quiz configuration settings
-   * @returns Promise<Question[]> Array of randomized questions
+   * @returns Promise<Question[]> Array of weighted and randomized questions
    * @throws Error when questions cannot be fetched
    */
   static async fetchQuestions(settings: QuizSettings): Promise<Question[]> {
     try {
-      let query = supabase
+      // For LMQB exam with 150 questions, use section weights
+      if (settings.questionCount === 150 && settings.mode === 'timed') {
+        return await this.fetchWeightedExamQuestions();
+      }
+
+      // Default behavior for other quiz types - use regular question fetching
+      return await this.fetchRegularQuestions(settings.questionCount);
+      
+    } catch (error) {
+      console.error('ERROR: Failed to fetch questions -', error instanceof Error ? error.message : 'Unknown error');
+      // Provide a more helpful error message
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch questions from database';
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
+   * Fetch questions for LMQB exam with proper section weighting (150 questions)
+   * @returns Promise<Question[]> Array of 150 questions distributed according to section weights
+   */
+  private static async fetchWeightedExamQuestions(): Promise<Question[]> {
+    try {
+      console.log('INFO: Fetching weighted LMQB exam questions (150 total)');
+      
+      // First, check if we have any questions at all
+      const { count, error: countError } = await supabase
+        .from('questions')
+        .select('id', { count: 'exact' });
+      
+      if (countError) {
+        console.error('Database error counting questions:', countError.message);
+        throw countError;
+      }
+      
+      if (count === 0) {
+        console.error('ERROR: No questions found in database');
+        throw new Error('No questions available in the database');
+      }
+      
+      console.log(`INFO: Found ${count} total questions in database`);
+      
+      // Get all sections with their names
+      const { data: sectionsData, error: sectionsError } = await supabase
+        .from('sections')
+        .select('id, name');
+      
+      if (sectionsError) throw sectionsError;
+      
+      const sections = sectionsData || [];
+      console.log('INFO: Available sections in database:', sections.map(s => s.name));
+      
+      const allQuestions: Question[] = [];
+      
+      // Fetch questions for each section according to weights
+      for (const [sectionName, weight] of Object.entries(this.SECTION_WEIGHTS)) {
+        // Find ALL sections with this name (handle duplicates)
+        const matchingSections = sections.filter(s => s.name === sectionName);
+        
+        if (matchingSections.length === 0) {
+          console.warn(`WARNING: Section "${sectionName}" not found in database`);
+          console.log('Available sections:', sections.map(s => `"${s.name}"`).join(', '));
+          continue;
+        }
+        
+        console.log(`INFO: Found ${matchingSections.length} sections with name "${sectionName}": ${matchingSections.map(s => s.id).join(', ')}`);
+        
+        // Collect questions from all matching sections
+        const sectionQuestions: Question[] = [];
+        
+        for (const section of matchingSections) {
+          // Fetch more questions than needed for randomization across all sections
+          const fetchLimit = Math.max(weight * 2, 20); // Fetch extra for better randomization
+          
+          const { data, error } = await supabase
+            .from('questions')
+            .select(`
+              id,
+              section_id,
+              original_json,
+              question_text,
+              correct_answer,
+              rationale,
+              difficulty_level,
+              tags,
+              created_at,
+              updated_at,
+              question_options (
+                id,
+                question_id,
+                option_key,
+                option_text
+              )
+            `)
+            .eq('section_id', section.id)
+            .limit(fetchLimit);
+          
+          if (error) {
+            console.error(`Database error fetching questions for section ${sectionName} (ID: ${section.id}):`, error.message);
+            continue;
+          }
+          
+          if (data && data.length > 0) {
+            const transformedQuestions: Question[] = data.map(item => ({
+              ...item,
+              options: item.question_options || []
+            }));
+            
+            sectionQuestions.push(...transformedQuestions);
+            console.log(`INFO: Fetched ${data.length} questions from section "${sectionName}" (ID: ${section.id})`);
+          }
+        }
+        
+        if (sectionQuestions.length === 0) {
+          console.warn(`WARNING: No questions found for any sections named "${sectionName}"`);
+          continue;
+        }
+        
+        // Randomize all questions from this section name and select the required amount
+        const shuffledSectionQuestions = this.shuffleArray(sectionQuestions);
+        const selectedQuestions = shuffledSectionQuestions.slice(0, weight);
+        
+        console.log(`INFO: Selected ${selectedQuestions.length} questions from "${sectionName}" (weight: ${weight}, total available: ${sectionQuestions.length})`);
+        allQuestions.push(...selectedQuestions);
+      }
+      
+      console.log(`INFO: Total questions collected from weighted approach: ${allQuestions.length}`);
+      
+      // If we didn't get enough questions from weighted approach, try fallback strategies
+      if (allQuestions.length < 100) { // Lowered threshold to be more permissive
+        console.warn(`WARNING: Only got ${allQuestions.length} questions from weighted approach, attempting fallback`);
+        
+        // Strategy 1: Try to get additional questions from all sections
+        try {
+          const additionalNeeded = 150 - allQuestions.length;
+          console.log(`INFO: Trying to fetch ${additionalNeeded} additional questions`);
+          const additionalQuestions = await this.fetchRegularQuestions(additionalNeeded);
+          
+          // Remove duplicates by ID
+          const existingIds = new Set(allQuestions.map(q => q.id));
+          const nonDuplicateAdditional = additionalQuestions.filter(q => !existingIds.has(q.id));
+          
+          allQuestions.push(...nonDuplicateAdditional);
+          console.log(`INFO: Added ${nonDuplicateAdditional.length} additional questions (after removing duplicates)`);
+        } catch (fallbackError) {
+          console.error('ERROR: Fallback question fetch failed:', fallbackError);
+        }
+        
+        // Strategy 2: If still not enough, fall back completely to regular fetch
+        if (allQuestions.length < 50) {
+          console.warn(`WARNING: Still only have ${allQuestions.length} questions, falling back to complete regular fetch`);
+          return await this.fetchRegularQuestions(150);
+        }
+      }
+      
+      // Final shuffle to randomize question order across sections
+      const finalQuestions = this.shuffleArray(allQuestions);
+      
+      console.log(`INFO: LMQB exam questions prepared - ${finalQuestions.length} total questions`);
+      
+      // Take up to 150 questions (or whatever we have)
+      const examQuestions = finalQuestions.slice(0, Math.min(150, finalQuestions.length));
+      
+      if (examQuestions.length < 150) {
+        console.warn(`WARNING: Exam has ${examQuestions.length} questions instead of 150`);
+      }
+      
+      return examQuestions;
+      
+    } catch (error) {
+      console.error('ERROR: Failed to fetch weighted exam questions -', error instanceof Error ? error.message : 'Unknown error');
+      // Fallback to regular question fetching
+      try {
+        console.log('INFO: Falling back to regular question fetching');
+        return await this.fetchRegularQuestions(150);
+      } catch (fallbackError) {
+        console.error('ERROR: Fallback question fetch also failed -', fallbackError instanceof Error ? fallbackError.message : 'Unknown error');
+        throw new Error('Failed to fetch exam questions');
+      }
+    }
+  }
+
+  /**
+   * Fetch regular questions without section weighting (fallback method)
+   * @param count Number of questions to fetch
+   * @returns Promise<Question[]> Array of questions
+   */
+  private static async fetchRegularQuestions(count: number): Promise<Question[]> {
+    try {
+      // First check if we have any questions at all
+      const { count: totalCount, error: countError } = await supabase
+        .from('questions')
+        .select('id', { count: 'exact' });
+      
+      if (countError) {
+        console.error('Database error counting questions:', countError.message);
+        throw countError;
+      }
+      
+      if (totalCount === 0) {
+        console.error('ERROR: No questions found in database');
+        throw new Error('The database contains no questions. Please contact your administrator to load the question bank.');
+      }
+      
+      console.log(`INFO: Found ${totalCount} total questions in database`);
+      
+      const { data, error } = await supabase
         .from('questions')
         .select(`
           id,
@@ -146,31 +367,18 @@ export class QuizService {
             option_key,
             option_text
           )
-        `);
-
-      // Apply section filters
-      if (settings.sectionId) {
-        query = query.eq('section_id', settings.sectionId);
-        console.log(`INFO: Filtering questions by section ID: ${settings.sectionId}`);
-      } else if (settings.sectionIds && settings.sectionIds.length > 0) {
-        query = query.in('section_id', settings.sectionIds);
-        console.log(`INFO: Filtering questions by section IDs: ${settings.sectionIds.join(', ')}`);
-      }
-
-      // Fetch extra questions for better randomization
-      const fetchLimit = Math.min(settings.questionCount * 2, 200);
-      const { data, error } = await query
+        `)
         .order('id', { ascending: false })
-        .limit(fetchLimit);
+        .limit(Math.min(count * 2, totalCount)); // Fetch extra for randomization but don't exceed total
 
       if (error) {
         console.error('Database error fetching questions:', error.message);
         throw error;
       }
-
+      
       if (!data || data.length === 0) {
-        console.warn('WARNING: No questions found matching the specified criteria');
-        return [];
+        console.error('ERROR: No questions returned from database despite count > 0');
+        throw new Error('Unable to retrieve questions from the database. Please contact your administrator.');
       }
 
       // Transform data to match Question interface
@@ -181,14 +389,14 @@ export class QuizService {
 
       // Randomize and limit to requested count
       const shuffled = this.shuffleArray(questions);
-      const selectedQuestions = shuffled.slice(0, settings.questionCount);
+      const selectedQuestions = shuffled.slice(0, Math.min(count, questions.length));
       
-      console.log(`INFO: Questions fetched successfully - ${selectedQuestions.length} of ${settings.questionCount} requested questions`);
+      console.log(`INFO: Regular questions fetched - ${selectedQuestions.length} of ${count} requested (${totalCount} total available)`);
       return selectedQuestions;
       
     } catch (error) {
-      console.error('ERROR: Failed to fetch questions -', error instanceof Error ? error.message : 'Unknown error');
-      throw new Error('Failed to fetch questions');
+      console.error('ERROR: Failed to fetch regular questions -', error instanceof Error ? error.message : 'Unknown error');
+      throw error;
     }
   }
 
@@ -204,9 +412,12 @@ export class QuizService {
     settings: QuizSettings
   ): Promise<QuizSession> {
     try {
+      // Determine session type - use 'timed' for LMQB exam sessions
+      const sessionType = settings.mode === 'custom' ? 'random' : settings.mode;
+      
       const sessionData = {
         user_id: userId,
-        session_type: settings.mode === 'custom' ? 'random' : settings.mode,
+        session_type: sessionType,
         section_id: settings.sectionIds && settings.sectionIds.length === 1 ? settings.sectionIds[0] : 
                    settings.sectionId || null, // Use single section if only one selected, otherwise null for multi-section
         total_questions: settings.questionCount,
@@ -217,7 +428,8 @@ export class QuizService {
       console.log('INFO: Creating quiz session for user:', userId, 'with settings:', {
         type: sessionData.session_type,
         questions: sessionData.total_questions,
-        section: sessionData.section_id
+        section: sessionData.section_id,
+        timeLimit: sessionData.time_limit
       });
 
       const { data, error } = await supabase
