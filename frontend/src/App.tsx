@@ -23,6 +23,7 @@ const MobileLayout = React.lazy(() => import('@/components/layout/MobileLayout')
 // Import new quiz components
 const ProgressView = React.lazy(() => import('@/components/quiz/ProgressView').then(module => ({ default: module.default })));
 const ExamInterface = React.lazy(() => import('@/components/quiz/ExamInterface').then(module => ({ default: module.default })));
+const PrometricExamInterface = React.lazy(() => import('@/components/quiz/PrometricExamInterface').then(module => ({ default: module.default })));
 const ExamComplete = React.lazy(() => import('@/components/quiz/ExamComplete').then(module => ({ default: module.default })));
 
 
@@ -195,14 +196,10 @@ export default function App() {
             } />
 
             <Route path="/exam" element={
-              <ProtectedRoute requireAuth={true}>
-                <AppLayout>
-                  <ExamInterface 
-                    onComplete={() => window.location.href = '/exam/complete'} 
-                    onExit={() => window.location.href = '/'} 
-                  />
-                </AppLayout>
-              </ProtectedRoute>
+              <ExamInterface 
+                onComplete={() => window.location.href = '/exam/complete'} 
+                onExit={() => window.location.href = '/'} 
+              />
             } />
 
             <Route path="/exam/complete" element={

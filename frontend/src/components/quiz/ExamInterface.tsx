@@ -49,18 +49,18 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
   // Initialize exam on component mount
   useEffect(() => {
     const initializeExam = async () => {
+      // Create anonymous user ID for timed exams if no user is authenticated
+      // Generate a proper UUID for anonymous users to satisfy database constraints
+      const effectiveUserId = user?.id || crypto.randomUUID();
+      
       console.log('🔥 ExamInterface useEffect triggered:', {
         hasUser: !!user,
         userId: user?.id,
+        effectiveUserId,
         isInitialized,
         hasCurrentSession: !!currentSession,
-        shouldInitialize: !!(user && !isInitialized && !currentSession)
+        shouldInitialize: !isInitialized && !currentSession
       });
-      
-      if (!user) {
-        console.warn('🔥 No user found, cannot initialize exam');
-        return;
-      }
       
       if (isInitialized) {
         console.log('🔥 Exam already initialized, skipping');
@@ -80,9 +80,9 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({ onComplete, onExit
         };
         
         console.log('🔥 Initializing exam with settings:', examSettings);
-        console.log('🔥 User details:', { id: user.id, email: user.email });
+        console.log('🔥 Using user ID:', effectiveUserId);
         
-        await initializeQuiz(user.id, examSettings);
+        await initializeQuiz(effectiveUserId, examSettings);
         setIsInitialized(true);
         console.log('🔥 Exam initialization completed successfully');
       } catch (error) {

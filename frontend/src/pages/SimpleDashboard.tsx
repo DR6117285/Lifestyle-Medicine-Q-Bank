@@ -19,7 +19,7 @@ export const SimpleDashboard: React.FC = () => {
                 <span className="text-white font-semibold text-sm">LM</span>
               </div>
               <h1 className="text-xl font-semibold text-gray-900">
-                Lifestyle Medicine Q-Bank
+                Lifestyle Medicine Question Bank
               </h1>
             </div>
             

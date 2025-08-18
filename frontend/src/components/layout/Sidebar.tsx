@@ -27,7 +27,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Practice Quiz', href: '/landing', icon: Play },
+  { name: 'Practice', href: '/quiz', icon: Play },
   { name: 'Statistics', href: '/statistics', icon: BarChart3 },
   { name: 'Progress', href: '/progress', icon: BookOpen },
   { name: 'Timed Exam', href: '/exam', icon: Clock },

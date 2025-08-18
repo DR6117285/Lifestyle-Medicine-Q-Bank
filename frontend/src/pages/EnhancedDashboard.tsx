@@ -270,7 +270,7 @@ export const EnhancedDashboard: React.FC = () => {
             Welcome back, {user?.displayName || 'Student'}!
           </h1>
           <p className="text-slate-800 mt-1 font-semibold">
-            Continue your lifestyle medicine journey
+            What you waiting for? Get back on it!
           </p>
         </div>
         

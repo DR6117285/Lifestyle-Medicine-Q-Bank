@@ -25,6 +25,8 @@ export const QuizPage = () => {
   const [selectedSections, setSelectedSections] = useState<number[]>([]);
   const [timeLimit, setTimeLimit] = useState(30);
   const [questionCount, setQuestionCount] = useState(20);
+  const [customQuestionCount, setCustomQuestionCount] = useState('');
+  const [isCustomMode, setIsCustomMode] = useState(false);
   const [sections, setSections] = useState<Section[]>([]);
   const [isLoadingSections, setIsLoadingSections] = useState(false);
 
@@ -185,9 +187,9 @@ export const QuizPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl mb-6 shadow-lg preferences-header-icon">
             <Play className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-5xl font-bold text-gradient mb-4">Practice Quiz</h1>
+          <h1 className="text-5xl font-bold text-gradient mb-4">Practice</h1>
           <p className="text-xl text-slate-800 font-semibold max-w-2xl mx-auto leading-relaxed">
-            Choose your practice mode and start improving your knowledge with our comprehensive medical training system
+            Choose the method that suits how you want to prepare. Remember, work smart not hard.
           </p>
         </div>
 
@@ -206,11 +208,16 @@ export const QuizPage = () => {
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
                   selectedMode === 'random' 
                     ? 'bg-gradient-to-br from-primary to-blue-600 shadow-lg' 
-                    : 'bg-slate-100 group-hover:bg-primary/10'
+                    : 'bg-gradient-to-br from-slate-200 to-slate-300 group-hover:bg-primary/10'
                 }`}>
-                  <Play className={`h-7 w-7 transition-all duration-300 ${
-                    selectedMode === 'random' ? 'text-white' : 'text-slate-600 group-hover:text-primary'
-                  }`} />
+                  <svg className={`h-7 w-7 transition-all duration-300 fill-current ${
+                    selectedMode === 'random' ? 'text-white' : 'text-slate-700 group-hover:text-primary'
+                  }`} viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    <circle cx="8" cy="8" r="1.5"/>
+                    <circle cx="16" cy="8" r="1.5"/>
+                    <circle cx="12" cy="16" r="1.5"/>
+                  </svg>
                 </div>
                 {selectedMode === 'random' && (
                   <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
@@ -244,13 +251,13 @@ export const QuizPage = () => {
           >
             <CardHeader className="pb-4">
               <div className="flex items-start justify-between mb-4">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 border-2 ${
                   selectedMode === 'section' 
-                    ? 'bg-gradient-to-br from-accent to-teal-600 shadow-lg' 
-                    : 'bg-slate-100 group-hover:bg-accent/10'
+                    ? 'bg-gradient-to-br from-accent to-teal-600 shadow-lg border-transparent' 
+                    : 'bg-white border-slate-400 group-hover:bg-accent/10 group-hover:border-accent'
                 }`}>
                   <BookOpen className={`h-7 w-7 transition-all duration-300 ${
-                    selectedMode === 'section' ? 'text-white' : 'text-slate-600 group-hover:text-accent'
+                    selectedMode === 'section' ? 'text-white' : 'text-slate-700 group-hover:text-accent'
                   }`} />
                 </div>
                 {selectedMode === 'section' && (
@@ -285,13 +292,13 @@ export const QuizPage = () => {
           >
             <CardHeader className="pb-4">
               <div className="flex items-start justify-between mb-4">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 border-2 ${
                   selectedMode === 'timed' 
-                    ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-lg' 
-                    : 'bg-slate-100 group-hover:bg-green-500/10'
+                    ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-lg border-transparent' 
+                    : 'bg-white border-slate-400 group-hover:bg-green-500/10 group-hover:border-green-500'
                 }`}>
                   <Clock className={`h-7 w-7 transition-all duration-300 ${
-                    selectedMode === 'timed' ? 'text-white' : 'text-slate-600 group-hover:text-green-500'
+                    selectedMode === 'timed' ? 'text-white' : 'text-slate-700 group-hover:text-green-500'
                   }`} />
                 </div>
                 {selectedMode === 'timed' && (
@@ -435,13 +442,17 @@ export const QuizPage = () => {
                   Number of Questions
                 </label>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[10, 20, 30, 50].map((count) => (
                   <button
                     key={count}
-                    onClick={() => setQuestionCount(count)}
+                    onClick={() => {
+                      setQuestionCount(count);
+                      setIsCustomMode(false);
+                      setCustomQuestionCount('');
+                    }}
                     className={`group px-6 py-4 rounded-xl text-center font-bold text-lg transition-all duration-300 hover:scale-[1.05] ${
-                      questionCount === count
+                      questionCount === count && !isCustomMode
                         ? 'bg-gradient-to-br from-primary to-blue-600 text-white shadow-lg ring-2 ring-primary/20'
                         : 'bg-white/80 text-slate-700 hover:bg-primary/5 border-2 border-slate-200 hover:border-primary/30'
                     }`}
@@ -449,12 +460,50 @@ export const QuizPage = () => {
                     <div className="flex flex-col items-center space-y-1">
                       <span className="text-2xl">{count}</span>
                       <span className="text-xs font-medium opacity-80">questions</span>
-                      {questionCount === count && (
+                      {questionCount === count && !isCustomMode && (
                         <div className="w-2 h-2 rounded-full bg-white mt-1"></div>
                       )}
                     </div>
                   </button>
                 ))}
+                
+                {/* Custom Question Count */}
+                <div className={`group rounded-xl text-center font-bold text-lg transition-all duration-300 hover:scale-[1.05] border-2 ${
+                  isCustomMode
+                    ? 'bg-gradient-to-br from-primary to-blue-600 text-white shadow-lg ring-2 ring-primary/20 border-transparent'
+                    : 'bg-white/80 text-slate-700 hover:bg-primary/5 border-slate-200 hover:border-primary/30'
+                }`}>
+                  <div className="flex flex-col items-center space-y-2 p-4">
+                    <span className="text-sm font-medium opacity-80">Custom</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="200"
+                      placeholder="1-200"
+                      value={customQuestionCount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setCustomQuestionCount(value);
+                        if (value && parseInt(value) >= 1 && parseInt(value) <= 200) {
+                          setQuestionCount(parseInt(value));
+                          setIsCustomMode(true);
+                        } else {
+                          setIsCustomMode(false);
+                        }
+                      }}
+                      onClick={() => setIsCustomMode(true)}
+                      className={`w-20 text-center text-xl font-bold rounded-md border-0 outline-none ${
+                        isCustomMode 
+                          ? 'bg-white/20 text-white placeholder-white/60' 
+                          : 'bg-slate-100 text-slate-700 placeholder-slate-400'
+                      }`}
+                    />
+                    <span className="text-xs font-medium opacity-60">max 200</span>
+                    {isCustomMode && customQuestionCount && (
+                      <div className="w-2 h-2 rounded-full bg-white mt-1"></div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 

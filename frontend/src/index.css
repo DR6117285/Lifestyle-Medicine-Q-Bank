@@ -11,6 +11,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== ACLM COLOR VARIABLES ===== */
+:root {
+  --aclm-primary: #00B2A9;    /* ACLM teal */
+  --aclm-primary-hover: #009992;
+  --aclm-secondary: #0075C9;  /* Navigation blue */
+  --aclm-secondary-hover: #0066B0;
+  --aclm-accent: #F5A624;     /* ACLM orange */
+  --aclm-accent-hover: #e09416;
+  --aclm-background-light: #f8f9fa;
+  --aclm-text: #333333;
+  --aclm-text-muted: #666666;
+}
+
 /* ===== MEDIA QUERIES & BROWSER PREFERENCES ===== */
 
 /* Mobile optimizations */

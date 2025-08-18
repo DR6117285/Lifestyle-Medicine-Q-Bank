@@ -180,28 +180,38 @@ aside > div > div:last-child {
 
 /* Professional medical colors - ENHANCED TEXT VISIBILITY */
 :root {
-  /* Primary medical theme colors - MUTED SLATE PALETTE */
-  --medical-primary: rgb(71, 85, 105);
-  --medical-secondary: rgb(100, 116, 139);
-  --medical-background: rgb(248, 250, 252);
+  /* ACLM Brand Colors - Professional Medical Palette */
+  --medical-primary: rgb(0, 178, 169);     /* ACLM teal */
+  --medical-primary-hover: rgb(0, 153, 146);
+  --medical-secondary: rgb(0, 117, 201);   /* Navigation blue */
+  --medical-secondary-hover: rgb(0, 102, 176);
+  --medical-accent: rgb(245, 166, 36);     /* ACLM orange */
+  --medical-accent-hover: rgb(224, 148, 22);
+  --medical-background: rgb(248, 249, 250);
   --medical-card: rgb(255, 255, 255);
   --medical-border: rgba(226, 232, 240, 0.8);
   
   /* Text colors for maximum readability */
-  --medical-text: rgb(15, 23, 42);
-  --medical-text-muted: rgb(30, 41, 59);
+  --medical-text: rgb(51, 51, 51);
+  --medical-text-muted: rgb(102, 102, 102);
   --medical-text-dark: rgb(15, 23, 42);
   --medical-text-darker: rgb(2, 6, 23);
   
-  /* Compatibility aliases for existing code - MUTED SLATE */
-  --primary: 71, 85, 105;
-  --accent: 100, 116, 139;
+  /* Compatibility aliases for existing code - ACLM PALETTE */
+  --primary: 0, 178, 169;
+  --primary-foreground: 255, 255, 255;
+  --secondary: 0, 117, 201;
+  --accent: 245, 166, 36;
   --success: 34, 197, 94;
   
   /* Success and status colors */
   --medical-success: rgb(34, 197, 94);
-  --medical-warning: rgb(100, 116, 139); /* Muted slate instead of amber */
-  --medical-error: rgb(239, 68, 68);
+  --medical-warning: rgb(245, 166, 36);    /* ACLM orange for warnings */
+  --medical-error: rgb(255, 0, 0);         /* Pure red for errors */
+  
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-lg: 25px;
 }
 
 /* ENHANCED TEXT VISIBILITY - COMPREHENSIVE DARK TEXT ENFORCEMENT */
@@ -224,7 +234,7 @@ h4, h5, h6 {
 
 /* Enhanced visibility for secondary text */
 .text-muted, .muted, .text-secondary, .secondary {
-  color: var(--medical-text) !important;
+  color: var(--medical-text-muted) !important;
   font-weight: 500 !important;
 }
 
@@ -406,11 +416,37 @@ div[class*="bg-"], div[class*="background"],
   border: 2px solid rgba(239, 68, 68, 0.3) !important;
 }
 
-/* Remove focus rings with yellow/amber colors */
+/* Remove unwanted focus rings and blue outlines */
 *:focus, *:focus-visible, *:focus-within {
-  outline: 2px solid rgba(14, 165, 233, 0.6) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Custom focus styles for interactive elements only */
+button:focus-visible, 
+input:focus-visible, 
+select:focus-visible, 
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--medical-primary) !important;
   outline-offset: 2px !important;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1) !important;
+}
+
+/* Remove all blue selection outlines */
+*::selection {
+  background: rgba(71, 85, 105, 0.2) !important;
+  color: inherit !important;
+}
+
+/* Fix blue borders on cards and interactive elements */
+.card:focus, .card:focus-within,
+.option-item:focus, .option-item:focus-within,
+.nav-item:focus, .nav-item:focus-within,
+div:focus, div:focus-within {
+  outline: none !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 4px 16px -4px rgba(71, 85, 105, 0.1), 0 2px 8px -2px rgba(71, 85, 105, 0.06) !important;
 }
 
 /* Hover effects should use medical colors */

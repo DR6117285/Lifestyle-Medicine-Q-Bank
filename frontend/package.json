@@ -16,7 +16,7 @@
     "clean": "rm -rf dist node_modules/.vite"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.38.0",
+    "@supabase/supabase-js": "^2.55.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.294.0",

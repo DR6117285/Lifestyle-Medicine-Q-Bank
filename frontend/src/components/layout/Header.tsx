@@ -43,10 +43,10 @@ export const Header = ({ onMenuToggle, isSidebarOpen }: HeaderProps) => {
             </div>
             <div>
               <h1 className="text-xl font-bold text-gradient tracking-tight">
-                Lifestyle Medicine Q-Bank
+                Lifestyle Medicine Question Bank
               </h1>
               <p className="text-xs text-slate-600 dark:text-slate-300 hidden sm:block font-medium">
-                Medical Education Platform
+                Exam Preparation Platform
               </p>
             </div>
           </div>
